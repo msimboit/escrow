@@ -56,8 +56,8 @@ class VendorController extends Controller
             $vend = new Vendors;
 
             $vend->firstname=$request->firstname;
-            $vend->middlename = $request->firstname;
-            $vend->lastname = $request->firstname;
+            $vend->middlename = $request->middlename;
+            $vend->lastname = $request->lastname;
             $vend->IdNo = $request->idno;
             $vend->phoneno = $request->phoneno;
             $vend->email = $request->email;
@@ -82,15 +82,15 @@ class VendorController extends Controller
         $vend = Vendors::find($id);
 
         $vend->firstname=$request->firstname;
-        $vend->middlename = $request->firstname;
-        $vend->lastname = $request->firstname;
+        $vend->middlename = $request->middlename;
+        $vend->lastname = $request->lastname;
         $vend->IdNo = $request->idno;
         $vend->phoneno = $request->phoneno;
         $vend->email = $request->email;
         $vend->country = $request->country;
        // $vend->acceptedtnc = $request->acceptedtnc;
-        $vend->long=0;
-        $vend->lat=0;
+        $vend->vendor_long=0;
+        $vend->vendor_lat=0;
 
         $vend->save();
 

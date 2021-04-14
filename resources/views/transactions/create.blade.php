@@ -56,7 +56,7 @@
                             @foreach (old('products', ['']) as $index => $oldProduct)
                                 <tr id="product{{ $index }}">
                                     <td>
-                                        <select name="products[]" class="form-control">
+                                        <select name="products" class="form-control">
                                             <option value="">-- choose product --</option>
                                             @foreach ($prds as $product)
                                                 <option value="{{ $product->id }}"{{ $oldProduct == $product->id ? ' selected' : '' }}>
@@ -67,16 +67,16 @@
                                     </td>
  
                         <td>
-                            <input type="string" name="itemdesc[]" class="form-control" value="" placeholder="item description" />
+                            <input type="string" name="itemdesc" class="form-control" value="" placeholder="item description" />
                         </td>
                         <td>
-                            <input type="number" name="quantities[]" class="form-control" value="{{ old('quantities.' . $index) ?? '1' }}" />
+                            <input type="number" name="quantities" class="form-control" value="{{ old('quantities.' . $index) ?? '1' }}" />
                         </td>
                         <td>
-                            <input type="number" name="prices[]" class="form-control" value="1" />
+                            <input type="number" name="prices" class="form-control" value="1" />
                         </td>
                         <td>
-                            <input type="number" name="amount[]" class="form-control" value="1" />
+                            <input type="number" name="amount" class="form-control" value="1" />
                         </td>
                         <td>
                            
@@ -95,12 +95,14 @@
                         </tbody>
                     </table>
 
-                    <div class="row">
+                    <!-- Need to eatablish how to save multiple product tarnsactions through the add row capability-->
+                    
+                    <!-- <div class="row">
                         <div class="col-md-12">
                             <button id="add_row" class="btn btn-default pull-left">+ Add Row</button>
                             <button id='delete_row' class="pull-right btn btn-danger">- Delete Row</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div>

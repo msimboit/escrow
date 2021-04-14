@@ -36,7 +36,7 @@
       </div>
       <div class="row">
         <label class="col-md-3">Price.</label>
-        <div class="col-md-4"><input type="text" name="price" class="form-control"></div>
+        <div class="col-md-4"><input type="text" name="productprice" class="form-control"></div>
         <div class="clearfix"></div>
       </div>
     </div>

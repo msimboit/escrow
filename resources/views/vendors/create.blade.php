@@ -30,8 +30,18 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
       <div class="row">
-        <label class="col-md-3">Vendor Name</label>
+        <label class="col-md-3">Vendor First Name</label>
         <div class="col-md-4"><input type="text" name="firstname" class="form-control"></div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="row">
+        <label class="col-md-3">Vendor Middle Name</label>
+        <div class="col-md-4"><input type="text" name="middlename" class="form-control"></div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="row">
+        <label class="col-md-3">Vendor Last Name</label>
+        <div class="col-md-4"><input type="text" name="lastname" class="form-control"></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">

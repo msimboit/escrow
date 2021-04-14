@@ -25,15 +25,15 @@ Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/create', 'ProductsController@create')->name('addproducts');
 Route::get('/products/edit/{id}', 'ProductsController@edit')->name('editproducts');
 Route::post('/products/store', 'ProductsController@store')->name('storeproducts');
-Route::post('/products/update', 'ProductsController@update')->name('updateproducts');
-Route::post('/products/delete', 'ProductsController@delete')->name('deleteproducts');
-Route::get('/products/show', 'ProductsController@show')->name('showproducts');
+Route::post('/products/update/{id}', 'ProductsController@update')->name('updateproducts');
+Route::post('/products/delete/{id}', 'ProductsController@delete')->name('deleteproducts');
+Route::get('/products/show{id}', 'ProductsController@show')->name('showproducts');
 
 Route::get('/transactions', 'TransactionController@index')->name('transactions');
 Route::get('/transactions/create', 'TransactionController@create')->name('addtransactions');
-Route::get('/transactions/edit/{id}', 'TransactionController@edit')->name('edittransaction');
+Route::get('/transactions/edit/{id}', 'TransactionController@edit')->name('edittransactions');
 Route::post('/transactions/store', 'TransactionController@store')->name('storetransactions');
-Route::post('/transactions/update', 'TransactionController@update')->name('updatetransactions');
+Route::post('/transactions/update/{id}', 'TransactionController@update')->name('updatetransactions');
 Route::post('/transactions/delete/{id}', 'TransactionController@delete')->name('deletetransaction');
 Route::get('/transactions/show/{id}', 'TransactionController@show')->name('showtransactions');
 

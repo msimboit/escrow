@@ -36,7 +36,7 @@
                     <td>{{ $c->price }}</td>
                     <td>
               <a href="{{ route('editproducts',$c->id) }}" class="btn btn-info">Edit</a> 
-              <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
+              <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger disabled">Delete</a>
               <form action="{{ route('deleteproducts',$c->id) }}" method="post">
                 @method('DELETE')
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

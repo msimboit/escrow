@@ -41,7 +41,7 @@
                     <td>{{ $c->transamount }}</td>
                     <td>{{ $c->validated }}</td>
                     <td>
-              <a href="{{ route('edittransaction',$c->id) }}" class="btn btn-info">Edit</a> 
+              <a href="{{ route('edittransactions',$c->id) }}" class="btn btn-info">Edit</a> 
               <!-- <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
               <form action="{{ route('deletetransaction',$c->id) }}" method="post">
                 @method('DELETE')

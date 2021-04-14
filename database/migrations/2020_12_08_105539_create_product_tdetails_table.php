@@ -17,10 +17,10 @@ class CreateProductTdetailsTable extends Migration
     
                 $table->unsignedInteger('tdetails_id');
                 $table->unsignedInteger('product_id');
-                $table->string('itemdetail');
-                $table->integer('quantity');
-                $table->decimal('price');
-                $table->string('image');
+                $table->string('itemdetail')->nullable();
+                $table->integer('quantity')->nullable();
+                $table->decimal('price')->nullable();
+                $table->string('image')->nullable();
                 $table->timestamps();
          
         });

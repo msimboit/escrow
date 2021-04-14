@@ -55,8 +55,8 @@
         <div class="col-md-4"><input type="text" name="phoneno" class="form-control"></div>
         <div class="clearfix"></div>
       </div>     
-      <div class="row">
-        <label class="col-md-3">Terms & Conditions</label>
+      <div class="row p-2">
+        <label class="col-md-3 p-2">Terms & Conditions</label>
         <div class="col-md-4"><input type="checkbox" name="acceptedtnc" class="form-control"></div>
         <div class="clearfix"></div>
       </div>   
@@ -68,7 +68,7 @@
         <input type="hidden" name="address_longitude" id="address-longitude" value="0" />
       </div>
       <div class="row">
-      <div id="address-map-container" style="width:100%;height:400px; ">
+      <div id="address-map-container" style="width:100%;height:200px; ">
           <div style="width: 100%; height: 100%" id="address-map"></div>
       </div>
     </div>

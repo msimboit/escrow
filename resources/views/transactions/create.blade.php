@@ -49,7 +49,6 @@
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Amount</th>
-                        <th>Image</th>
                             </tr>
                         </thead>
                         <tbody id="product_row">
@@ -78,17 +77,22 @@
                         <td>
                             <input type="number" name="amount" class="form-control" value="1" />
                         </td>
-                        <td>
-                           
-                        <div class="form-group row">
+                        
+                        <!-- <td> -->
+                        
+                        <!-- Implemented image save??? -->
+                        <!-- <div class="form-group row">
                             <div class="col-md-6">
                                 <input id="profile_image[]" type="file" class="form-control" name="profile_image[]">
                                         @if (auth()->user()->image)
                                             <code>{{ auth()->user()->image }}</code>
                                         @endif
                                     </div>
-                                </div>
-                        </td>
+                                </div> -->
+
+                        
+                        <!-- </td> -->
+
                                 </tr>
                             @endforeach
                             <tr id="product{{ count(old('products', [''])) }}"></tr>

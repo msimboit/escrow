@@ -110,6 +110,7 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
         'O' => 
         array (
             'Opis\\Closure\\' => 13,
+            'OpenCage\\Geocoder\\' => 18,
         ),
         'N' => 
         array (
@@ -362,6 +363,10 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
         'Opis\\Closure\\' => 
         array (
             0 => __DIR__ . '/..' . '/opis/closure/src',
+        ),
+        'OpenCage\\Geocoder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/opencage/geocode/src',
         ),
         'NunoMaduro\\Collision\\' => 
         array (
@@ -2968,6 +2973,8 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
         'NunoMaduro\\Collision\\Provider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Provider.php',
         'NunoMaduro\\Collision\\SolutionsRepositories\\NullSolutionsRepository' => __DIR__ . '/..' . '/nunomaduro/collision/src/SolutionsRepositories/NullSolutionsRepository.php',
         'NunoMaduro\\Collision\\Writer' => __DIR__ . '/..' . '/nunomaduro/collision/src/Writer.php',
+        'OpenCage\\Geocoder\\AbstractGeocoder' => __DIR__ . '/..' . '/opencage/geocode/src/AbstractGeocoder.php',
+        'OpenCage\\Geocoder\\Geocoder' => __DIR__ . '/..' . '/opencage/geocode/src/Geocoder.php',
         'Opis\\Closure\\Analyzer' => __DIR__ . '/..' . '/opis/closure/src/Analyzer.php',
         'Opis\\Closure\\ClosureContext' => __DIR__ . '/..' . '/opis/closure/src/ClosureContext.php',
         'Opis\\Closure\\ClosureScope' => __DIR__ . '/..' . '/opis/closure/src/ClosureScope.php',

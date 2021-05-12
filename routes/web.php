@@ -20,13 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/logout', 'LoginController@logout')->name('logout');
 
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/create', 'ProductsController@create')->name('addproducts');
 Route::get('/products/edit/{id}', 'ProductsController@edit')->name('editproducts');
 Route::post('/products/store', 'ProductsController@store')->name('storeproducts');
 Route::post('/products/update/{id}', 'ProductsController@update')->name('updateproducts');
-Route::post('/products/delete/{id}', 'ProductsController@delete')->name('deleteproducts');
+// Route::post('/products/delete/{id}', 'ProductsController@delete')->name('deleteproducts');
+Route::delete('/products/delete/{id}', 'ProductsController@delete')->name('deleteproducts');
 Route::get('/products/show{id}', 'ProductsController@show')->name('showproducts');
 
 Route::get('/transactions', 'TransactionController@index')->name('transactions');
@@ -48,6 +50,7 @@ Route::get('/abanks/show/{id}', 'BankController@show')->name('showabank');
 Route::get('/clients', 'ClientController@index')->name('clients');
 Route::get('/clients/create', 'ClientController@create')->name('addclient');
 Route::get('/clients/edit/{id}', 'ClientController@edit')->name('editclient');
+Route::get('/clients/location/{id}', 'ClientController@location')->name('location');
 Route::post('/clients/store', 'ClientController@store')->name('storeclient');
 Route::post('/cients/update/{id}', 'ClientController@update')->name('updateclient');
 Route::post('/clients/delete/{id}', 'ClientController@delete')->name('deleteclient');

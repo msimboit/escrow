@@ -46,7 +46,7 @@
               <form action="{{ route('deletetransaction',$c->id) }}" method="post">
                 @method('DELETE')
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
-                <a href="{{ route('showtransactions',$c->id) }}" class="btn btn-info">View</a> 
+                <a href="{{ route('showtransactions',$c->id) }}" class="btn btn-info">Check</a> 
               </form>
             </td>
                 </tr>

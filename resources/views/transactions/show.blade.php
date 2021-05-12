@@ -35,7 +35,7 @@
                 <div class="col-12">
                   <h4>
                     <i class="fas fa-globe"></i> Invoice
-                    <small class="float-right">Date: {{ $arr->created_at }}</small>
+                    <small class="float-right">Date: {{ $arr->created_at->format('d/m/Y H:i:s') }}</small>
                   </h4>
                 </div>
                 <!-- /.col -->
@@ -66,7 +66,7 @@
                   <b>Invoice</b><br>
                   <br>
                   <b>Order ID:</b> {{ $arr->id}}<br>
-                  <b>Payment Due:</b> {{ $arr->created_at}}<br>
+                  <b>Payment Due:</b> {{ $arr->created_at->format('d-m-Y')}}<br>
                   <b>Account:</b> 968-34567
                 </div>
                 <!-- /.col -->
@@ -117,7 +117,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-6 p-2">
-                  <p class="lead">Amount Due 2/22/2014</p>
+                  <p class="lead">Amount Due on {{ $arr->created_at->format('d-m-Y')}}</p>
 
                   <div class="table-responsive">
                     <table class="table">
@@ -132,6 +132,13 @@
                       <tr>
                         <th>Shipping:</th>
                         <td>Kshs.1050</td>
+                      </tr>
+                      <tr>
+                        <th>Delivery Fee of Kshs.500 <br /> Handled By:</th>
+                        <td>
+                          <input type="checkbox" name="vendor" value="ven"><span style="margin:5px;">Vendor</span>  
+                          <input type="checkbox" name="client" value="cli"> <span>Client</span>
+                        </td>
                       </tr>
                       <tr>
                         <th>Total:</th>
@@ -174,6 +181,12 @@
             window.print();
           });
         });
+
+        $(document).ready(function(){
+                $('input:checkbox').click(function() {
+                    $('input:checkbox').not(this).prop('checked', false);
+                          });
+            });
 
     </script>
 

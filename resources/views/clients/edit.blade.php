@@ -30,8 +30,18 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
       <div class="row">
-        <label class="col-md-3">Client Name</label>
-        <div class="col-md-4"><input type="text" name="clientname" class="form-control" value="{{ $client->firstname }}" ></div>
+        <label class="col-md-3">First Name</label>
+        <div class="col-md-4"><input type="text" name="firstname" class="form-control" value="{{ $client->firstname }}" ></div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="row">
+        <label class="col-md-3">Middle Name</label>
+        <div class="col-md-4"><input type="text" name="middlename" class="form-control" value="{{ $client->firstname }}" ></div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="row">
+        <label class="col-md-3">Last Name</label>
+        <div class="col-md-4"><input type="text" name="lastname" class="form-control" value="{{ $client->firstname }}" ></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">

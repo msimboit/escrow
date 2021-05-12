@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Clients;
 
+
 class ClientController extends Controller
 {
        /**
@@ -45,14 +46,37 @@ class ClientController extends Controller
         return view('clients.edit', compact('client'));   
     }
 
+    public function location($id){
+        $client = Clients::find($id);
+        return view('clients.location', compact('client'));
+    }
+
+    public function updatelocation($id){
+        $client = Clients::find($id);
+        $client->firstname=$request->firstname;
+        $client->middlename = $request->middlename;
+        $client->lastname = $request->lastname;
+        $client->IdNo = $request->idno;
+        $client->phoneno = $request->phoneno;
+        $client->email = $request->email;
+        $client->country = $request->country;
+      //  $client->acceptedtnc = $request->acceptedtnc;
+        $client->client_long=0;
+        $client->client_lat=0;
+
+        $client->save();
+
+        return redirect()->route('clients')->with('success', 'Client Added!');
+    }
+
 
     public function store(Request $request)
     {
         $client = new Clients;
 
-        $client->firstname=$request->clientname;
-        $client->middlename = $request->clientname;
-        $client->lastname = $request->clientname;
+        $client->firstname=$request->firstname;
+        $client->middlename = $request->middlename;
+        $client->lastname = $request->lastname;
         $client->IdNo = $request->idno;
         $client->phoneno = $request->phoneno;
         $client->email = $request->email;
@@ -72,9 +96,9 @@ class ClientController extends Controller
         //return view('transactions.create');
         $client = Clients::find($id);
 
-        $client->firstname=$request->clientname;
-        $client->middlename = $request->clientname;
-        $client->lastname = $request->clientname;
+        $client->firstname=$request->firstname;
+        $client->middlename = $request->middlename;
+        $client->lastname = $request->lastname;
         $client->IdNo = $request->idno;
         $client->phoneno = $request->phoneno;
         $client->email = $request->email;

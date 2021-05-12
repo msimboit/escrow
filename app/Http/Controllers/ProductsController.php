@@ -77,5 +77,11 @@ class ProductsController extends Controller
     
     }
 
+    public function deletei($id)
+    {
+        Product::destroy($id);
+        return redirect()->route('products')->with('success', 'Product Deleted!');
+    }
+
 
 }

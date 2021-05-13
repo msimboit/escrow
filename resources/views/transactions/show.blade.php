@@ -29,6 +29,8 @@
 
 
             <!-- Main content -->
+            <form action="{{ route('storetransactions') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="invoice p-3 mb-3">
               <!-- title row -->
               <div class="row">
@@ -157,7 +159,7 @@
                   <button type="button" class="btn btn-primary float-left" style="margin-right: 5px;" id="lnkPrint">
                     <i class="fas fa-print"></i> Print
                   </button>
-                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                  <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
                     Payment
                   </button>
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
@@ -166,6 +168,7 @@
                 </div>
               </div>
             </div>
+          </form>
             <!-- /.invoice -->
           </div><!-- /.col -->
         </div><!-- /.row -->

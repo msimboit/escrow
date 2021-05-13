@@ -183,6 +183,11 @@ class TransactionController extends Controller
 
         return redirect()->route('transactions')->with('success', 'Transaction Updated!');
     }
-
+    
+    public function receipt(Request $request)
+    {
+        $values = $request->all();
+        return $values;
+    }
 
 }

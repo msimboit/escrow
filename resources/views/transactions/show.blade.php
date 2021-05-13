@@ -29,8 +29,6 @@
 
 
             <!-- Main content -->
-            <form action="{{ route('storetransactions') }}" method="POST" enctype="multipart/form-data">
-            @csrf
             <div class="invoice p-3 mb-3">
               <!-- title row -->
               <div class="row">
@@ -138,8 +136,8 @@
                       <tr>
                         <th>Delivery Fee of Kshs.500 <br /> Handled By:</th>
                         <td>
-                          <input type="checkbox" name="vendor" value="ven"><span style="margin:5px;">Vendor</span>  
-                          <input type="checkbox" name="client" value="cli"> <span>Client</span>
+                        <input type="checkbox" id="deliveryfee" value="deliveryfee" onclick="myFunction()"> <small> Agree that client handles delivery fee</small> </input>
+                        <p id="text" style="display:none"><small>*Client will be <strong>charged!</strong></small></p>
                         </td>
                       </tr>
                       <tr>
@@ -159,16 +157,30 @@
                   <button type="button" class="btn btn-primary float-left" style="margin-right: 5px;" id="lnkPrint">
                     <i class="fas fa-print"></i> Print
                   </button>
-                  <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                    Payment
+                  <form action="{{ route('generatereceipt') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="text" name="clientName" value="{{ $cdetails->firstname }}" hidden>
+                    <input type="text" name="clientNumber" value="{{ $cdetails->phoneno }}" hidden>
+                    <input type="text" name="clientEmail" value="{{ $cdetails->email }}" hidden>
+                    <input type="text" name="vendorName" value="{{ $vdetails->firstname }}" hidden>
+                    <input type="text" name="vendorNumber" value="{{ $vdetails->phoneno }}" hidden>
+                    <input type="text" name="vendorEmail" value="{{ $vdetails->email }}" hidden>
+                    <input type="text" name="orderId" value="{{ $arr->id }} "hidden>
+                    <input type="text" name="orderdate" value="{{ $arr->created_at->format('d-m-Y') }}" hidden>
+                    <input type="text" name="subtotal" value="{{ $arr->transamount }}" hidden>
+                    <input type="text" name="shipping" value="1050" hidden>
+                    <input type="text" name="total" value="{{ ($arr->transamount) + ((($arr->transamount)/100)*16) + 1050 }}" hidden>
+                    <input type="text" name="deliveryfee" id="textbox2" value="vendor" hidden>
+                    <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                      Payment
                   </button>
+                  </form>
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF 
                   </button>
                 </div>
               </div>
             </div>
-          </form>
             <!-- /.invoice -->
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -185,11 +197,17 @@
           });
         });
 
-        $(document).ready(function(){
-                $('input:checkbox').click(function() {
-                    $('input:checkbox').not(this).prop('checked', false);
-                          });
-            });
+        function myFunction() {
+            var checkBox = document.getElementById("deliveryfee");
+            var text = document.getElementById("text");
+            if (checkBox.checked == true){
+                text.style.display = "block";
+                $('#textbox2').val('client');
+            } else {
+                text.style.display = "none";
+                $('#textbox2').val('vendor');
+            }
+        }
 
     </script>
 

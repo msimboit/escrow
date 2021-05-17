@@ -83,8 +83,8 @@ class ClientController extends Controller
         $client->country = $request->country;
         $client->physicaladdress = 'here';
       //  $client->acceptedtnc = $request->acceptedtnc;
-        $client->client_long=0;
-        $client->client_lat=0;
+        $client->client_long= $request->lat;
+        $client->client_lat= $request->long;
 
         $client->save();
 

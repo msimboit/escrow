@@ -42,13 +42,13 @@ class MpesaController extends Controller
 
         $curl_post_data = [
             //Fill in the request parameters with valid values
-            'BusinessShortCode' => 4060000,
+            'BusinessShortCode' => 174379, //=>4060000,
             'Password' => $this->lipaNaMpesaPassword(),
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
             'TransactionType' => 'CustomerPayBillOnline',
             'Amount' => 1,
             'PartyA' => 254700682679, // replace this with your phone number
-            'PartyB' => 4060000,
+            'PartyB' => 174379,
             'PhoneNumber' => 254700682679, // replace this with your phone number
             'CallBackURL' => 'http://127.0.0.1:8000/api/v1/escrow/stk/push',
             'AccountReference' => "Escrow Test",

@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('v1/access/token', 'MpesaController@generateAccessToken');
+Route::post('v1/escrow/access/token', 'MpesaController@generateAccessToken');
 Route::post('v1/escrow/stk/push', 'MpesaController@customerMpesaSTKPush')->name("push");
 Route::post('v1/escrow/validation', 'MpesaController@mpesaValidation');
 Route::post('v1/escrow/transaction/confirmation', 'MpesaController@mpesaConfirmation');

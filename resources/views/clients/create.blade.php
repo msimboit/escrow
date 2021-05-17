@@ -86,6 +86,8 @@
       </div>
 
     <div class="form-group">
+      <input type="text" name="lat" id="latitude" value="latitude" hidden>
+      <input type="text" name="long" id="longitude" value="longitude" hidden>
       <input type="submit" class="btn btn-info" value="Save">
     </div>
   
@@ -137,7 +139,9 @@
                 var LatLng = place.geometry.location.toJSON();
                 console.log(LatLng)
                 console.log(LatLng.lat)
+                $('#latitude').val(LatLng.lat);
                 console.log(LatLng.lng)
+                $('#longitude').val(LatLng.lng);
 
                 if (place.geometry.viewport) {
                 // Only geocodes have viewport.
@@ -151,6 +155,19 @@
             document.addEventListener("DOMContentLoaded", function(event) {
             initAutocomplete();
             });
+
+
+            function getLocation() {
+            var checkBox = document.getElementById("deliveryfee");
+            var text = document.getElementById("text");
+            if (checkBox.checked == true){
+                text.style.display = "block";
+                $('#textbox2').val('client');
+            } else {
+                text.style.display = "none";
+                $('#textbox2').val('vendor');
+            }
+        }
     </script>
 @stop
 @endsection

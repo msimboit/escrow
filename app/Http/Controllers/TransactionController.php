@@ -32,6 +32,9 @@ class TransactionController extends Controller
     public function index()
     {
         $arr['trs'] = Tdetails::paginate(100);
+        $vendors = Vendors::all();
+        $clients = Clients::all();
+
         return view('transactions.index')->with($arr);
     }
 

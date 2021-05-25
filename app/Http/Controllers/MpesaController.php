@@ -2,69 +2,130 @@
 
 namespace App\Http\Controllers;
 
-use App\MpesaTransaction;
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use Log;
+use DB;
+
+use App\Clients;
+use App\User;
+use App\Vendors;
+use App\mpesa_token;
 
 class MpesaController extends Controller
 {
-
     /**
      * Lipa na M-PESA password
      * */
+    public function lipaNaMpesaPassword(){
 
-    public function lipaNaMpesaPassword()
-    {
-        $lipa_time = Carbon::rawParse('now')->format('YmdHms');
-        $passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
-        $BusinessShortCode = 174379;
-        $timestamp =$lipa_time;
-
+        $lipa_time              = Carbon::rawParse('now')->format('YmdHms');
+        $passkey                = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
+        $BusinessShortCode      = 174379;
+        $timestamp              = $lipa_time;
         $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$passkey.$timestamp);
+
         return $lipa_na_mpesa_password;
     }
-
-
     /**
-     * Lipa na M-PESA STK Push method
-     * */
+     * Lipa na M-PESA STK Push 
+     * 
+     * @return [curl] response
+     *
+     **/
+    // public function customerMpesaSTKPush(){
 
-    public function customerMpesaSTKPush()
-    {
+    //     $phone_number = 254713374606;
+    //     $amount = 1;
+
+    //     $url    = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+
+        
+
+    //     $curl   = curl_init();
+
+    //     curl_setopt( $curl, CURLOPT_URL, $url );
+    //     curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()) );
+        
+    //     Log:info($this->generateAccessToken());
+
+    //     $curl_post_data = [
+
+    //         //Fill in the request parameters with valid values
+            
+    //         'BusinessShortCode' => 174379,
+    //         'Password'          => $this->lipaNaMpesaPassword(),
+    //         'Timestamp'         => Carbon::rawParse('now')->format('YmdHms'),
+    //         'TransactionType'   => 'CustomerPayBillOnline',
+    //         'Amount'            => 1,
+    //         'PartyA'            => $phone_number, // replace this with your phone number
+    //         'PartyB'            => 174379,
+    //         'PhoneNumber'       => $phone_number, // replace this with your phone number
+    //         'CallBackURL'       => 'https://c52e5ec177a8.ngrok.io/api/mpesa_response',
+    //         'AccountReference'  => $phone_number,
+    //         'TransactionDesc'   => "Testing stk push on sandbox"
+    //     ];
+        
+    //     $data_string = json_encode($curl_post_data);
+
+    //     Log::info($data_string . 'Data String');
+
+    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    //     curl_setopt($curl, CURLOPT_POST, true);
+    //     curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        
+    //     Log::info($curl. 'Curl');
+    //     $curl_response = curl_exec($curl);
+        
+    //     Log::info($curl_response . 'Response');
+    //     return $curl_response;
+    // }
+
+
+
+
+    public function customerMpesaSTKPush($phone_number, $amount){
+        $phone_number = 254700682679;
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));
-
-
+        
+        curl_setopt( $curl, CURLOPT_URL, $url );
+        curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()) );
+        
         $curl_post_data = [
-            //Fill in the request parameters with valid values
-            'BusinessShortCode' => 174379, //=>4060000,
-            'Password' => $this->lipaNaMpesaPassword(),
-            'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
-            'TransactionType' => 'CustomerPayBillOnline',
-            'Amount' => 1,
-            'PartyA' => 254700682679, // replace this with your phone number
-            'PartyB' => 174379,
-            'PhoneNumber' => 254700682679, // replace this with your phone number
-            'CallBackURL' => 'http://127.0.0.1:8000/api/v1/escrow/stk/push',
-            'AccountReference' => "Escrow Test",
-            'TransactionDesc' => "Testing stk push on sandbox for Escrow"
+        
+        //Fill in the request parameters with valid values
+        'BusinessShortCode' => 174379,
+        'Password' => $this->lipaNaMpesaPassword(),
+        'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
+        'TransactionType' => 'CustomerPayBillOnline',
+        'Amount' => 1,
+        'PartyA' => $phone_number, // replace this with your phone number
+        'PartyB' => 174379,
+        'PhoneNumber' => $phone_number, // replace this with your phone number
+        'CallBackURL' => 'https://c52e5ec177a8.ngrok.io/api/mpesa_response',
+        'AccountReference' => $phone_number,
+        'TransactionDesc' => "Testing stk push on sandbox"
         ];
-
+        
         $data_string = json_encode($curl_post_data);
-
+        
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
-
+        
         $curl_response = curl_exec($curl);
-
+        Log::info($curl_response);
         return $curl_response;
-    }
+        }
+
+
+
 
 
     /**
@@ -72,84 +133,108 @@ class MpesaController extends Controller
      * 
      * return [string] access_token
      */
-    public function generateAccessToken()
-    {
-        $consumer_key="oeazFs2H1ywGrmGAw0FqUzEOrHyPVzVw";
-        $consumer_secret="DxpO6qlcsKMABZK8";
-        $credentials = base64_encode($consumer_key.":".$consumer_secret);
+    // public function generateAccessToken(){
+        
+    //     $consumer_key       = env('MPESA_CONSUMER_KEY', '');
+    //     $consumer_secret    = env('MPESA_CONSUMER_SECRET', '');
+    //     $credentials        = base64_encode($consumer_key.":".$consumer_secret);
 
-        $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic ".$credentials));
-        curl_setopt($curl, CURLOPT_HEADER,false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    //     $url    = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+    //     $curl   = curl_init();
 
-        $curl_response = curl_exec($curl);
-        $access_token=json_decode($curl_response);
-        return $access_token->access_token;
+    //     curl_setopt($curl, CURLOPT_URL, $url);
+    //     curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic ".$credentials));
+    //     curl_setopt($curl, CURLOPT_HEADER,false);
+    //     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    //     $curl_response  = curl_exec($curl);
+
+    //     $access_token   = json_decode($curl_response);
+    //     $token = $access_token->access_token;
+
+    //     DB::table('mpesa_tokens')->insert([
+    //         'access_token' => $token
+    //     ]);
+
+    //     Log::info(serialize($access_token));
+    //     return $access_token->access_token;
+    // }
+
+
+
+    // Access Token Alternative
+
+
+    public function generateAccessToken(){
+
+
+        $token_m=DB::table('mpesa_tokens')->limit(1)->get();
+
+        if($token_m) {
+            foreach ($token_m as $x) {
+                $token = $x->access_token;
+           }
+
+        }
+        else {
+
+
+            $consumer_key = 'oeazFs2H1ywGrmGAw0FqUzEOrHyPVzVw';
+            $consumer_secret = 'DxpO6qlcsKMABZK8';
+            $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
+
+            $url    = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+            
+
+            // $url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+            $curl = curl_init();
+
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic " . $credentials));
+            curl_setopt($curl, CURLOPT_HEADER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+            $curl_response = curl_exec($curl);
+            //$curl_info = curl_getinfo($curl);
+            $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $access_token = json_decode($curl_response);
+            // Log::info($access_token);
+            $token= $access_token->access_token;
+            Log::info('URL fxn tkn '.$token);
+        }
+        return $token;
     }
-
 
     /**
      * Mpesa callback, gives response which is then stored in the DB
      */
     public function mpesaCallback( Request $request ){
 
-        $resultCode = $request['Body']['stkCallback']['ResultCode'];     
-	
-    	if($resultCode == 0){
+        $reciept_number     = $request['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value'];
+        Log::info( $reciept_number );
+        $transaction_date   = $request['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value'];
+        Log::info( $transaction_date );
+        $phone_number       = $request['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value'];
+        Log::info( $phone_number );
 
-            $mpesaCallBackParams = $request;
-            $items = $mpesaCallBackParams['Body']['stkCallback']['CallbackMetadata']['Item'];
-            $phone_number = "";
-            $reciept_number = "";
-            $transaction_date = "";
+        $mpesa_response = DB::table('payments')
+                            ->insert([
+                                'phoneno' => $phone_number,
+                                'mpesacode' => $reciept_number,
+                                'created_at' => $transaction_date,                                  
+                            ]);
+        
+        
+        $message = "test mpesa confirmation";
+        $offerCode = "001030900869"; 
+        $cpId = 253 ; 
+        $linkId = '';
+        $this->sendConfirmationSMS( $phone_number, $message, $offerCode, $cpId, $linkId );
 
-            foreach($items as $arr){
-                $val =  $arr['Name'];
-                if($val == 'MpesaReceiptNumber'){
-                    $reciept_number = $arr['Value'];
-                }else if($val == 'TransactionDate'){
-                    $transaction_date = $arr['Value'];
-                }else if($val == 'PhoneNumber'){
-                    $phone_number = $arr['Value'];
-                }
-            }
-
-           log::info("M-PesaCallBack: Code=".$resultCode.",Receipt=".$reciept_number.",Date=".$transaction_date.",Phone=".$phone_number);
-            
-    	        // $mpesa_response = DB::table('eligible_participants')
-                //                     ->where('phone_number', '$phone_number' )
-                //                     ->update([
-                //                         'mpesa_reciept_number' => $reciept_number,
-                //                         'transaction_date'     => $transaction_date,
-                //                         'eligible'             => true,
-                //                     ]);
-            
-            
-            	$message = "The Big Quiz Show Payment Successfully Received";
-            	$offerCode = "001030900869"; 
-            	$cpId = 253 ; 
-            	$linkId = '';
-            	//$del_participant = DB::table('participants')->where('phone_number', $phone_number)->delete();
-            	//$this->sendConfirmationSMS( $phone_number, $message, $offerCode, $cpId, $linkId );
-                $this->sendConfirmationSMS( $phone_number, $message);
-    	}
-        //Not possible since we do not have teh phone number
-        /*else{
-            $phone_number = $request['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value'];
-    		$message = "Quiz Payment Failed. Please try again.";
-            $offerCode = "001030900869"; 
-            $cpId = 253 ; 
-            $linkId = '';
-            $del_participant = DB::table('participants')->where('phone_number', $phone_number)->delete();
-            //$this->sendConfirmationSMS( $phone_number, $message, $offerCode, $cpId, $linkId );
-            $this->sendConfirmationSMS( $phone_number, $message);
-    	}*/
-
-        return $request;
+            return $request;
+        
     }
 
     public function confirmationMpesa( Request $request ){
@@ -160,63 +245,18 @@ class MpesaController extends Controller
         Log::info( "validation mpesa" . $request );
     }
 
+    public function registerMpesaUrls(){
 
-
-
-
-    
-
-    /**
-     * M-pesa Transaction confirmation method, we save the transaction in our databases
-     */
-
-    public function mpesaConfirmation(Request $request)
-    {
-        $content=json_decode($request->getContent());
-
-        $mpesa_transaction = new MpesaTransaction();
-        $mpesa_transaction->TransactionType = $content->TransactionType;
-        $mpesa_transaction->TransID = $content->TransID;
-        $mpesa_transaction->TransTime = $content->TransTime;
-        $mpesa_transaction->TransAmount = $content->TransAmount;
-        $mpesa_transaction->BusinessShortCode = $content->BusinessShortCode;
-        $mpesa_transaction->BillRefNumber = $content->BillRefNumber;
-        $mpesa_transaction->InvoiceNumber = $content->InvoiceNumber;
-        $mpesa_transaction->OrgAccountBalance = $content->OrgAccountBalance;
-        $mpesa_transaction->ThirdPartyTransID = $content->ThirdPartyTransID;
-        $mpesa_transaction->MSISDN = $content->MSISDN;
-        $mpesa_transaction->FirstName = $content->FirstName;
-        $mpesa_transaction->MiddleName = $content->MiddleName;
-        $mpesa_transaction->LastName = $content->LastName;
-        $mpesa_transaction->save();
-
-
-        // Responding to the confirmation request
-        $response = new Response();
-        $response->headers->set("Content-Type","text/xml; charset=utf-8");
-        $response->setContent(json_encode(["C2BPaymentConfirmationResult"=>"Success"]));
-
-
-        return $response;
-    }
-
-
-    /**
-     * M-pesa Register Validation and Confirmation method
-     */
-    public function mpesaRegisterUrls()
-    {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl');
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization: Bearer '. $this->generateAccessToken()));
-
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
             'ShortCode' => "600141",
             'ResponseType' => 'Completed',
-            'ConfirmationURL' => "http://127.0.0.1:8000/api/v1/escrow/confirmation",
-            'ValidationURL' => "http://127.0.0.1:8000/api/v1/escrow/validation"
+            'ConfirmationURL' => "https://c52e5ec177a8.ngrok.io/api/confirmation",
+            'ValidationURL' => "https://c52e5ec177a8.ngrok.io/api/validation"
         )));
         $curl_response = curl_exec($curl);
         echo $curl_response;
@@ -225,135 +265,225 @@ class MpesaController extends Controller
     /**
      * Send confirmation SMS when user has paid
      */
-    //public function sendConfirmationSMS( $phone_number, $message, $offerCode, $cpId, $linkId ){
-        public function sendConfirmationSMS( $phone_number, $message ){
+    public function sendConfirmationSMS( $phone_number, $message, $offerCode, $cpId, $linkId ){
         
-            $token = $this->GenerateToken();
-            Log::info( $token );
-            $phone = $this->parsePhoneNumber($phone_number);
-            $message = $message;
-            //$url12 = 'https://dsvc.safaricom.com:9480/api/auth/login';
-            $url12 = 'https://dsvc.safaricom.com:9480/api/public/SDP/sendSMSRequest';
-            $timeStamp =  date("YdmGis");
-            $sms = 'API';
-            $uniqueId = $phone.'_'.$timeStamp;
-            $LinkId='';
-            $OfferCode='001025328142';
-            $CpId='253';
-            $data='{
-                            "requestId":"'.$uniqueId.'",					                    					                
-                                                "requestTimeStamp": "'.date("YdmGis").'", 
-                                                "channel": "'.$sms.'",   
-                                                "sourceAddress": "104.131.111.145",									                                      
-                                                "requestParam": 
-                                                  {
-                                                    "data": 
-                                                    [
-                                                    {
-                                                        "name": "LinkId",
-                                                        "value":"'.$LinkId.'"
-                                                      },
-                                                      
-                                                      {
-                                                        "name": "OfferCode",
-                                                        "value":"'.$OfferCode.'"
-                                                      },
-                                                      {
-                                                        "name": "Msisdn",
-                                                        "value": "'.$phone.'"
-                                                      },
-                                                        {
-                                                        "name": "Content",
-                                                            "value": "'.$message.'"
-                                                          },
-                                                      {
-                                                        "name": "CpId",
-                                                        "value":"'.$CpId.'"
-                                                      }
-                                                    ]
+        $token = $this->GenerateToken();
+        Log::info( $token );
+        $phone = $phone_number;
+        $message = $message;
+        $url12 = 'https://dsvc.safaricom.com:9480/api/auth/login';
+        $timeStamp =  date("YdmGis");
+        $sms = 'API';
+        $uniqueId = $phone.'_'.$timeStamp;
+        $LinkId=$linkId;
+        $OfferCode=$offerCode;
+        $CpId=$cpId;
+        $data='{
+					                        "requestId":"'.$uniqueId.'",					                    					                
+                                            "requestTimeStamp": "'.date("YdmGis").'", 
+                                            "channel": "'.$sms.'",   
+                                            "sourceAddress": "224.223.10.27",									                                      
+                                            "requestParam": 
+                                              {
+                                                "data": 
+                                                [
+                                                {
+                                                    "name": "LinkId",
+                                                    "value":"'.$LinkId.'"
                                                   },
-                                                  "operation": "SendSMS"
-                                                }';
-    
-                                        $data_strings12=$data;
-                                        Log::info('req '.$data_strings12);
-                                        $ch = curl_init($url12);
-    
-                                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                                        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_strings12);
-                                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                                        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                                                'Content-Type: application/json',
-                                                'X-Requested-With: XMLHttpRequest',
-                                                'X-Authorization:Bearer ' . $token
-                                            )
-                                        );
-    
-                                        $results12 = curl_exec($ch);
-                                        Log::info( $results12 );
+                                                  
+                                                  {
+                                                    "name": "OfferCode",
+                                                    "value":"'.$OfferCode.'"
+                                                  },
+                                                  {
+                                                    "name": "Msisdn",
+                                                    "value": "'.$phone.'"
+                                                  },
+                                                    {
+                                                    "name": "Content",
+                                                        "value": "'.$message.'"
+                                                      },
+                                                  {
+                                                    "name": "CpId",
+                                                    "value":"'.$CpId.'"
+                                                  }
+                                                ]
+                                              },
+                                              "operation": "SendSMS"
+                                            }';
+
+                                    $data_strings12=$data;
+                                    Log::info('req '.$data_strings12);
+                                    $ch = curl_init($url12);
+
+                                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_strings12);
+                                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                                            'Content-Type: application/json',
+                                            'X-Requested-With: XMLHttpRequest',
+                                            'X-Authorization:Bearer ' . $token
+                                        )
+                                    );
+
+                                    $results12 = curl_exec($ch);
+                                    Log::info( $results12 );
+                                    
+    }
+
+    public function GenerateToken(){
+        try {
+            $username = "amwaytech_apiuser";
+            $password = "AMWAYTECH_APIUSER@ps2545";
+
+            $url12 = "https://dsvc.safaricom.com:9480/api/auth/login";
+
+            $data12 = array(
+                "username" => $username,
+                "password" => $password
+            );
+
+            $data_strings12 = json_encode($data12);
+            $ch = curl_init($url12);
+
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data_strings12);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'X-Requested-With: XMLHttpRequest'
+                )
+            );
+            $results12 = curl_exec($ch);
+            $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            $objs12 = json_decode($results12,true);
+            $token=$objs12['token'];
+            Log::info('token '.$token);
+            $refreshToken = $objs12['refreshToken'];
+
+
+        }
+        catch(\Exception $e)
+        {
+            $token=$e->getMessage();
+        }
+
+        $temporary_token = new mpesa_token([
+            'access_token' => $token,                      
+        ]);
+
+        $temporary_token->save();
+
+        return $token;
+    }
+
+    public function parsePhoneNumber($phone_number){
+        $number = "";
+
+        if(strlen($phone_number) == 12){ //254722000000
+
+            $number = substr($phone_number,3,11);
+
+        }else if(strlen($phone_number) == 10){ //0722000000
+            $number = substr($phone_number,1,9);
+
+        } else if(strlen($phone_number) == 9){ //722000000
+            $number = $phone_number;
+
+        } 
+
+        return $number;
+
+    }
+
+
+
+
+
+    public function payment( Request $request ){
+
+        $phone_number = $request->clientnumber; 
+        $amount =   $request->total; 
+        $phone_number = substr($phone_number, -9);
+        $phone_number = 254 . $phone_number;
+ 
+        // $bidder_unique_id= substr( bin2hex( random_bytes( 12 ) ),  0, 12 );       
+        // $password =   substr( bin2hex( random_bytes( 8 ) ),  0, 8 );  
+        
+        // Crypt::encrypt($password);
+       
+        // $user = User::where('phone_number', '=', $phone_number)->first();
+        // if ($user === null) {
+        // // user doesn't exist
+
+        // $new_user = new User([
+        //     'phone_number' => $phone_number,
+        //     'password' => $password,
+        //     'bidder_unique_id' => $bidder_unique_id,
+        //     'role' => 'bidder',
+        //     'eligible' => true,           
+        // ]);
+
+        // $new_user->save();
+
+        //auth()->login($new_user);
+
+        //$bid_unique_id = $_POST['bid_unique_id'];
+
+            // $bid_unique_id='0ef0bcb2ae';
+
+
+         //$bid = Bid::where('bid_unique_id', '=', $bid_unique_id)->first();
+
+        //  if (Bid::where('bid_unique_id', '=', $bid)->exists()) {
+
+        //      $update_bid = Bid::updateOrCreate([
+        //                          ['item_owner' => $phone_number],
+        //                          ['item_name']
+                                 
+        //                          ])->where('bid_unique_id', '=', $bid );
                                         
-        }
+                                    
+        //  }else{
 
-        public function GenerateToken(){
-            try {
-                $username = "amwaytech_apiuser";
-                $password = "AMWAYTECH_APIUSER@ps2545";
-    
-                $url12 = "https://dsvc.safaricom.com:9480/api/auth/login";
-    
-                $data12 = array(
-                    "username" => $username,
-                    "password" => $password
-                );
-    
-                $data_strings12 = json_encode($data12);
-                $ch = curl_init($url12);
-    
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_strings12);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'X-Requested-With: XMLHttpRequest'
-                    )
-                );
-                $results12 = curl_exec($ch);
-                $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                curl_close($ch);
-            Log::info("SendSMS-GetTokenResponse:".$results12);
-                $objs12 = json_decode($results12,true);
-                $token=$objs12['token'];
-                //Log::info('token '.$token);
-                $refreshToken = $objs12['refreshToken'];
-    
-    
-            }
-            catch(\Exception $e)
-            {
-                $token=$e->getMessage();
-            }
-            return $token;
-        }
-    
-        public function parsePhoneNumber($phone_number){
-            $number = "";
-    
-            if(strlen($phone_number) == 12){ //254722000000
-    
-                $number = substr($phone_number,3,11);
-    
-            }else if(strlen($phone_number) == 10){ //0722000000
-                $number = substr($phone_number,1,9);
-    
-            } else if(strlen($phone_number) == 9){ //722000000
-                $number = $phone_number;
-    
-            } 
-    
-            return $number;
-    
-        }
 
+
+
+        //      Log::info('this bid does not exist');
+        //  }
+        
+         $this->customerMpesaSTKPush($phone_number, $amount);
+        
+        return redirect()->to('/products');
+        // }else{
+                       
+    
+            // $bid_unique_id = $_POST['bid_unique_id'];
+            // // $bid_unique_id='0ef0bcb2ae';
+
+            //  $bid = Bid::where('bid_unique_id', '=', $bid_unique_id)->first();
+
+            //  if (Bid::where('bid_unique_id', '=', $bid)->exists()) {
+            //      $update_bid = DB::table('bid')
+            //                          ->where('bid_unique_id', '=', $bid )
+            //                          ->update([
+            //                              'current_bids' => $bid_amount,' by ',$bidder_unique_id,
+            //                              'current_bidders' => $bidder_unique_id,
+            //                          ]);
+                
+            //  }else{
+            //      Log::info('this bid does not exist');
+            //  }
+
+
+        //     $this->customerMpesaSTKPush($phone_number, $amount);
+            
+        //     return redirect('/login');
+        // }
+
+    }
 }

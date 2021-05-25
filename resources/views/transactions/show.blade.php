@@ -157,7 +157,7 @@
                   <button type="button" class="btn btn-primary float-left" style="margin-right: 5px;" id="lnkPrint">
                     <i class="fas fa-print"></i> Print
                   </button>
-                  <form action="{{ route('generatereceipt') }}" method="POST" enctype="multipart/form-data">
+                  <form action="{{ route('payment') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="text" name="clientName" value="{{ $cdetails->firstname }}" hidden>
                     <input type="text" name="clientNumber" value="{{ $cdetails->phoneno }}" hidden>

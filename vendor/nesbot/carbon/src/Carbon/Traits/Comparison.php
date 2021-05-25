@@ -31,6 +31,12 @@ use InvalidArgumentException;
  */
 trait Comparison
 {
+    /** @var bool */
+    protected $endOfTime = false;
+
+    /** @var bool */
+    protected $startOfTime = false;
+
     /**
      * Determines if the instance is equal to another
      *
@@ -441,7 +447,7 @@ trait Comparison
      */
     public function isWeekend()
     {
-        return in_array($this->dayOfWeek, static::$weekendDays);
+        return \in_array($this->dayOfWeek, static::$weekendDays);
     }
 
     /**
@@ -710,8 +716,8 @@ trait Comparison
      */
     public function isDayOfWeek($dayOfWeek)
     {
-        if (is_string($dayOfWeek) && defined($constant = static::class.'::'.strtoupper($dayOfWeek))) {
-            $dayOfWeek = constant($constant);
+        if (\is_string($dayOfWeek) && \defined($constant = static::class.'::'.strtoupper($dayOfWeek))) {
+            $dayOfWeek = \constant($constant);
         }
 
         return $this->dayOfWeek === $dayOfWeek;
@@ -943,7 +949,7 @@ trait Comparison
         $tester = trim($tester);
 
         if (preg_match('/^\d+$/', $tester)) {
-            return $this->year === intval($tester);
+            return $this->year === \intval($tester);
         }
 
         if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {
@@ -1039,5 +1045,25 @@ trait Comparison
         $regex = preg_replace('#(?<!\\\\)((?:\\\\{2})*)/#', '$1\\/', $regex);
 
         return (bool) @preg_match('/^'.$regex.'$/', $date);
+    }
+
+    /**
+     * Returns true if the date was created using CarbonImmutable::startOfTime()
+     *
+     * @return bool
+     */
+    public function isStartOfTime(): bool
+    {
+        return $this->startOfTime ?? false;
+    }
+
+    /**
+     * Returns true if the date was created using CarbonImmutable::endOfTime()
+     *
+     * @return bool
+     */
+    public function isEndOfTime(): bool
+    {
+        return $this->endOfTime ?? false;
     }
 }

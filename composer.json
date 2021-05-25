@@ -42,7 +42,7 @@
         "classmap": [
             "database/seeds",
             "database/factories",
-            "app/http/controllers/mpesa"
+            "app/http/controllers/"
         ]
     },
     "autoload-dev": {

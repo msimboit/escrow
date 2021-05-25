@@ -7,6 +7,7 @@ use App\Tdetails;
 use App\Vendors;
 use App\Clients;
 use App\Product;
+use App\mpesa_token;
 use Auth;
 use Log;
 

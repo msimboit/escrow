@@ -487,6 +487,7 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
     );
 
     public static $classMap = array (
+        'App\\Ad_supamalluser' => __DIR__ . '/../..' . '/app/Ad_supamalluser.php',
         'App\\Banks' => __DIR__ . '/../..' . '/app/Banks.php',
         'App\\Clients' => __DIR__ . '/../..' . '/app/Clients.php',
         'App\\Console\\Commands\\MpesaToken' => __DIR__ . '/../..' . '/app/Console/Commands/MpesaToken.php',

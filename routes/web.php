@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/logout', 'LoginController@logout')->name('logout');
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/create', 'ProductsController@create')->name('addproducts');
@@ -38,7 +38,7 @@ Route::post('/transactions/store', 'TransactionController@store')->name('storetr
 Route::post('/transactions/update/{id}', 'TransactionController@update')->name('updatetransactions');
 Route::post('/transactions/delete/{id}', 'TransactionController@delete')->name('deletetransaction');
 Route::get('/transactions/show/{id}', 'TransactionController@show')->name('showtransactions');
-Route::post('/transactions/receipt', 'TransactionController@receipt')->name('generatereceipt');
+Route::get('/transactions/receipt', 'TransactionController@generatereceipt')->name('generatereceipt');
 Route::post('/transactions/payment', 'MpesaController@payment')->name('payment');
 
 Route::get('/abanks', 'BankController@index')->name('abanks');

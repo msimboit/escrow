@@ -69,6 +69,15 @@
                             </div>
                         </div>
                     </form>
+                            <div class="col-md-6 offset-md-3">
+                                <small>
+                                    <a class="btn btn-link" href="{{ route('login') }}">
+                                        {{ __('Already Registered? Login') }}
+                                    </a>
+                                </small>
+                                
+                            </div>
+
                 </div>
             </div>
         </div>

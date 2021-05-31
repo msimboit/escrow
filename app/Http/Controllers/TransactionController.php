@@ -188,10 +188,10 @@ class TransactionController extends Controller
         return redirect()->route('transactions')->with('success', 'Transaction Updated!');
     }
     
-    public function receipt(Request $request)
+    public function generatereceipt()
     {
-        $values = $request->all();
-        return $values;
+        $arr = $values;
+        return view('receipts.show',compact('arr'));
     }
 
 }

@@ -30,23 +30,23 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
       <div class="row">
-        <label class="col-md-3">Vendor First Name</label>
-        <div class="col-md-4"><input type="text" name="firstname" class="form-control" value="{{ $vend->firstname }}" ></div>
+        <label class="col-md-3">Vendor Name</label>
+        <div class="col-md-4"><input type="text" name="firstname" class="form-control" value="{{ $vend->name }}" ></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">
-        <label class="col-md-3">Vendor Middle Name</label>
-        <div class="col-md-4"><input type="text" name="middlename" class="form-control" value="{{ $vend->middlename }}" ></div>
+        <label class="col-md-3">Vendor UserName</label>
+        <div class="col-md-4"><input type="text" name="username" class="form-control" value="{{ $vend->username }}" ></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">
-        <label class="col-md-3">Vendor Last Name</label>
-        <div class="col-md-4"><input type="text" name="lastname" class="form-control" value="{{ $vend->lastname }}" ></div>
+        <label class="col-md-3">Vendor Description</label>
+        <div class="col-md-4"><input type="text" name="description" class="form-control" value="{{ $vend->description }}" ></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">
         <label class="col-md-3">ID No.</label>
-        <div class="col-md-4"><input type="text" name="idno" class="form-control"  value="{{ $vend->IdNo }}" ></div>
+        <div class="col-md-4"><input type="text" name="idno" class="form-control"  value="{{ $vend->confirm }}" ></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">
@@ -62,12 +62,12 @@
       </div>
       <div class="row">
         <label class="col-md-3">Phone</label>
-        <div class="col-md-4"><input type="text" name="phoneno" class="form-control"  value="{{ $vend->phoneno }}" ></div>
+        <div class="col-md-4"><input type="text" name="phone" class="form-control"  value="{{ $vend->phone }}" ></div>
         <div class="clearfix"></div>
       </div>     
 
     <div class="form-group">
-      <input type="submit" class="btn btn-info" value="Update">
+      <input type="submit" class="btn btn-info" value="Update" disabled>
     </div>
   
   </form>

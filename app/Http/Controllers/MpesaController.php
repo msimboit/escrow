@@ -89,7 +89,7 @@ class MpesaController extends Controller
 
 
 
-    public function customerMpesaSTKPush($phone_number, $amount){
+    public function customerMpesaSTKPush(){
         $phone_number = 254700682679;
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl = curl_init();
@@ -406,10 +406,13 @@ class MpesaController extends Controller
 
     public function payment( Request $request ){
 
-        $phone_number = $request->clientnumber; 
+        $values = $request->except(['_token']);
+        
+        $phone_number = $request->clientNumber; 
         $amount =   $request->total; 
         $phone_number = substr($phone_number, -9);
         $phone_number = 254 . $phone_number;
+        
  
         // $bidder_unique_id= substr( bin2hex( random_bytes( 12 ) ),  0, 12 );       
         // $password =   substr( bin2hex( random_bytes( 8 ) ),  0, 8 );  
@@ -456,9 +459,16 @@ class MpesaController extends Controller
         //      Log::info('this bid does not exist');
         //  }
         
-         $this->customerMpesaSTKPush($phone_number, $amount);
+         //$this->customerMpesaSTKPush($phone_number, $amount);
         
-        return redirect()->to('/products');
+    
+        // return redirect()->to('/transactions/receipt')->with($values);
+        // return redirect()->route('generatereceipt');
+        //return redirect()->action([TransactionController::class, 'generatereceipt'])->with($values);
+        $arr = $values;
+        return view('receipts.show',compact('arr'));
+        
+     
         // }else{
                        
     

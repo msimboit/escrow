@@ -20,11 +20,11 @@
   <section class="content">
     <div class="container-fluid">
         <p>
-            <a href="{{ route('addvendor') }}" class="btn btn-primary">Add New Vendor</a>
+            <a href="{{ route('addvendor') }}" class="btn btn-primary" disabled>Add New Vendor</a>
         </p>
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
+                <th>Escrow Id</th>
                 <th>Names </th>
                 <th>Phone No </th>
                 <th>Email </th>
@@ -34,13 +34,13 @@
             @foreach($vendors as $c)
                 <tr>
                     <td>   <a href="{{ route('showvendor',$c->id) }}"> {{ $c->id }}</a></td>
-                    <td>{{ $c->firstname }}</td>
-                    <td>{{ $c->phoneno }}</td>
+                    <td>{{ $c->name }}</td>
+                    <td>{{ $c->phone }}</td>
                     <td>{{ $c->email }}</td>
-                    <td>{{ $c->IdNo }}</td>
+                    <td>{{ $c->confirm }}</td>
                     <td>
-              <a href="{{ route('editvendor',$c->id) }}" class="btn btn-info">Edit</a> 
-              <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
+                    <a href="{{ route('editvendor',$c->id) }}" class="btn btn-info">Edit</a> 
+                    <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
               <form action="{{ route('deletevendor',$c->id) }}" method="post">
                 @method('DELETE')
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -49,6 +49,10 @@
                 </tr>
             @endforeach
         </table>
+
+        {{ $vendors->links() }}
     </div>
   </section>	
+
+  
 @endsection

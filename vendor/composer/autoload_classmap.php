@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Ad_supamalluser' => $baseDir . '/app/Ad_supamalluser.php',
     'App\\Banks' => $baseDir . '/app/Banks.php',
     'App\\Clients' => $baseDir . '/app/Clients.php',
     'App\\Console\\Commands\\MpesaToken' => $baseDir . '/app/Console/Commands/MpesaToken.php',

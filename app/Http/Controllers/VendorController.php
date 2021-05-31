@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Vendors;
+use App\Ad_supamalluser;
+
 
 class VendorController extends Controller
 {
@@ -19,8 +22,19 @@ class VendorController extends Controller
      */
     public function index()
     {
+
+    //    $vendors = DB::table('ad_supamalluser')->get();
+        
+        /*
         $arr['vendors'] = Vendors::paginate(10);
+        */
+
+        $arr['vendors'] = DB::table('ad_supamalluser')->orderBy('phone', 'desc')
+        ->orderBy('id', 'asc')
+        ->paginate(20);
         return view('vendors.index')->with($arr);
+        
+        
     }
 
     public function create()
@@ -30,14 +44,25 @@ class VendorController extends Controller
 
     public function show($id)
     {
+        /*
         $vend = Vendors::find($id);
-        return view('vendors.show', compact('vend'));   
+        return view('vendors.show', compact('vend'));  
+        */
+        
+        $vend = DB::table('ad_supamalluser')->where('id', $id)->first();
+        return view('vendors.show', compact('vend'));
+       // return view('vendors.show')->with($vend);
     }
 
     public function edit($id)
     {
+        /*
         $vend = Vendors::find($id);
         return view('vendors.edit', compact('vend'));   
+        */
+
+        $vend = DB::table('ad_supamalluser')->where('id', $id)->first();
+        return view('vendors.edit', compact('vend')); 
     }
 
 
@@ -77,20 +102,18 @@ class VendorController extends Controller
 
     public function update(Request $request)
     {
-        //return view('transactions.create');
         $id = $request->id;
-        $vend = Vendors::find($id);
+        //$vend = Vendors::find($id);
+        $vend = DB::table('ad_supamalluser')->where('id', $id)->first();
 
-        $vend->firstname=$request->firstname;
-        $vend->middlename = $request->middlename;
-        $vend->lastname = $request->lastname;
-        $vend->IdNo = $request->idno;
-        $vend->phoneno = $request->phoneno;
+        $vend->name=$request->name;
+        $vend->username = $request->username;
+        $vend->description = $request->description;
+        $vend->confirm = $request->idno;
+        $vend->phone = $request->phone;
         $vend->email = $request->email;
         $vend->country = $request->country;
-       // $vend->acceptedtnc = $request->acceptedtnc;
-        $vend->vendor_long=0;
-        $vend->vendor_lat=0;
+        $vend->user_type = 'seller';
 
         $vend->save();
 

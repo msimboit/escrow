@@ -31,28 +31,28 @@
     <div class="form-group">
       <div class="row">
         <label class="col-md-3">Vendor Name</label>
-        <div class="col-md-4"><input type="text" name="firstname" class="form-control" value="{{ $vend->firstname }}" ></div>
+        <div class="col-md-4"><input type="text" name="firstname" class="form-control" value="{{ $vend->name }}" disabled></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">
         <label class="col-md-3">ID No.</label>
-        <div class="col-md-4"><input type="text" name="idno" class="form-control"  value="{{ $vend->IdNo }}" ></div>
+        <div class="col-md-4"><input type="text" name="idno" class="form-control"  value="{{ $vend->confirm }}" disabled></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">
-        <label class="col-md-3">Country</label>
-        <div class="col-md-4"><input type="text" name="country" class="form-control"  value="{{ $vend->country }}" ></div>
+        <label class="col-md-3">Username</label>
+        <div class="col-md-4"><input type="text" name="country" class="form-control"  value="{{ $vend->username }}" disabled></div>
         <div class="clearfix"></div>
       </div>
       
       <div class="row">
         <label class="col-md-3">Email</label>
-        <div class="col-md-4"><input type="text" name="email" class="form-control"  value="{{ $vend->email }}" ></div>
+        <div class="col-md-4"><input type="text" name="email" class="form-control"  value="{{ $vend->email }}" disabled></div>
         <div class="clearfix"></div>
       </div>
       <div class="row">
         <label class="col-md-3">Phone</label>
-        <div class="col-md-4"><input type="text" name="phoneno" class="form-control"  value="{{ $vend->phoneno }}" ></div>
+        <div class="col-md-4"><input type="text" name="phoneno" class="form-control"  value="{{ $vend->phone }}" disabled></div>
         <div class="clearfix"></div>
       </div>     
 
@@ -60,6 +60,8 @@
   
   </form>
 </div>
-</section>>
+
+<a href="{{ route('vendors') }}" class="btn btn-info">Back</a>
+</section>
 
 @endsection

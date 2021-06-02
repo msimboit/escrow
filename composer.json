@@ -11,10 +11,10 @@
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^7.24",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.5.18",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.4",
+        "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.2",
         "opencage/geocode": "^3.0"
     },

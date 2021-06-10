@@ -34,7 +34,7 @@
               <div class="row">
                 <div class="col-12">
                   <h4>
-                    <i class="fas fa-globe"></i> Invoice
+                    <i class="fas fa-globe"></i> Sale/Purchase Order
                     <small class="float-right">Date: {{ $arr->created_at->format('d/m/Y H:i:s') }}</small>
                   </h4>
                 </div>
@@ -43,19 +43,18 @@
               <!-- info row -->
               <div class="row invoice-info">
                 <div class="col-sm-4 invoice-col">
-                  From
+                <strong><u>Vendor Details</u></strong>
                   <address>
-                    <strong>{{ $vdetails->firstname }}</strong><br>
-                    Phone: {{ $vdetails->phoneno }}<br>
-                    Email: {{ $vdetails->email }}<br>
-                    Location: {{$vdetails->country }}
+                    Name: <strong>{{ $vdetails->username }}</strong><br>
+                    Phone: {{ $vdetails->phone }}<br>
+                    Email: {{$vdetails->email }}
                   </address>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
-                  To
+                  <strong><u>Buyer Details</u></strong> 
                   <address>
-                    <strong>{{ $cdetails->firstname }}</strong><br>
+                    Name: <strong>{{ $cdetails->firstname }}</strong><br>
                     Phone: {{ $cdetails->phoneno }}<br>
                     Email: {{ $cdetails->email }}<br>
                     Location: {{$cdetails->country }}
@@ -63,34 +62,55 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
-                  <b>Invoice</b><br>
+                  <strong><u>Order Details</u></strong><br>
                   <br>
-                  <b>Order ID:</b> {{ $arr->id}}<br>
+                  <b>Order No:</b> {{$arr->id}}<br>
                   <b>Payment Due:</b> {{ $arr->created_at->format('d-m-Y')}}<br>
-                  <b>Account:</b> 968-34567
+                  <b>Account:</b> 968-34567<br>
+                  <b>Delivery Point:</b> {{ $arr->deliverylocation }}
                 </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
 
               <!-- Table row -->
-              <div class="row">
+              <div class="row mt-4">
                 <div class="col-12 table-responsive">
-                  <table class="table table-striped">
+                  <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th></th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Amount</th>
+                      <th class="text-center"  scope="col">Descriptions</th>
+                      <th class="text-center" scope="col">Quantity</th>
+                      <th class="text-center" scope="col">Amount</th>
+                      <th class="text-center" scope="col">Images</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                      <td></td>
-                      <td>{{ $arr->transdetail}}</td>
-                      <td>{{ $arr->deposited}}</td>
-                      <td>{{ $arr->transamount}}</td>
+                      <td class="text-center">
+                          @foreach ($itemdesc as $desc)
+                           {{ $desc }}<br/><br/><br/><br/><br />
+                          @endforeach
+                      </td>
+                      <td class="text-center">
+                          @foreach ($quantities as $quantity)
+                            {{ $quantity }}<br/><br/><br/><br/><br />
+                          @endforeach
+                      </td>
+                      <td class="text-center">
+                          @foreach ($prices as $price)
+                            {{ $price }}<br/><br/><br/><br/><br />
+                          @endforeach
+                      </td>
+                      <td class="text-center" style="width: 100px; height: 100px;">
+                          @foreach ($product_image as $image)
+                            <img 
+                                  src=" {{ asset('product_images/' .$image) }}" 
+                                  class="img-fluid max-width: 100%; height: auto;"
+                                  alt="">
+                            
+                          @endforeach
+                        </td>
                     </tr>
                     </tbody>
                   </table>
@@ -101,18 +121,16 @@
 
               <div class="row">
                 <!-- accepted payments column -->
-                <div class="col-6 p-2">
+                <div class="col-5 p-3 display:flex; align-items:space-between;">
                   <p class="lead">Payment Methods:</p>
                   <h5 style="margin: 5px; font-weight: bold;">MPESA:</h5>
                   <p class="text-muted well well-sm shadow-none" style="margin: 5px;">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-                    plugg
+                    PayBill Number: 174955
                   </p>
 
-                  <h5 style="margin: 5px; font-weight: bold;">Bank Transfer:</h5>
+                  <h5 style="margin: 5px; font-weight: bold;">Additional Payment Options:</h5>
                   <p class="text-muted well well-sm shadow-none" style="margin: 5px;">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-                    plugg
+                    Till Number: 174955
                   </p>
                 </div>
                 <!-- /.col -->
@@ -123,26 +141,26 @@
                     <table class="table">
                       <tr>
                         <th style="width:50%">Subtotal:</th>
-                        <td>Kshs.{{ $arr->transamount}}</td>
+                        <td>Kshs.{{ array_sum($prices) }}</td>
                       </tr>
                       <tr>
-                        <th>Tax (16%)</th>
-                        <td>Kshs.{{ (($arr->transamount)/100)*16 }}.00</td>
+                        <th>Transaction Fee(1%)</th>
+                        <td>Kshs.{{ round(((array_sum($prices))/100)*1) }}.00</td>
                       </tr>
                       <tr>
-                        <th>Shipping:</th>
-                        <td>Kshs.1050</td>
+                        <th>Delivery Fee:</th>
+                        <td>{{ $arr->delivery_fee }}</td>
                       </tr>
                       <tr>
-                        <th>Delivery Fee of Kshs.500 <br /> Handled By:</th>
+                        <th>Delivery Fee <br /> Handled By:</th>
                         <td>
-                        <input type="checkbox" id="deliveryfee" value="deliveryfee" onclick="myFunction()"> <small> Agree that client handles delivery fee</small> </input>
-                        <p id="text" style="display:none"><small>*Client will be <strong>charged!</strong></small></p>
+                        <input type="checkbox" id="deliveryfee" value="deliveryfee" onclick="myFunction()"> <small> Agree that buyer handles delivery fee</small> </input>
+                        <p id="text" style="display:none"><small>*Buyer will be <strong>charged!</strong></small></p>
                         </td>
                       </tr>
                       <tr>
                         <th>Total:</th>
-                        <td>Kshs.{{ ($arr->transamount) + ((($arr->transamount)/100)*16) + 1050 }}</td>
+                        <td>Kshs.{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}</td>
                       </tr>
                     </table>
                   </div>
@@ -162,19 +180,19 @@
                     <input type="text" name="clientName" value="{{ $cdetails->firstname }}" hidden>
                     <input type="text" name="clientNumber" value="{{ $cdetails->phoneno }}" hidden>
                     <input type="text" name="clientEmail" value="{{ $cdetails->email }}" hidden>
-                    <input type="text" name="vendorName" value="{{ $vdetails->firstname }}" hidden>
-                    <input type="text" name="vendorNumber" value="{{ $vdetails->phoneno }}" hidden>
+                    <input type="text" name="vendorName" value="{{ $vdetails->username }}" hidden>
+                    <input type="text" name="vendorNumber" value="{{ $vdetails->phone }}" hidden>
                     <input type="text" name="vendorEmail" value="{{ $vdetails->email }}" hidden>
                     <input type="text" name="orderId" value="{{ $arr->id }} "hidden>
                     <input type="text" name="orderdate" value="{{ $arr->created_at->format('d-m-Y') }}" hidden>
                     <input type="text" name="transdetail" value="{{ $arr->transdetail }}" hidden>
                     <input type="text" name="quantity" value="{{ $arr->deposited }}" hidden>
-                    <input type="text" name="subtotal" value="{{ $arr->transamount }}" hidden>
+                    <input type="text" name="subtotal" value="{{ array_sum($prices) }}" hidden>
                     <input type="text" name="shipping" value="1050" hidden>
-                    <input type="text" name="total" value="{{ ($arr->transamount) + ((($arr->transamount)/100)*16) + 1050 }}" hidden>
+                    <input type="text" name="total" value="{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}" hidden>
                     <input type="text" name="deliveryfee" id="textbox2" value="vendor" hidden>
-                    <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                      Payment
+                    <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
+                    Purchase
                     </button>
                   </form>
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">

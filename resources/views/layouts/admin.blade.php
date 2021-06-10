@@ -7,6 +7,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -29,7 +30,16 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <!-- For Searches -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+ 
+  <link rel="stylesheet" type="text/css" href="{{asset('jqueryui/jquery-ui.min.css')}}">
+  <script src="{{asset('jquery-3.3.1.min.js')}}" type="text/javascript"></script>
+  <script src="{{asset('jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -87,7 +97,7 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Client/Vendor
+                Buyer/Vendor
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -95,7 +105,7 @@
               <li class="nav-item">
                 <a href="{{ route('clients') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Clients</p>
+                  <p>Buyers</p>
                 </a>
               </li>
               <li class="nav-item">

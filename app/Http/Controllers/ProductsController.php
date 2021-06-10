@@ -8,6 +8,7 @@ use App\Vendors;
 use App\Clients;
 use App\Product;
 use Log;
+use DB;
 use Auth;
 
 
@@ -31,7 +32,12 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        /*
         $arr['prds'] = Product::paginate(10);
+        */
+        $arr['prds'] = DB::table('ad_supamallproduct')->orderBy('price', 'desc')
+                        ->orderBy('phone', 'asc')
+                        ->paginate(15);
         return view('products.index')->with($arr);
     }
 

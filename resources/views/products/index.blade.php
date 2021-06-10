@@ -24,19 +24,21 @@
         </p>
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
+                <th>Product ID</th>
                 <th>Names </th>
+                <th>Phone Number</th>
                 <th>Price </th>
                 <th>Action</th>
             </tr>
             @foreach($prds as $c)
                 <tr>
                     <td>{{ $c->id }}</td>
-                    <td>{{ $c->name }}</td>
+                    <td>{{ $c->product_name }}</td>
+                    <td>{{ $c->phone }}</td>
                     <td>{{ $c->price }}</td>
                     <td>
-              <a href="{{ route('editproducts',$c->id) }}" class="btn btn-info">Edit</a> 
-              <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
+              <a href="{{ route('editproducts',$c->id) }}" class="btn btn-info" disabled>Edit</a> 
+              <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger" disabled>Delete</a>
               <form action="{{ route('deleteproducts',$c->id) }}" method="post">
                 @method('DELETE')
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -45,6 +47,8 @@
                 </tr>
             @endforeach
         </table>
+
+        {{ $prds->links() }}
     </div>
   </section>	
 @endsection

@@ -24,9 +24,9 @@
         </p>
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
-                <th>Buyer </th>
-                <th>Seller </th>
+                <!-- <th>ID</th> -->
+                <!-- <th>Buyer Escrow Id</th>
+                <th>Seller Escrow Id</th> -->
                 <th>Product </th>
                 <th>Amount </th>
                 <th>Validated </th>
@@ -34,9 +34,9 @@
             </tr>
             @foreach($trs as $c)
                 <tr>
-                    <td>{{ $c->id }}</td>
-                    <td>{{ $c->client_id }}</td>
-                    <td>{{ $c->vendor_id }}</td>
+                    <!-- <td>{{ $c->id }}</td> -->
+                    <!-- <td>{{ $c->client_id }}</td>
+                    <td>{{ $c->vendor_id }}</td> -->
                     <td>{{ $c->transdetail }}</td>
                     <td>{{ $c->transamount }}</td>
                     <td>{{ $c->validated }}</td>

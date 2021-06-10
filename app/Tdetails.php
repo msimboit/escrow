@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tdetails extends Model
 {
-    //
-
+    //protected $guarded = []; 
 
     public function products()
     {

@@ -50,7 +50,8 @@
             @endforeach
         </table>
 
-        {{ $vendors->links() }}
+        <!-- {{ $vendors->links() }} -->
+        {{ $vendors->onEachSide(5)->links() }}
     </div>
   </section>	
 

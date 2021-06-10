@@ -56,7 +56,7 @@
                   <address>
                     <strong>{{ $arr['vendorName'] }}</strong><br>
                     Phone: {{ $arr['vendorNumber'] }}<br>
-                    Email: {{ $arr['vendorEmail'] }}<br>
+                    About: {{ $arr['vendorDesc'] }}<br>
                   </address>
                 </div>
                 <!-- /.col -->
@@ -125,8 +125,8 @@
                         <td>Kshs.{{ $arr['subtotal'] }}</td>
                       </tr>
                       <tr>
-                        <th>Tax (16%)</th>
-                        <td>Kshs.{{ (($arr['subtotal'])/100)*16 }}.00</td>
+                        <th>Transaction Fee (1%)</th>
+                        <td>Kshs.{{ (($arr['subtotal'])/100)*1 }}.00</td>
                       </tr>
                       <tr>
                         <th>Shipping:</th>

@@ -68,16 +68,17 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
-                            <div class="col-md-6 offset-md-3">
+                        
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4 my-3">
                                 <small>
                                     <a class="btn btn-link" href="{{ route('login') }}">
                                         {{ __('Already Registered? Login') }}
                                     </a>
                                 </small>
-                                
                             </div>
-
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

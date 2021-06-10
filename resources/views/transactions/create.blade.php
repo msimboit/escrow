@@ -1,97 +1,145 @@
 @extends('layouts.admin')
 @section('content')
 
+<style>
+  #map {
+    height: 350px;   
+    width: 900px; 
+    padding-top: 5px;
+  }
+</style>
+
 <div class="card">
     <div class="card-header">
        Create Transaction Order
     </div>
-
     <div class="card-body">
         <form action="{{ route('storetransactions') }}" method="POST" enctype="multipart/form-data">
             @csrf
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
+            
             <div class="form-group">
-      <div class="row">
-        <label class="col-md-3">Vendor</label>
+            <div class="row m-3">
+            <label class="col-md-3">Vendor</label>
+            <!-- For defining autocomplete -->
+                <!-- <input type="text" id='vendor_search' class="p-1 mr-2" placeholder="Type the vendor name"> -->
+            <!-- For displaying selected option value from autocomplete suggestion -->
+                <!-- <span class="p-1">Selected Vendor:</span> -->
+                <!-- <input type="text" id='vendorname' readonly class="p-1 mr-2" name="vendor_id"> -->
+
+        <!-- <select class="livesearch form-control col-sm-4" name="vendor_id" id="livesearch"></select> -->
       <select class="form-control col-sm-4" name="vendor_id">
         <option>Select Vendor</option>
-        @foreach ($items as $key => $value)
-          <option value="{{ $key }}" > 
+        @foreach ($vendors as $key => $value)
+          <option value="{{ $value }}" > 
               {{ $value }} 
           </option>
       @endforeach    
     </select>
   </select>
 </div>
-<div class="row">
-        <label class="col-md-3">Client</label>
+<div class="row m-3">
+        <label class="col-md-3">Buyer</label>
+        <!-- For defining autocomplete -->
+        <!-- <input type="text" id='client_search' class="p-1 mr-2" placeholder="Type the Client name"> -->
+        <!-- For displaying selected option value from autocomplete suggestion -->
+        <!-- <span class="p-1">Selected Client:</span> -->
+        <!-- <input type="text" id='clientfirstname' readonly class="p-1 mr-2"> -->
+
+        <!-- <select class="livesearch form-control col-sm-4" name="client_id" id="livesearch2"></select> -->
     <select class="form-control col-sm-4" name="client_id">
-      <option>Select Client</option>
+      <option>Select Buyer</option>
       @foreach ($clients as $key => $value)
           <option value="{{ $key }}" > 
               {{ $value }} 
           </option>
       @endforeach    
   </select>
+
+  <div class="row mt-4 ml-3">
+    <label >Set Your PickUp Location Below: <small>(Please enter a valid location as possible, e.g "example,city,country")</small></label>
+    <div class="col-md-6"><input type="text" name="location" class="form-control" id="my-input-searchbox"></div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="form-group">
+        <div id="map"></div>
+  </div>
+
+
+
       </div>
 
          
-            <div class="card">
+            <div class="card m-2">
                 <div class="card-header">
-                    Products
+                    <strong>Transaction Details:</strong> 
                 </div>
 
                 <div class="card-body">
                     <table class="table" id="products_table">
                         <thead>
                             <tr>
-                            <th>Product</th>
-                        <th>Item Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Amount</th>
+                                <!-- <th>Product</th> -->
+                                <th>Item Description</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Image</th>
                             </tr>
                         </thead>
-                        <tbody id="product_row">
+
+                        <tbody id="product_row" class="display-flex">
                             @foreach (old('products', ['']) as $index => $oldProduct)
                                 <tr id="product{{ $index }}">
-                                    <td>
-                                        <select name="products" class="form-control">
+
+                                    <!-- Removed the products list -->
+                                    <!-- <td>
+                                        <select name="products[]" class="form-control">
                                             <option value="">-- choose product --</option>
                                             @foreach ($prds as $product)
                                                 <option value="{{ $product->id }}"{{ $oldProduct == $product->id ? ' selected' : '' }}>
-                                                    {{ $product->name }} (Kshs.{{ number_format($product->price, 2) }})
+                                                    {{ $product->product_name }} (Kshs.{{ number_format($product->price, 2) }})
                                                 </option>
                                             @endforeach
                                         </select>
-                                    </td>
+                                    </td> -->
  
                         <td>
-                            <input type="string" name="itemdesc" class="form-control" value="" placeholder="item description" />
+                            <!-- <input type="string" name="itemdesc[]" class="form-control" value="" placeholder="item description" /> -->
+                            <textarea name="itemdesc[]" id="" value="" placeholder="item description" class="form-control"></textarea>
                         </td>
                         <td>
-                            <input type="number" name="quantities" class="form-control" value="{{ old('quantities.' . $index) ?? '1' }}" />
+                            <input type="number" name="quantities[]" class="form-control" value="{{ old('quantities.' . $index) ?? '1' }}" />
                         </td>
                         <td>
-                            <input type="number" name="prices" class="form-control" value="1" />
+                            <input type="number" name="prices[]" class="form-control" value="{{ old('prices' . $index) ?? '1' }}" />
                         </td>
                         <td>
-                            <input type="number" name="amount" class="form-control" value="1" />
-                        </td>
-                        
-                        <!-- <td> -->
                         
                         <!-- Implemented image save??? -->
-                        <!-- <div class="form-group row">
-                            <div class="col-md-6">
-                                <input id="profile_image[]" type="file" class="form-control" name="profile_image[]">
+                        <div class="form-group row">
+                            <!-- <div class="col-md-8"> -->
+                                <input id="product_image[]" type="file" class="form-control" name="product_image[]">
                                         @if (auth()->user()->image)
                                             <code>{{ auth()->user()->image }}</code>
                                         @endif
-                                    </div>
-                                </div> -->
+                                    <!-- </div> -->
+
+                                <!-- <input type="file" id="mypic" accept="image/*" capture="camera" class="m-3">
+                                <canvas class="m-3" width="50" height="50"></canvas> -->
+                                
+                                </div>
 
                         
-                        <!-- </td> -->
+                        </td>
 
                                 </tr>
                             @endforeach
@@ -101,16 +149,39 @@
 
                     <!-- Need to eatablish how to save multiple product tarnsactions through the add row capability-->
                     
-                    <!-- <div class="row">
-                        <div class="col-md-12">
-                            <button id="add_row" class="btn btn-default pull-left">+ Add Row</button>
-                            <button id='delete_row' class="pull-right btn btn-danger">- Delete Row</button>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <button id="add_row" class="btn btn-primary pull-left ml-4"> Add Row</button>
+                            <button id='delete_row' class="pull-right btn btn-danger mr-4"> Delete Row</button>
                         </div>
-                    </div> -->
+                    </div>
+                   
                 </div>
             </div>
+
+            <div class="row mx-3 my-5 ">
+            <label class="col-md-2">Pick-up Time:</label>
+              <select class="form-control col-sm-4" name="deliverytime">
+                <option>Select Delivery Time</option>
+                <option value="2">Upto 2 hours</option>
+                <option value="4">Upto 4 hours</option>
+                <option value="8">Upto 8 hours</option>
+                <option value="12">Upto 12 hours</option> 
+                <option value="24">Upto 24 hours</option>
+                <option value="36">Upto 36 hours</option>  
+                <option value="72">Past 72 hours</option>          
+              </select>
+            </div>
+
+            <div class="row m-3">
+              <label class="col-md-2">Delivery Fee:</label>
+            <input type="number" name="deliveryfee" class="form-control col-sm-2" value="1" />
+            </div>
+
             <div>
-                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}"> 
+                <input type="text" name="lat" id="latitude" value="latitude" hidden>
+                <input type="text" name="long" id="longitude" value="longitude" hidden>
+                <input class="btn btn-success col-md-1.5 my-5 ml-5" type="submit" value="{{ trans('Save Transaction') }}"> 
             </div>
         </form>
 
@@ -120,6 +191,8 @@
 @endsection
 
 @section('scripts')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnGwWFUlm1QJuI8WDZeBVxHzS6Bhzknmo&libraries=places"></script>
+
 <script>
   $(document).ready(function(){
     let row_number = {{ count(old('products', [''])) }};
@@ -173,7 +246,226 @@ function calc_total()
 	$('#tax_amount').val(tax_sum.toFixed(2));
 	$('#total_amount').val((tax_sum+total).toFixed(2));
 } 
+
+
+// $('#livesearch').select2({
+//         placeholder: 'Type Vendor Name',
+//         ajax: {
+//             url: '/ajax-autocomplete-search',
+//             dataType: 'json',
+//             delay: 250,
+//             processResults: function (data) {
+//                 return {
+//                     results: $.map(data, function (item) {
+//                         return {
+//                             text: item.name
+//                         }
+//                     })
+//                 };
+//             },
+//             cache: true
+//         }
+//     });
+
+//     $('#livesearch2').select2({
+//         placeholder: 'Type Client Name',
+//         ajax: {
+//             url: '/ajax-autocomplete-search2',
+//             dataType: 'json',
+//             delay: 250,
+//             processResults: function (data) {
+//                 return {
+//                     results: $.map(data, function (item) {
+//                         return {
+//                             text: item.name
+//                         }
+//                     })
+//                 };
+//             },
+//             cache: true
+//         }
+//     });
+
+
+    // CSRF Token
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+
+      $( "#vendor_search" ).autocomplete({
+        source: function( request, response ) {
+          // Fetch data
+          $.ajax({
+            url:"{{route('transaction.getVendors')}}",
+            type: 'post',
+            dataType: "json",
+            data: {
+               _token: CSRF_TOKEN,
+               search: request.term
+            },
+            success: function( data ) {
+               response( data );
+            }
+          });
+        },
+        select: function (event, ui) {
+           // Set selection
+           $('#vendor_search').val(ui.item.label); // display the selected text
+           $('#vendorname').val(ui.item.value); // save selected id to input
+           return false;
+        }
+      });
+
+    });
+
+    // CSRF Token
+    // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    // $(document).ready(function(){
+
+    //   $( "#client_search" ).autocomplete({
+    //     source: function( request, response ) {
+    //       // Fetch data
+    //       $.ajax({
+    //         url:"{{route('transaction.getClients')}}",
+    //         type: 'post',
+    //         dataType: "json",
+    //         data: {
+    //            _token: CSRF_TOKEN,
+    //            search: request.term
+    //         },
+    //         success: function( data ) {
+    //            response( data );
+    //         }
+    //       });
+    //     },
+    //     select: function (event, ui) {
+    //        // Set selection
+    //        $('#client_search').val(ui.item.label); // display the selected text
+    //        $('#clientname').val(ui.item.value); // save selected id to input
+    //        return false;
+    //     }
+    //   });
+
+    // });
+
+
+    // Map scripts start here
+    function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                lat: -1.2860331873757733,
+                lng: 36.82665965431366
+                },
+                zoom: 15,
+                disableDefaultUI: true
+            });
+
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('my-input-searchbox');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+            var marker = new google.maps.Marker({
+                map: map
+            });
+
+            // Bias the SearchBox results towards current map's viewport.
+            autocomplete.bindTo('bounds', map);
+            // Set the data fields to return when the user selects a place.
+            autocomplete.setFields(
+                ['address_components', 'geometry', 'name']);
+
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                console.log("Returned place contains no geometry");
+                return;
+                }
+                var bounds = new google.maps.LatLngBounds();
+                marker.setPosition(place.geometry.location);
+                var LatLng = place.geometry.location.toJSON();
+                console.log(LatLng)
+                console.log(LatLng.lat)
+                $('#latitude').val(LatLng.lat);
+                console.log(LatLng.lng)
+                $('#longitude').val(LatLng.lng);
+
+                if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+                } else {
+                bounds.extend(place.geometry.location);
+                }
+                map.fitBounds(bounds);
+            });
+            }
+            document.addEventListener("DOMContentLoaded", function(event) {
+            initAutocomplete();
+            });
+
+
+            function getLocation() {
+            var checkBox = document.getElementById("deliveryfee");
+            var text = document.getElementById("text");
+            if (checkBox.checked == true){
+                text.style.display = "block";
+                $('#textbox2').val('client');
+            } else {
+                text.style.display = "none";
+                $('#textbox2').val('vendor');
+            }
+        }
  
+
+        var input = document.querySelector('input[type=file]');
+  input.onchange = function () {
+    var file = input.files[0];
+    //upload(file);
+    drawOnCanvas(file);   
+    //displayAsImage(file); 
+  };
  
+  function upload(file) {
+    var form = new FormData(),
+        xhr = new XMLHttpRequest();
+ 
+    form.append('image', file);
+    xhr.open('post', 'server.php', true);
+    xhr.send(form);
+  }
+ 
+  function drawOnCanvas(file) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var dataURL = e.target.result,
+          c = document.querySelector('canvas'),
+          ctx = c.getContext('2d'),
+          img = new Image();
+ 
+      img.onload = function() {
+        c.width = img.width;
+        c.height = img.height;
+        ctx.drawImage(img, 0, 0);
+      };
+ 
+      img.src = dataURL;
+    };
+ 
+    reader.readAsDataURL(file);
+  }
+ 
+  function displayAsImage(file) {
+    var imgURL = URL.createObjectURL(file),
+        img = document.createElement('img');
+ 
+    img.onload = function() {
+      URL.revokeObjectURL(imgURL);
+    };
+ 
+    img.src = imgURL;
+    document.body.appendChild(img);
+  }
+
 </script>
+
 @endsection

@@ -144,7 +144,6 @@ class TransactionController extends Controller
         $trns->trans_long = $request->long;
         $trns->trans_lat = $request->lat;
         $trns->delivery_time = $request->deliverytime;
-        $trns->delivery_handler = 'vendor';
 
         $imageName = [];
         $imageArray = $request->product_image;

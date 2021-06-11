@@ -1,9 +1,8 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Database\Seeds\SupamallproductSeeder;
-use Database\Seeds\SupamalluserSeeder;
 
 class DatabaseSeeder extends Seeder
 {

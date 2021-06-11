@@ -44,8 +44,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "classmap": [
-            "database/seeds",
-            "database/factories"
+            "database"
         ]
     },
     "autoload-dev": {

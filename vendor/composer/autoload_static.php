@@ -161,6 +161,8 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Common\\Lexer\\' => 22,
             'DeepCopy\\' => 9,
+            'Database\\Seeders\\' => 17,
+            'Database\\Factories\\' => 19,
         ),
         'C' => 
         array (
@@ -483,6 +485,14 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
+        'Database\\Seeders\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/database/seeders',
+        ),
+        'Database\\Factories\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/database/factories',
+        ),
         'Cron\\' => 
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
@@ -520,6 +530,9 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
     );
 
     public static $classMap = array (
+        'AddDeliveryFeeToTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2021_06_10_062036_add_delivery_fee_to_tdetails_table.php',
+        'AddDeliveryTimeToTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2021_06_10_061109_add_delivery_time_to_tdetails_table.php',
+        'AddProductImageToTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2021_06_09_130752_add_product_image_to_tdetails_table.php',
         'App\\Ad_supamalluser' => __DIR__ . '/../..' . '/app/Ad_supamalluser.php',
         'App\\Banks' => __DIR__ . '/../..' . '/app/Banks.php',
         'App\\Clients' => __DIR__ . '/../..' . '/app/Clients.php',
@@ -674,6 +687,32 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
         'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
         'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'CreateAbanksTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_112520_create_abanks_table.php',
+        'CreateAdSupamalluserTable' => __DIR__ . '/../..' . '/database/migrations/2021_05_31_120807_create_ad_supamalluser_table.php',
+        'CreateBanksTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_23_083357_create_banks_table.php',
+        'CreateClientsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_112003_create_clients_table.php',
+        'CreateCurrenciesTable' => __DIR__ . '/../..' . '/database/migrations/2020_11_26_072039_create_currencies_table.php',
+        'CreateDeliveriesTable' => __DIR__ . '/../..' . '/database/migrations/2020_11_23_151356_create_deliveries_table.php',
+        'CreateDeliverychargesTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_124332_create_deliverycharges_table.php',
+        'CreateDepositsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_23_115857_create_deposits_table.php',
+        'CreateDetsTable' => __DIR__ . '/../..' . '/database/migrations/2020_11_28_071747_create_dets_table.php',
+        'CreateDisputesTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_16_095457_create_disputes_table.php',
+        'CreateFailedJobsTable' => __DIR__ . '/../..' . '/database/migrations/2019_08_19_000000_create_failed_jobs_table.php',
+        'CreateMediationsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_16_103351_create_mediations_table.php',
+        'CreateMpesaTokensTable' => __DIR__ . '/../..' . '/database/migrations/2021_05_05_101635_create_mpesa_tokens_table.php',
+        'CreateMpesaTransactionsTable' => __DIR__ . '/../..' . '/database/migrations/2021_05_13_082557_create_mpesa_transactions_table.php',
+        'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreatePaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_23_121056_create_payments_table.php',
+        'CreateProductTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_08_105539_create_product_tdetails_table.php',
+        'CreateProductsTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_02_083615_create_products_table.php',
+        'CreateSettingsTable' => __DIR__ . '/../..' . '/database/migrations/2020_11_26_070306_create_settings_table.php',
+        'CreateTdepositsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_113034_create_tdeposits_table.php',
+        'CreateTdetailsProductTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_08_105013_create_tdetails_product_table.php',
+        'CreateTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_112703_create_tdetails_table.php',
+        'CreateTpaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_113109_create_tpayments_table.php',
+        'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateVendorsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_115543_create_vendors_table.php',
+        'CreatesettlementsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_112733_create_settlements_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
@@ -684,7 +723,10 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
         'Cron\\HoursField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/HoursField.php',
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
-        'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\ProductTableSeeder' => __DIR__ . '/../..' . '/database/seeders/ProductTableSeeder.php',
+        'Database\\Seeders\\SupamallproductSeeder' => __DIR__ . '/../..' . '/database/seeders/SupamallproductSeeder.php',
+        'Database\\Seeders\\SupamalluserSeeder' => __DIR__ . '/../..' . '/database/seeders/SupamalluserSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
         'DeepCopy\\Exception\\PropertyException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',
@@ -4015,7 +4057,6 @@ class ComposerStaticInitc227a56cfc84dc0f353895f32d82003d
         'PhpParser\\Parser\\Tokens' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Parser/Tokens.php',
         'PhpParser\\PrettyPrinterAbstract' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php',
         'PhpParser\\PrettyPrinter\\Standard' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php',
-        'ProductTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ProductTableSeeder.php',
         'Prophecy\\Argument' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Argument.php',
         'Prophecy\\Argument\\ArgumentsWildcard' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Argument/ArgumentsWildcard.php',
         'Prophecy\\Argument\\Token\\AnyValueToken' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Argument/Token/AnyValueToken.php',

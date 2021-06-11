@@ -16,5 +16,10 @@ class DatabaseSeeder extends Seeder
         $path = public_path('sql/ad_supamalluser.sql');
         $sql = file_get_contents($path);
         DB::unprepared($sql);
+
+        $path2 = public_path('sql/ad_supamallproduct.sql');
+        $sql2 = file_get_contents($path2);
+        DB::unprepared($sql2);
+        
     }
 }

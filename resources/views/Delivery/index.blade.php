@@ -19,9 +19,9 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
-        <p>
+        <!-- <p>
             <a href="{{ route('adddelivery') }}" class="btn btn-primary">Add Delivery</a>
-        </p>
+        </p> -->
         <table class="table table-bordered table-striped">
             <tr>
                 <th>ID</th>
@@ -35,13 +35,14 @@
             @foreach($deliveries as $d)
                 <tr>
                     <td>{{ $d->id }}</td>
-                    <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('firstname') }}</td>
-                    <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('phoneno') }}</td>
-                    <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('email') }}</td>
+                    <td>{{ \App\Clients::where('id', $d->client_id)->pluck('firstname')->first() }}</td>
+                    <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('phoneno')->first() }}</td>
+                    <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('email')->first() }}</td>
                     <td>{{ $d->transdetail }}</td>
                     <td>N/A</td>
                     <td>
-              <!-- <a href="{{ route('editdelivery',$d->id) }}" class="btn btn-info">Edit</a> 
+              <a href="{{ route('showdelivery',$d->id) }}" class="btn btn-info">Sale Order</a> 
+<!-- 
               <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
               <form action="{{ route('deletedelviery',$d->id) }}" method="post">
                 @method('DELETE')

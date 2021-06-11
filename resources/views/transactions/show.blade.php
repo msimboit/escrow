@@ -190,7 +190,7 @@
                     <input type="text" name="subtotal" value="{{ array_sum($prices) }}" hidden>
                     <input type="text" name="shipping" value="1050" hidden>
                     <input type="text" name="total" value="{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}" hidden>
-                    <input type="text" name="deliveryfee" id="textbox2" value="vendor" hidden>
+                    <input type="text" name="deliveryhandler" id="textbox2" value="vendor" hidden>
                     <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
                     Purchase
                     </button>

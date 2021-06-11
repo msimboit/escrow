@@ -49,8 +49,15 @@ class DeliveryController extends Controller
 
     public function show($id)
     {
-        $deliveries = Deliveries::find($id);
-        return view('delivery.show', compact('deliveries'));   
+        $arr = Tdetails::where('id', $id)->first();
+        $vdetails = DB::table('ad_supamalluser')->where('id', '=', $arr->vendor_id)->first();
+        $cdetails = Clients::where('id', $arr->client_id)->first();
+        $itemdesc = explode(". ", $arr->transdetail);
+        $quantities = explode(" ", $arr->deposited);
+        $prices = explode(" ", $arr->transamount);
+        $product_image = explode(" & ", $arr->product_image);
+        return view('delivery.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices'))->with($id);
+        //return $vdetails;
     }
 
     public function edit($id)

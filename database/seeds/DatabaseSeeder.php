@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        // $this->call(UserSeeder::class);\
+        $path = public_path('sql/ad_supamalluser.sql');
+        $sql = file_get_contents($path);
+        DB::unprepared($sql);
     }
 }

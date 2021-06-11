@@ -131,7 +131,7 @@ class TransactionController extends Controller
         $trns->deposited = $quantities; 
         $trns->delivered = 0;
         $trns->closed=0;
-        $trns->deliveryamount= 0;
+        $trns->deliveryamount= $request->deliveryfee;
         $trns->transamount= $prices; 
         $trns->deliverylocation= $request->location;
         $trns->transdetail= $itemdesc; 
@@ -144,7 +144,7 @@ class TransactionController extends Controller
         $trns->trans_long = $request->long;
         $trns->trans_lat = $request->lat;
         $trns->delivery_time = $request->deliverytime;
-        $trns->delivery_fee = $request->deliveryfee;
+        $trns->delivery_handler = 'vendor';
 
         $imageName = [];
         $imageArray = $request->product_image;

@@ -108,7 +108,8 @@ Route::get('/deliveries/create', 'DeliveryController@create')->name('adddelivery
 Route::post('/deliveries/store', 'DeliveryController@store')->name('storedelivery');
 Route::post('/deliveries/update', 'DeliveryController@update')->name('updatedelivery');
 Route::post('/deliveries/delete', 'DeliveryController@delete')->name('deletedelviery');
-Route::get('/deliveries/show', 'DeliveryController@show')->name('showdelivery');
+Route::get('/deliveries/show/{id}', 'DeliveryController@show')->name('showdelivery');
+
 
 Route::get('/mediations', 'MediationController@index')->name('mediations');
 Route::get('/mediations/create', 'MediationController@create')->name('addmediation');

@@ -9,7 +9,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href=" {{ route('home') }}">Deliveries</a></li>
+            <li class="breadcrumb-item"><a href=" {{ route('home') }}">Home</a></li>
             <li class="breadcrumb-item active">Deliveries</li>
           </ol>
         </div><!-- /.col -->
@@ -25,26 +25,28 @@
         <table class="table table-bordered table-striped">
             <tr>
                 <th>ID</th>
-                <th>Bank </th>
-                <th>Branch </th>
-                <th>A/C No </th>
-                <th>Paybill </th>
+                <th>Client Name </th>
+                <th>Client No </th>
+                <th>Client Email</th>
+                <th>Transaction Detail</th>
+                <th>Mpesa Code</th>
                 <th>Action</th>
             </tr>
-            @foreach($deliveries as $c)
+            @foreach($deliveries as $d)
                 <tr>
-                    <td>{{ $c->id }}</td>
-                    <td>{{ $c->bankname }}</td>
-                    <td>{{ $c->bankbranch }}</td>
-                    <td>{{ $c->accoutnp }}</td>
-                    <td>{{ $c->paybill }}</td>
+                    <td>{{ $d->id }}</td>
+                    <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('firstname') }}</td>
+                    <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('phoneno') }}</td>
+                    <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('email') }}</td>
+                    <td>{{ $d->transdetail }}</td>
+                    <td>N/A</td>
                     <td>
-              <a href="{{ route('editdelivery',$c->id) }}" class="btn btn-info">Edit</a> 
+              <!-- <a href="{{ route('editdelivery',$d->id) }}" class="btn btn-info">Edit</a> 
               <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
-              <form action="{{ route('deletedelviery',$c->id) }}" method="post">
+              <form action="{{ route('deletedelviery',$d->id) }}" method="post">
                 @method('DELETE')
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              </form>
+              </form> -->
             </td>
                 </tr>
             @endforeach

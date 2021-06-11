@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Deliveries;
+use App\Tdetails;
+use App\Clients;
+use DB;
 
 
 class DeliveryController extends Controller
@@ -25,8 +28,18 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $arr['deliveries'] = Deliveries::paginate(10);
-        return view('delivery.index')->with($arr);
+        $arr['deliveries'] = Tdetails::paginate(100);
+        $vendor_id = (($arr['deliveries'][0])->vendor_id);
+        //dd($vendor_id);
+
+        $vendor = DB::table('ad_supamalluser')
+             ->where('id','=', $vendor_id)
+             ->first();
+
+        $client_id = (($arr['deliveries'][0])->vendor_id);
+        $client = Clients::where('id', $client_id)->first();
+        //dd($arr);
+        return view('delivery.index', compact('vendor','client'))->with($arr);
     }
 
     public function create()
@@ -47,26 +60,31 @@ class DeliveryController extends Controller
     }
 
 
-    public function store(Request $request)
-    {
-        $client = new Deliveries;
+    /** 
+     * Cant add a delivery since it picks from the transactions.
+     * */ 
+    
+    // public function store(Request $request)
+    // {
+    //     $client = new Deliveries;
 
-        $client->firstname=$request->clientname;
-        $client->middlename = $request->clientname;
-        $client->lastname = $request->clientname;
-        $client->IdNo = $request->idno;
-        $client->phoneno = $request->phoneno;
-        $client->email = $request->email;
-        $client->country = $request->country;
-      //  $client->acceptedtnc = $request->acceptedtnc;
-        $client->long=0;
-        $client->lat=0;
+    //     $client->firstname=$request->clientname;
+    //     $client->middlename = $request->clientname;
+    //     $client->lastname = $request->clientname;
+    //     $client->IdNo = $request->idno;
+    //     $client->phoneno = $request->phoneno;
+    //     $client->email = $request->email;
+    //     $client->country = $request->country;
+    //   //  $client->acceptedtnc = $request->acceptedtnc;
+    //     $client->long=0;
+    //     $client->lat=0;
 
-        $client->save();
+    //     $client->save();
 
-        return redirect()->route('deliveries')->with('success', 'Delivery Added!');
-    }
+    //     return redirect()->route('deliveries')->with('success', 'Delivery Added!');
+    // }
 
+    
     public function update(Request $request, $id)
     {
         //return view('transactions.create');

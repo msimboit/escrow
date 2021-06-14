@@ -12,8 +12,11 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                /* background-color: #fff;
+                color: #636b6f; */
+                background: #74ebd5;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to right, #ACB6E5, #74ebd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -49,7 +52,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #000;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -83,7 +86,7 @@
                 <div class="title m-b-md">
                     ESCROW
                 </div>
-
+                <h5>by Msimbo IT</h5>
               
             </div>
         </div>

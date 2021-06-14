@@ -84,9 +84,9 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+        <!-- <div class="image">
           <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-        </div>
+        </div> -->
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
@@ -264,10 +264,10 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer hidden-print">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2021 <a href="http://msimboit.net/" target="_blank">Msimbo IT</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.5
+      <b>Version</b> 1.0.0
     </div>
   </footer>
 

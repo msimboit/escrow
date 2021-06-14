@@ -89,8 +89,7 @@ class MpesaController extends Controller
 
 
 
-    public function customerMpesaSTKPush(){
-        $phone_number = 254700682679;
+    public function customerMpesaSTKPush($phone_number, $amount){
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl = curl_init();
         
@@ -108,7 +107,7 @@ class MpesaController extends Controller
         'PartyA' => $phone_number, // replace this with your phone number
         'PartyB' => 174379,
         'PhoneNumber' => $phone_number, // replace this with your phone number
-        'CallBackURL' => 'https://c52e5ec177a8.ngrok.io/api/mpesa_response',
+        'CallBackURL' => 'http://phplaravel-607367-1966954.cloudwaysapps.com',
         'AccountReference' => $phone_number,
         'TransactionDesc' => "Testing stk push on sandbox"
         ];
@@ -459,14 +458,9 @@ class MpesaController extends Controller
         //      Log::info('this bid does not exist');
         //  }
         
-         //$this->customerMpesaSTKPush($phone_number, $amount);
-        
-    
-        // return redirect()->to('/transactions/receipt')->with($values);
-        // return redirect()->route('generatereceipt');
-        //return redirect()->action([TransactionController::class, 'generatereceipt'])->with($values);
+        $this->customerMpesaSTKPush($phone_number, $amount);
         $arr = $values;
-        return view('receipts.show',compact('arr'));
+        return redirect('/home');
         
      
         // }else{

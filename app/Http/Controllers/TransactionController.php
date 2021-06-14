@@ -33,7 +33,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $arr['trs'] = Tdetails::paginate(100);
+        $arr['trs'] = Tdetails::orderBy('created_at', 'desc')->paginate(100);
         $vendors = Vendors::all();
         $clients = Clients::all();
 

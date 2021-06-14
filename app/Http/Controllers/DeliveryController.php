@@ -39,12 +39,12 @@ class DeliveryController extends Controller
         $client_id = (($arr['deliveries'][0])->vendor_id);
         $client = Clients::where('id', $client_id)->first();
         //dd($arr);
-        return view('delivery.index', compact('vendor','client'))->with($arr);
+        return view('Delivery.index', compact('vendor','client'))->with($arr);
     }
 
     public function create()
     {
-        return view('delivery.create');
+        return view('Delivery.create');
     }
 
     public function show($id)
@@ -56,14 +56,14 @@ class DeliveryController extends Controller
         $quantities = explode(" ", $arr->deposited);
         $prices = explode(" ", $arr->transamount);
         $product_image = explode(" & ", $arr->product_image);
-        return view('delivery.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices'))->with($id);
+        return view('Delivery.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices'))->with($id);
         //return $vdetails;
     }
 
     public function edit($id)
     {
         $deliveries = Deliveries::find($id);
-        return view('delivery.edit', compact('deliveries'));   
+        return view('Delivery.edit', compact('deliveries'));   
     }
 
 
@@ -121,6 +121,6 @@ class DeliveryController extends Controller
         $client = Deliveries::find($id);
         $client->delete();
 
-        return redirect('/deliveries')->with('success', 'Deliery deleted!');
+        return redirect()->route('deliveries')->with('success', 'Deliery deleted!');
     }
 }

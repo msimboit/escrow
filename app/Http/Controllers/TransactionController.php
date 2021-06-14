@@ -157,7 +157,7 @@ class TransactionController extends Controller
         $product_image = implode(" & ", $imageName);
         
        $trns->product_image = $product_image;
-       //dd($trns);
+       dd($trns);
         $trns->save();
         
         //Save the product details

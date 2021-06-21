@@ -25,9 +25,14 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <link rel="icon" href="{{ asset('images/favicon.png') }}">
+
   <!-- Google Font: Source Sans Pro -->
   <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -45,11 +50,12 @@
   <style>
     html, body {
       font-family: 'Nunito', sans-serif;
-      font-weight: 600;
+      font-weight: 400;
       height: 100vh;
       margin: 0;
     }
   </style>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -183,7 +189,7 @@
             <a href="{{ route('deliveries') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
-                Delivery
+                Deliveries
             
               </p>
             </a>

@@ -66,12 +66,12 @@
                         </div>
 
                         <div class="form-group mb-0">
-                                    <div class="col-md-8 offset-md-4 my-3">
-                                        Login with
-                                        <a href="{{ url('/login/facebook') }}"><i class="fa fab-facebook-official" aria-hidden="true"></i> Facebook</a>
+                                    <!-- <div class="col-md-8 offset-md-4 my-3"> -->
+                                        <!-- Login with -->
+                                        <!-- <a href="{{ url('/login/facebook') }}"><i class="fa fab-facebook-official" aria-hidden="true"></i> Facebook</a> -->
                                         <!-- <a href="{{ url('/login/twitter') }}"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a> -->
                                         <!-- <a href="{{ url('/login/github') }}"><i class="fa fa-github" aria-hidden="true"></i> Github</a> -->
-                                    </div>
+                                    <!-- </div> -->
                                     <div class="col-md-8 offset-md-4 my-3">
                                         <a href="{{ route('register') }}"> {{ __('Or Sign-up on Escrow') }}</a>
                                     </div>

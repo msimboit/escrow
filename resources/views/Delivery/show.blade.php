@@ -63,8 +63,8 @@
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
                   <strong><u>Order Details</u></strong><br>
-                  <br>
-                  <b>Order No:</b> {{$arr->id}}<br>
+                  
+                  <b>Order No:</b> <span class="order_id" value="{{$arr->id}}">{{$arr->id}}</span> <br>
                   <b>Payment Due:</b> {{ $arr->created_at->format('d-m-Y')}}<br>
                   <b>Account:</b> 968-34567<br>
                   <b>Delivery Point:</b> {{ $arr->deliverylocation }}
@@ -149,7 +149,7 @@
                       </tr>
                       <tr>
                         <th>Delivery Fee:</th>
-                        <td>{{ $arr->delivery_fee }}</td>
+                        <td>{{ $arr->deliveryamount}}</td>
                       </tr>
                       <tr>
                         <th>Total:</th>
@@ -168,8 +168,10 @@
                   <button type="button" class="btn btn-primary float-left" style="margin-right: 5px;" id="lnkPrint">
                     <i class="fas fa-print"></i> Print
                   </button>
+
                   <form action="{{ route('acceptdelivery') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+
                     <input type="text" name="clientName" value="{{ $cdetails->firstname }}" hidden>
                     <input type="text" name="clientNumber" value="{{ $cdetails->phoneno }}" hidden>
                     <input type="text" name="clientEmail" value="{{ $cdetails->email }}" hidden>
@@ -184,7 +186,7 @@
                     <input type="text" name="shipping" value="1050" hidden>
                     <input type="text" name="total" value="{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}" hidden>
                     <input type="text" name="deliveryfee" id="textbox2" value="vendor" hidden>
-                    <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
+                    <button type="submit" class="btn btn-success float-right submit_order"><i class="far fa-credit-card"></i> Accept
                     Delivery
                     </button>
                   </form>
@@ -221,6 +223,28 @@
                 $('#textbox2').val('vendor');
             }
         }
+
+        // $(".submit_form").click(function(){
+
+        //   var order_id = $('.order_id').val();
+        //   console.log(order_id)
+
+        //   $.ajax({
+        //       //this part
+        //       url: "/",
+        //       type:"POST",
+        //       data: { order_id: order_id},
+        //       success:function(response){
+        //         console.log("success");
+        //         window.alert("Successfully Updated Table Mapping");
+        //       },
+        //       error:function(){
+        //           console.log("error");
+        //           window.alert("Oops Something Went Wrong");
+        //       }
+        //   });
+
+        // })
 
     </script>
 

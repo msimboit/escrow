@@ -19,12 +19,21 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
-        <!-- <p>
-            <a href="{{ route('adddelivery') }}" class="btn btn-primary">Add Delivery</a>
-        </p> -->
+        <div class="card my-4">
+            <h5 class="card-header">Search</h5>
+            <form class="card-body" action="/deliveries/search" method="GET" role="search">
+                {{ csrf_field() }}
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." name="q">
+                    <span class="input-group-btn">
+                <button class="btn btn-secondary" type="submit">Go!</button>
+              </span>
+                </div>
+            </form>
+        </div>
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Client Name </th>
                 <th>Client No </th>
                 <th>Client Email</th>
@@ -34,7 +43,7 @@
             </tr>
             @foreach($deliveries as $d)
                 <tr>
-                    <td>{{ $d->id }}</td>
+                    <!-- <td>{{ $d->id }}</td> -->
                     <td>{{ \App\Clients::where('id', $d->client_id)->pluck('firstname')->first() }}</td>
                     <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('phoneno')->first() }}</td>
                     <td>{{ \App\Clients::where(['id' => $d->client_id])->pluck('email')->first() }}</td>

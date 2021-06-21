@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+{!! NoCaptcha::renderJs() !!}
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header d-flex justify-content-center">{{ __('ESCROW REGISTER') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -60,6 +63,11 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+
+                        <div class="col-md-6 offset-md-4 mb-2">
+                            {!! NoCaptcha::display() !!}
+                        </div>
+                        
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

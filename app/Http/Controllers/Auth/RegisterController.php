@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'g-recaptcha-response' => ['required', 'captcha'],
         ]);
     }
 
@@ -64,6 +65,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $messages = [
+            'g-recaptcha-response.required' => 'You must check the reCAPTCHA.',
+            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+        ];
+        
+        $validator = Validator::make($request->all(), [
+            'g-recaptcha-response' => 'required|captcha'
+        ], $messages);
+ 
+        if ($validator->fails()) {
+            return redirect('ROUTE_HERE')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

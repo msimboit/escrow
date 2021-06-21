@@ -24,12 +24,14 @@
         </p>
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
-                <th>Bank </th>
-                <th>Branch </th>
-                <th>A/C No </th>
-                <th>Paybill </th>
-                <th>Action</th>
+                <th>Transaction ID</th>
+                <th>Date</th>
+                <th>Vendor Name</th>
+                <th>Vendor Paybill</th>
+                <th>Mpesa Code</th>
+                <th>Handling Fee</th>
+                <th>Amount</th>
+                <th>Status</th>
             </tr>
             @foreach($settlements as $c)
                 <tr>

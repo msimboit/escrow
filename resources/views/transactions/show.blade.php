@@ -63,7 +63,6 @@
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
                   <strong><u>Order Details</u></strong><br>
-                  <br>
                   <b>Order No:</b> {{$arr->id}}<br>
                   <b>Payment Due:</b> {{ $arr->created_at->format('d-m-Y')}}<br>
                   <b>Account:</b> 968-34567<br>
@@ -144,18 +143,18 @@
                         <td>Kshs.{{ array_sum($prices) }}</td>
                       </tr>
                       <tr>
-                        <th>Transaction Fee(1%)</th>
+                        <th>Handling Fee(1%)</th>
                         <td>Kshs.{{ round(((array_sum($prices))/100)*1) }}.00</td>
                       </tr>
                       <tr>
                         <th>Delivery Fee:</th>
-                        <td>{{ $arr->delivery_fee }}</td>
+                        <td>{{ $arr->deliveryamount }}</td>
                       </tr>
                       <tr>
                         <th>Delivery Fee <br /> Handled By:</th>
                         <td>
-                        <input type="checkbox" id="deliveryfee" value="deliveryfee" onclick="myFunction()"> <small> Agree that buyer handles delivery fee</small> </input>
-                        <p id="text" style="display:none"><small>*Buyer will be <strong>charged!</strong></small></p>
+                        <input type="checkbox" id="deliveryfee" value="deliveryfee" onclick="myFunction()"> <small> Agree that Vendor handles delivery fee</small> </input>
+                        <p id="text" style="display:none"><small>*Vendor will be <strong>charged!</strong></small></p>
                         </td>
                       </tr>
                       <tr>
@@ -190,7 +189,7 @@
                     <input type="text" name="subtotal" value="{{ array_sum($prices) }}" hidden>
                     <input type="text" name="shipping" value="1050" hidden>
                     <input type="text" name="total" value="{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}" hidden>
-                    <input type="text" name="deliveryhandler" id="textbox2" value="vendor" hidden>
+                    <input type="text" name="deliveryhandler" id="textbox2" value="client" hidden>
                     <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
                     Purchase
                     </button>
@@ -222,10 +221,10 @@
             var text = document.getElementById("text");
             if (checkBox.checked == true){
                 text.style.display = "block";
-                $('#textbox2').val('client');
+                $('#textbox2').val('vendor');
             } else {
                 text.style.display = "none";
-                $('#textbox2').val('vendor');
+                $('#textbox2').val('client');
             }
         }
 

@@ -22,7 +22,7 @@
         <p>
             <a href="{{ route('addvendor') }}" class="btn btn-primary" disabled>Add New Vendor</a>
         </p>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-responsive-md">
             <tr>
                 <th>Escrow Id</th>
                 <th>Names </th>

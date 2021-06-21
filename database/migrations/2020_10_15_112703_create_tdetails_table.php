@@ -16,6 +16,7 @@ class CreateTdetailsTable extends Migration
         Schema::create('tdetails', function (Blueprint $table) {
             $table->id();
             $table->string('client_id');
+            $table->string('client_phone');
             $table->string('transactioncode');
             $table->string('vendor_id');
             $table->string('transdetail');

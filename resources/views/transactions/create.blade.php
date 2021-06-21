@@ -66,7 +66,7 @@
   </select>
 
   <div class="row mt-4 ml-3">
-    <label >Set Your PickUp Location Below: <small>(Please enter a valid location as possible, e.g "example,city,country")</small></label>
+    <label >Set Your Delivery Location Below: <small>(Please enter a valid location as possible, e.g "example,city,country")</small></label>
     <div class="col-md-6"><input type="text" name="location" class="form-control" id="my-input-searchbox"></div>
     <div class="clearfix"></div>
   </div>
@@ -74,6 +74,10 @@
         <div id="map"></div>
   </div>
 
+  <div class="form-group">
+    <label >Additional Location details: <small>(Describe if necessary the exact delivery location)</small></label>
+    <input name="locationdetails" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+  </div>
 
 
       </div>
@@ -114,7 +118,7 @@
  
                         <td>
                             <!-- <input type="string" name="itemdesc[]" class="form-control" value="" placeholder="item description" /> -->
-                            <textarea name="itemdesc[]" id="" value="" placeholder="item description" class="form-control"></textarea>
+                            <textarea name="itemdesc[]" id="" value="{{ old('itemdesc.' . $index) ?? '1' }}" placeholder="item description" class="form-control"></textarea>
                         </td>
                         <td>
                             <input type="number" name="quantities[]" class="form-control" value="{{ old('quantities.' . $index) ?? '1' }}" />
@@ -402,6 +406,13 @@ function calc_total()
             document.addEventListener("DOMContentLoaded", function(event) {
             initAutocomplete();
             });
+
+            // Resize stuff...
+  google.maps.event.addDomListener(window, "resize", function() {
+    var center = map.getCenter();
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(center); 
+  });
 
 
             function getLocation() {

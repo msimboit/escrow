@@ -97,13 +97,12 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'vendor_id' => 'required',
-        //     'client_id' => 'required',
-        //     'location' => 'required',
-        //     'product_image' => 'required|mimes:jpg,png,jpeg|max:5048',
-        //     'deliveryfee' => 'required'
-        // ]);
+        $request->validate([
+            'vendor_id' => 'required',
+            'client_id' => 'required',
+            'location' => 'required',
+            'deliveryfee' => 'required'
+        ]);
 
         //dd($request->all());
         $itemdesc = implode (". ", $request->input('itemdesc',[]));
@@ -117,14 +116,20 @@ class TransactionController extends Controller
         $user = Auth::user();
         $trns = new Tdetails;
         $trnscode = '';
-        //$vendor = DB::select('select id from ad_supamalluser where name = ?', [$request->vendor_id]);
+        
         $vendor = DB::table('ad_supamalluser')
              ->select('id')
              ->where('name','=', $request->vendor_id)
              ->first();
-        //dd($vendor);
+        $client_phone = DB::table('clients')
+        ->select('phoneno')
+        ->where('id','=', $request->client_id)
+        ->first();
+
+        
         $trns->vendor_id = $vendor->id;
         $trns->client_id = $request->client_id;
+        $trns->client_phone = $client_phone->phoneno;
         $trns->transactioncode =$trnscode;
         $trns->users_id = $user->id;
         $trns->validated = 0;
@@ -157,7 +162,7 @@ class TransactionController extends Controller
         $product_image = implode(" & ", $imageName);
         
        $trns->product_image = $product_image;
-       //dd($trns);
+    //    dd($trns);
         $trns->save();
         
         //Save the product details
@@ -220,11 +225,14 @@ class TransactionController extends Controller
         return redirect()->route('transactions')->with('success', 'Transaction Updated!');
     }
     
+
     public function generatereceipt()
     {
         $arr = $values;
         return view('receipts.show',compact('arr'));
     }
+
+
 
     public function selectSearch(Request $request)
     {

@@ -28,7 +28,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $arr['deliveries'] = Tdetails::paginate(100);
+        $arr['deliveries'] = Tdetails::where('delivered', '0')->paginate(100);
         $vendor_id = (($arr['deliveries'][0])->vendor_id);
         //dd($vendor_id);
 
@@ -91,6 +91,15 @@ class DeliveryController extends Controller
     //     return redirect()->route('deliveries')->with('success', 'Delivery Added!');
     // }
 
+    public function acceptDelivery(Request $request) {
+        $update_table = DB::table('tdetails')
+                         ->where('id', $request->input('orderId'))
+                         ->update([
+                        'delivered' => '1'                                                                 
+                ]);
+
+        return redirect()->route('deliveries')->with('success', 'Delivered');
+    }
     
     public function update(Request $request, $id)
     {
@@ -122,5 +131,17 @@ class DeliveryController extends Controller
         $client->delete();
 
         return redirect()->route('deliveries')->with('success', 'Deliery deleted!');
+    }
+
+
+    public function search(Request $request)
+    {
+        //dd($request->q);
+        $search = Tdetails::query()
+            ->where('client_phone', 'like', "%{$request->q}%")
+            ->orderBy('created_at', 'desc')
+            ->get();
+        // dd($search[0]->client_phone);
+        return view('Delivery.search', ['search' => $search]);
     }
 }

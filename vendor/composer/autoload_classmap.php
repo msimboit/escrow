@@ -6,9 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AddDeliveryFeeToTdetailsTable' => $baseDir . '/database/migrations/2021_06_10_062036_add_delivery_fee_to_tdetails_table.php',
     'AddDeliveryTimeToTdetailsTable' => $baseDir . '/database/migrations/2021_06_10_061109_add_delivery_time_to_tdetails_table.php',
     'AddProductImageToTdetailsTable' => $baseDir . '/database/migrations/2021_06_09_130752_add_product_image_to_tdetails_table.php',
+    'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
+    'Anhskohbo\\NoCaptcha\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/NoCaptcha.php',
+    'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider' => $vendorDir . '/anhskohbo/no-captcha/src/NoCaptchaServiceProvider.php',
     'App\\Ad_supamalluser' => $baseDir . '/app/Ad_supamalluser.php',
     'App\\Banks' => $baseDir . '/app/Banks.php',
     'App\\Clients' => $baseDir . '/app/Clients.php',

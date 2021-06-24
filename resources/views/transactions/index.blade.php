@@ -22,6 +22,7 @@
         <p>
             <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>
         </p>
+        <a id="myID" href="#nada" class="button button-primary">Print container</a>
         <table class="table table-bordered table-striped">
             <tr>
                 <!-- <th>ID</th> -->
@@ -57,3 +58,7 @@
   </section>	
 @endsection
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js" integrity="sha512-d5Jr3NflEZmFDdFHZtxeJtBzk0eB+kkRXWFQqEc1EKmolXjHm2IKCA7kTvXBNjIYzjXfD5XzIjaaErpkZHCkBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $("#myID").printThis();
+</script>

@@ -46,7 +46,7 @@ Route::post('/transactions/update/{id}', 'TransactionController@update')->name('
 Route::post('/transactions/delete/{id}', 'TransactionController@delete')->name('deletetransaction');
 Route::get('/transactions/show/{id}', 'TransactionController@show')->name('showtransactions');
 Route::get('/transactions/receipt', 'TransactionController@generatereceipt')->name('generatereceipt');
-Route::post('/transactions/payment', 'MpesaController@payment')->name('payment');
+Route::post('/transactions/payment', 'MpesaController@transactionpayment')->name('transactionpayment');
 
 Route::get('/abanks', 'BankController@index')->name('abanks');
 Route::get('/abanks/create', 'BankController@create')->name('addabank');

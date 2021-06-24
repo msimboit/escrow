@@ -14,6 +14,7 @@ use DB;
 
 use App\Clients;
 use App\User;
+use App\Tdetails;
 use App\Vendors;
 use App\mpesa_token;
 
@@ -90,6 +91,8 @@ class MpesaController extends Controller
 
 
     public function customerMpesaSTKPush($phone_number, $amount){
+        // $phone_number = 254700682679;
+        // $amount = 1;
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl = curl_init();
         
@@ -403,91 +406,21 @@ class MpesaController extends Controller
 
 
 
-    public function payment( Request $request ){
+    public function transactionpayment( Request $request ){
 
         $values = $request->except(['_token']);
-        
+        // dd($values);
         $phone_number = $request->clientNumber; 
         $amount =   $request->total; 
         $phone_number = substr($phone_number, -9);
         $phone_number = 254 . $phone_number;
         
- 
-        // $bidder_unique_id= substr( bin2hex( random_bytes( 12 ) ),  0, 12 );       
-        // $password =   substr( bin2hex( random_bytes( 8 ) ),  0, 8 );  
-        
-        // Crypt::encrypt($password);
-       
-        // $user = User::where('phone_number', '=', $phone_number)->first();
-        // if ($user === null) {
-        // // user doesn't exist
-
-        // $new_user = new User([
-        //     'phone_number' => $phone_number,
-        //     'password' => $password,
-        //     'bidder_unique_id' => $bidder_unique_id,
-        //     'role' => 'bidder',
-        //     'eligible' => true,           
-        // ]);
-
-        // $new_user->save();
-
-        //auth()->login($new_user);
-
-        //$bid_unique_id = $_POST['bid_unique_id'];
-
-            // $bid_unique_id='0ef0bcb2ae';
-
-
-         //$bid = Bid::where('bid_unique_id', '=', $bid_unique_id)->first();
-
-        //  if (Bid::where('bid_unique_id', '=', $bid)->exists()) {
-
-        //      $update_bid = Bid::updateOrCreate([
-        //                          ['item_owner' => $phone_number],
-        //                          ['item_name']
-                                 
-        //                          ])->where('bid_unique_id', '=', $bid );
-                                        
-                                    
-        //  }else{
-
-
-
-
-        //      Log::info('this bid does not exist');
-        //  }
-        
         $this->customerMpesaSTKPush($phone_number, $amount);
-        $arr = $values;
-        return redirect('/home');
         
-     
-        // }else{
-                       
-    
-            // $bid_unique_id = $_POST['bid_unique_id'];
-            // // $bid_unique_id='0ef0bcb2ae';
+        Tdetails::where('id', '=', $values['orderId'])
+                ->update(['transactioncode' => 'mpesaCode']);
 
-            //  $bid = Bid::where('bid_unique_id', '=', $bid_unique_id)->first();
-
-            //  if (Bid::where('bid_unique_id', '=', $bid)->exists()) {
-            //      $update_bid = DB::table('bid')
-            //                          ->where('bid_unique_id', '=', $bid )
-            //                          ->update([
-            //                              'current_bids' => $bid_amount,' by ',$bidder_unique_id,
-            //                              'current_bidders' => $bidder_unique_id,
-            //                          ]);
-                
-            //  }else{
-            //      Log::info('this bid does not exist');
-            //  }
-
-
-        //     $this->customerMpesaSTKPush($phone_number, $amount);
-            
-        //     return redirect('/login');
-        // }
+        return redirect('/home');
 
     }
 }

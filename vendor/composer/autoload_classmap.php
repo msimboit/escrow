@@ -201,7 +201,7 @@ return array(
     'Cron\\HoursField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/HoursField.php',
     'Cron\\MinutesField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
     'Cron\\MonthField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
-    'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'Database\\Seeders\\ProductTableSeeder' => $baseDir . '/database/seeds/ProductTableSeeder.php',
     'Database\\Seeders\\SupamallproductSeeder' => $baseDir . '/database/seeds/SupamallproductSeeder.php',
     'Database\\Seeders\\SupamalluserSeeder' => $baseDir . '/database/seeds/SupamalluserSeeder.php',

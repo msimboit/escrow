@@ -69,8 +69,8 @@ class RegisterController extends Controller
             'g-recaptcha-response.required' => 'You must check the reCAPTCHA.',
             'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
         ];
-        
-        $validator = Validator::make($request->all(), [
+
+        $validator = Validator::make($data, [
             'g-recaptcha-response' => 'required|captcha'
         ], $messages);
  

@@ -83,6 +83,8 @@ class MpesaToken extends Command
 
         }
 
+        echo('Generated New Mpesa Token');
+
     }
 
 

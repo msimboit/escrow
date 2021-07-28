@@ -90,9 +90,9 @@ class MpesaController extends Controller
 
 
 
-    public function customerMpesaSTKPush($phone_number, $amount){
-        // $phone_number = 254700682679;
-        // $amount = 1;
+    public function customerMpesaSTKPush(){
+        $phone_number = 254700682679;
+        $amount = 1;
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl = curl_init();
         
@@ -135,79 +135,79 @@ class MpesaController extends Controller
      * 
      * return [string] access_token
      */
-    // public function generateAccessToken(){
-        
-    //     $consumer_key       = env('MPESA_CONSUMER_KEY', '');
-    //     $consumer_secret    = env('MPESA_CONSUMER_SECRET', '');
-    //     $credentials        = base64_encode($consumer_key.":".$consumer_secret);
 
-    //     $url    = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-    //     $curl   = curl_init();
+    public function generateAccessToken(){
 
-    //     curl_setopt($curl, CURLOPT_URL, $url);
-    //     curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic ".$credentials));
-    //     curl_setopt($curl, CURLOPT_HEADER,false);
-    //     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $consumer_key = env('MPESA_CONSUMER_KEY', '');
+        $consumer_secret = env('MPESA_CONSUMER_SECRET', '');
+        $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
 
-    //     $curl_response  = curl_exec($curl);
+        $url    = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";        
+        $curl = curl_init();
 
-    //     $access_token   = json_decode($curl_response);
-    //     $token = $access_token->access_token;
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic " . $credentials));
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-    //     DB::table('mpesa_tokens')->insert([
-    //         'access_token' => $token
-    //     ]);
+        $curl_response = curl_exec($curl);
+        //$curl_info = curl_getinfo($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $access_token = json_decode($curl_response);
 
-    //     Log::info(serialize($access_token));
-    //     return $access_token->access_token;
-    // }
+        $token= $access_token->access_token;
+        Log::info('URL fxn tkn '.$token);
+   
+    return $token;
+}
 
 
 
     // Access Token Alternative
+    
 
 
-    public function generateAccessToken(){
+    // public function generateAccessToken(){
 
 
-        $token_m=DB::table('mpesa_tokens')->limit(1)->get();
+    //     $token_m=DB::table('mpesa_tokens')->limit(1)->get();
 
-        if($token_m) {
-            foreach ($token_m as $x) {
-                $token = $x->access_token;
-           }
+    //     if($token_m) {
+    //         foreach ($token_m as $x) {
+    //             $token = $x->access_token;
+    //        }
 
-        }
-        else {
+    //     }
+    //     else {
 
 
-            $consumer_key = 'oeazFs2H1ywGrmGAw0FqUzEOrHyPVzVw';
-            $consumer_secret = 'DxpO6qlcsKMABZK8';
-            $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
+    //         $consumer_key = 'oeazFs2H1ywGrmGAw0FqUzEOrHyPVzVw';
+    //         $consumer_secret = 'DxpO6qlcsKMABZK8';
+    //         $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
 
-            $url    = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+    //         $url    = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
             
 
-            // $url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-            $curl = curl_init();
+    //         $url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+    //         $curl = curl_init();
 
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic " . $credentials));
-            curl_setopt($curl, CURLOPT_HEADER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    //         curl_setopt($curl, CURLOPT_URL, $url);
+    //         curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic " . $credentials));
+    //         curl_setopt($curl, CURLOPT_HEADER, false);
+    //         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    //         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-            $curl_response = curl_exec($curl);
-            //$curl_info = curl_getinfo($curl);
-            $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            $access_token = json_decode($curl_response);
-            // Log::info($access_token);
-            $token= $access_token->access_token;
-            Log::info('URL fxn tkn '.$token);
-        }
-        return $token;
-    }
+    //         $curl_response = curl_exec($curl);
+    //         //$curl_info = curl_getinfo($curl);
+    //         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    //         $access_token = json_decode($curl_response);
+    //         // Log::info($access_token);
+    //         $token= $access_token->access_token;
+    //         Log::info('URL fxn tkn '.$token);
+    //     }
+    //     return $token;
+    // }
 
     /**
      * Mpesa callback, gives response which is then stored in the DB

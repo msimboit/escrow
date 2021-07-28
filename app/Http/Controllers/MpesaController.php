@@ -90,9 +90,9 @@ class MpesaController extends Controller
 
 
 
-    public function customerMpesaSTKPush(){
-        $phone_number = 254700682679;
-        $amount = 1;
+    public function customerMpesaSTKPush($phone_number, $amount){
+        // $phone_number = 254700682679;
+        // $amount = 1;
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl = curl_init();
         

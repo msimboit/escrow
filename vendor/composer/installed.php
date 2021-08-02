@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '0a38816d49f3b6abafcb2cb094ddf9ac8e80b322',
+    'reference' => 'a978113dd390f2576a81c5b10570a3d03b8eab1b',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -51,15 +51,6 @@
       array (
         0 => '*',
       ),
-    ),
-    'dflydev/dot-access-data' => 
-    array (
-      'pretty_version' => 'v3.0.0',
-      'version' => '3.0.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'e04ff030d24a33edc2421bef305e32919dd78fc3',
     ),
     'doctrine/inflector' => 
     array (
@@ -162,13 +153,12 @@
     ),
     'fzaninotto/faker' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'v1.9.2',
+      'version' => '1.9.2.0',
       'aliases' => 
       array (
-        0 => '1.9.x-dev',
       ),
-      'reference' => '5ffe7db6c80f441f150fc88008d64e64af66634b',
+      'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
     ),
     'graham-campbell/result-type' => 
     array (
@@ -464,7 +454,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '0a38816d49f3b6abafcb2cb094ddf9ac8e80b322',
+      'reference' => 'a978113dd390f2576a81c5b10570a3d03b8eab1b',
     ),
     'laravel/socialite' => 
     array (
@@ -504,21 +494,12 @@
     ),
     'league/commonmark' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '1.6.6',
+      'version' => '1.6.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => '167142baf9a6b946f99ad9325b06028606f8238e',
-    ),
-    'league/config' => 
-    array (
-      'pretty_version' => 'v1.1.0',
-      'version' => '1.1.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '20d42d88f12a76ff862e17af4f14a5a4bbfd0925',
+      'reference' => 'c4228d11e30d7493c6836d20872f9582d8ba6dcf',
     ),
     'league/flysystem' => 
     array (
@@ -587,30 +568,12 @@
     ),
     'nesbot/carbon' => 
     array (
-      'pretty_version' => '2.50.0',
-      'version' => '2.50.0.0',
+      'pretty_version' => '2.51.0',
+      'version' => '2.51.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f47f17d17602b2243414a44ad53d9f8b9ada5fdb',
-    ),
-    'nette/schema' => 
-    array (
-      'pretty_version' => 'v1.2.1',
-      'version' => '1.2.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'f5ed39fc96358f922cedfd1e516f0dadf5d2be0d',
-    ),
-    'nette/utils' => 
-    array (
-      'pretty_version' => 'v3.2.2',
-      'version' => '3.2.2.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '967cfc4f9a1acd5f1058d76715a424c53343c20c',
+      'reference' => '48ebff252df4d3b60ecb8e2583f79dfba6b56bc8',
     ),
     'nikic/php-parser' => 
     array (
@@ -858,8 +821,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0.0',
-        1 => '1.0|2.0',
+        0 => '1.0|2.0',
+        1 => '1.0.0',
       ),
     ),
     'psr/simple-cache' => 

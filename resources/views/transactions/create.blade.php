@@ -30,21 +30,15 @@
             <div class="form-group">
             <div class="row m-3">
             <label class="col-md-3">Vendor</label>
-            <!-- For defining autocomplete -->
-                <!-- <input type="text" id='vendor_search' class="p-1 mr-2" placeholder="Type the vendor name"> -->
-            <!-- For displaying selected option value from autocomplete suggestion -->
-                <!-- <span class="p-1">Selected Vendor:</span> -->
-                <!-- <input type="text" id='vendorname' readonly class="p-1 mr-2" name="vendor_id"> -->
-
-        <!-- <select class="livesearch form-control col-sm-4" name="vendor_id" id="livesearch"></select> -->
-      <select class="form-control col-sm-4" name="vendor_id">
-        <option>Select Vendor</option>
-        @foreach ($vendors as $key => $value)
-          <option value="{{ $value }}" > 
-              {{ $value }} 
-          </option>
-      @endforeach    
-    </select>
+              <!-- <select class="form-control col-sm-4" name="vendor_id" required>
+                <option>Select Vendor</option>
+                @foreach ($vendors as $vendor)
+                  <option value="{{ $vendor->phone_number }}" > 
+                      {{ $vendor->first_name }} {{ $vendor->last_name }} - {{ $vendor->phone_number }}
+                  </option>
+              @endforeach    
+            </select> -->
+            <input type="text" name="{{ Auth::user()->phone_number}}" placeholder="{{ Auth::user()->first_name}} {{ Auth::user()->last_name}} - {{ Auth::user()->phone_number}}" class="form-control col-sm-4 font-weight-bold" readonly>
   </select>
 </div>
 <div class="row m-3">
@@ -56,18 +50,18 @@
         <!-- <input type="text" id='clientfirstname' readonly class="p-1 mr-2"> -->
 
         <!-- <select class="livesearch form-control col-sm-4" name="client_id" id="livesearch2"></select> -->
-    <select class="form-control col-sm-4" name="client_id">
+    <select class="form-control col-sm-4" name="client_id" required>
       <option>Select Buyer</option>
-      @foreach ($clients as $key => $value)
-          <option value="{{ $key }}" > 
-              {{ $value }} 
+      @foreach ($clients as $client )
+          <option value="{{ $client->phone_number }}" > 
+              {{ $client->first_name }} {{ $client->last_name }} - {{ $vendor->phone_number }}
           </option>
       @endforeach    
   </select>
 
   <div class="row mt-4 ml-3">
     <label >Set Your Delivery Location Below: <small>(Please enter a valid location as possible, e.g "example,city,country")</small></label>
-    <div class="col-md-6"><input type="text" name="location" class="form-control" id="my-input-searchbox"></div>
+    <div class="col-md-6"><input type="text" name="location" class="form-control" id="my-input-searchbox" required></div>
     <div class="clearfix"></div>
   </div>
   <div class="form-group">
@@ -118,13 +112,13 @@
  
                         <td>
                             <!-- <input type="string" name="itemdesc[]" class="form-control" value="" placeholder="item description" /> -->
-                            <textarea name="itemdesc[]" id="" value="{{ old('itemdesc.' . $index) ?? '1' }}" placeholder="item description" class="form-control"></textarea>
+                            <textarea name="itemdesc[]" id="" value="{{ old('itemdesc.' . $index) ?? '1' }}" placeholder="item description" class="form-control" required></textarea>
                         </td>
                         <td>
-                            <input type="number" name="quantities[]" class="form-control" value="{{ old('quantities.' . $index) ?? '1' }}" />
+                            <input type="number" name="quantities[]" class="form-control" value="{{ old('quantities.' . $index) ?? '1' }}" required>
                         </td>
                         <td>
-                            <input type="number" name="prices[]" class="form-control" value="{{ old('prices' . $index) ?? '1' }}" />
+                            <input type="number" name="prices[]" class="form-control" value="{{ old('prices' . $index) ?? '1' }}" required>
                         </td>
                         <td>
                         
@@ -180,6 +174,15 @@
             <div class="row m-3">
               <label class="col-md-2">Delivery Fee:</label>
             <input type="number" name="deliveryfee" class="form-control col-sm-2" value="1" />
+            </div>
+
+            <div class="row m-3 pt-2">
+              <label class="col-md-2">Charging Fee Handled By:</label>
+              <select class="form-control col-sm-4" name="delivery_fee_handler" required>
+                <option>Select Delivery Fee Handler</option>
+                <option value="client">Buyer</option>
+                <option value="vendor">Vendor</option>      
+              </select>
             </div>
 
             <div>

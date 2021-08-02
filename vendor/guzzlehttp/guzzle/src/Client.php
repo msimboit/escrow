@@ -230,7 +230,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
             'allow_redirects' => RedirectMiddleware::$defaultSettings,
             'http_errors'     => true,
             'decode_content'  => true,
-            'verify'          => false,
+            'verify'          => true,
             'cookies'         => false,
             'idn_conversion'  => false,
         ];
@@ -470,15 +470,5 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
             . 'Please use the "form_params" request option to send a '
             . 'application/x-www-form-urlencoded request, or the "multipart" '
             . 'request option to send a multipart/form-data request.');
-    }
-
-    protected function getDefaultOptions() 
-    { 
-        $settings = [ 
-            'allow_redirects' => true, 
-            'exceptions' => true, 
-            'decode_content' => true, 
-            'verify' => getcwd() .'/vendor/guzzlehttp/guzzle/src/cacert.pem' 
-        ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Tdetails;
 use App\Vendors;
 use App\Clients;
@@ -33,31 +34,29 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $arr['trs'] = Tdetails::orderBy('created_at', 'desc')->paginate(100);
-        $vendors = Vendors::all();
-        $clients = Clients::all();
-
-        return view('transactions.index')->with($arr);
+        $transactions = Tdetails::orderBy('created_at', 'desc')->paginate(100);
+        $vendors = User::where('role','vendor')->get();
+        $clients = User::where('role','client')->get();
+        //dd($transactions);
+        return view('transactions.index', compact('transactions'));
     }
 
     public function create()
     {
-            /*
-            $items = Vendors::pluck('firstname', 'id');
-            */
-            $vendors = DB::table('ad_supamalluser')->select('name')->pluck('name');
-            // $vendors = DB::table('ad_supamallproduct') ->select('id','user_id', 'product_name','phone')
-            // ->get();
+            //From Supamall
+            // $vendors = DB::table('ad_supamalluser')->select('name')->pluck('name');
+            // // $vendors = DB::table('ad_supamallproduct') ->select('id','user_id', 'product_name','phone')
+            // // ->get();
 
-            $clients = Clients::pluck('firstname', 'id');
-
+            $vendors = User::where('role', 'vendor')->get();
+            $clients = User::where('role', 'client')->get();
             /*
             $prds = Product::all(); //('name','id');
             */
             $prds = DB::table('ad_supamallproduct') ->select('id','user_id', 'product_name', 'price', 'phone')
             ->get();
             $selectedID = 2;
-            // dd($vendors);
+            //dd($vendors);
             return view('transactions.create', compact('vendors','clients','prds'));
 
             //return ($vendors);
@@ -70,17 +69,17 @@ class TransactionController extends Controller
         
         //$vdetails = Vendors::where('id', $arr->vendor_id)->first();
     
-        $vdetails = DB::table('ad_supamalluser')->where('id', '=', $arr->vendor_id)->first();
+        $vdetails = User::where('id', $arr->vendor_id)->first();
         /* Added the square brackets because vdetails returns a collection */
         //$vdetails = $vdetails[0];
-        $cdetails = Clients::where('id', $arr->client_id)->first();
+        $cdetails = User::where('phone_number', $arr->client_phone)->first();
+
         $itemdesc = explode(". ", $arr->transdetail);
         $quantities = explode(" ", $arr->deposited);
         $prices = explode(" ", $arr->transamount);
         $product_image = explode(" & ", $arr->product_image);
-        //dd($arr);
+        // dd($product_image);
         return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices'))->with($id);
-        //return $vdetails;
     }
 
     public function edit($id)
@@ -98,8 +97,10 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'vendor_id' => 'required',
             'client_id' => 'required',
+            'itemdesc' => 'required',
+            'quantities' => 'required',
+            'prices' => 'required',
             'location' => 'required',
             'deliveryfee' => 'required'
         ]);
@@ -117,19 +118,22 @@ class TransactionController extends Controller
         $trns = new Tdetails;
         $trnscode = '';
         
-        $vendor = DB::table('ad_supamalluser')
-             ->select('id')
-             ->where('name','=', $request->vendor_id)
-             ->first();
-        $client_phone = DB::table('clients')
-        ->select('phoneno')
-        ->where('id','=', $request->client_id)
-        ->first();
+        //For Supamall vendors
+        // $vendor = DB::table('ad_supamalluser')
+        //      ->select('id')
+        //      ->where('name','=', $request->vendor_id)
+        //      ->first();
+        //dd($vendor);
 
-        
+        $vendor = User::where('phone_number', $user->phone_number)->first();
+        $client = User::where('phone_number', $request->client_id)->first();
+        //dd($client);
+
+        //dd($user);
+
         $trns->vendor_id = $vendor->id;
-        $trns->client_id = $request->client_id;
-        $trns->client_phone = $client_phone->phoneno;
+        $trns->client_id = $client->id;
+        $trns->client_phone = $client->phone_number;
         $trns->transactioncode =$trnscode;
         $trns->users_id = $user->id;
         $trns->validated = 0;
@@ -149,16 +153,19 @@ class TransactionController extends Controller
         $trns->trans_long = $request->long;
         $trns->trans_lat = $request->lat;
         $trns->delivery_time = $request->deliverytime;
+        $trns->delivery_fee_handler = $request->delivery_fee_handler;
+
 
         $imageName = [];
         $imageArray = $request->product_image;
+            if(!empty($imageArray)){
             for ($image=0; $image < count($imageArray); $image++) {
                 if ($imageArray[$image] != '') {
                 $newImageName = $image . '-' .time() . '-' . $request->vendor_id . '-' . $request->client_id . '.' . $imageArray[$image]->extension();
                 $imageArray[$image]->move(public_path('product_images'), $newImageName);
                 array_push($imageName, $newImageName);
                 }
-            }
+            }}
         $product_image = implode(" & ", $imageName);
         
        $trns->product_image = $product_image;
@@ -253,7 +260,7 @@ class TransactionController extends Controller
 
         if($request->has('q')){
             $search = $request->q;
-            $clients = DB::table('clients')->select('firstname')
+            $clients = DB::table('users')->select('firstname')
             		->where('firstname', 'LIKE', "%$search%")
             		->get();
         }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Clients;
-
+use App\User;
 
 class ClientController extends Controller
 {
@@ -25,7 +25,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $arr['clients'] = Clients::paginate(10);
+        $arr['clients'] = User::where('role', 'client')->paginate(10);
         return view('clients.index')->with($arr);
     }
 

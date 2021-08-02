@@ -19,11 +19,11 @@
                 <th>Action</th>
             </tr>
             @foreach($search as $s)
-                <tr>
+            <tr>
                     <!-- <td>{{ $s->id }}</td> -->
-                    <td>{{ \App\Clients::where('id', $s->client_id)->pluck('firstname')->first() }}</td>
-                    <td>{{ \App\Clients::where(['id' => $s->client_id])->pluck('phoneno')->first() }}</td>
-                    <td>{{ \App\Clients::where(['id' => $s->client_id])->pluck('email')->first() }}</td>
+                    <td>{{ \App\User::where('id', $s->client_id)->pluck('first_name')->first() }}</td>
+                    <td>{{ \App\User::where('id', $s->client_id)->pluck('phone_number')->first() }}</td>
+                    <td>{{ \App\User::where('id', $s->client_id)->pluck('email')->first() }}</td>
                     <td>{{ $s->transdetail }}</td>
                     <td>N/A</td>
                     <td>

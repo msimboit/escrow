@@ -19,33 +19,29 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
-        <p>
-            <a href="{{ route('addvendor') }}" class="btn btn-primary" disabled>Add New Vendor</a>
-        </p>
+        <div class="card my-4">
+                <h5 class="card-header">Search</h5>
+                <form class="card-body" action="{{ route('vendorsearch') }}" method="GET" role="search">
+                    {{ csrf_field() }}
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." name="q">
+                        <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="submit">Go!</button>
+                  </span>
+                    </div>
+                </form>
+        </div>
         <table class="table table-bordered table-striped table-responsive-md">
             <tr>
-                <th>Escrow Id</th>
                 <th>Names </th>
                 <th>Phone No </th>
                 <th>Email </th>
-                <th>ID No. </th>
-                <th>Action</th>
             </tr>
-            @foreach($vendors as $c)
+            @foreach($vendors as $v)
                 <tr>
-                    <td>   <a href="{{ route('showvendor',$c->id) }}"> {{ $c->id }}</a></td>
-                    <td>{{ $c->name }}</td>
-                    <td>{{ $c->phone }}</td>
-                    <td>{{ $c->email }}</td>
-                    <td>{{ $c->confirm }}</td>
-                    <td>
-                    <a href="{{ route('editvendor',$c->id) }}" class="btn btn-info">Edit</a> 
-                    <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
-              <form action="{{ route('deletevendor',$c->id) }}" method="post">
-                @method('DELETE')
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              </form>
-            </td>
+                    <td>{{ $v->first_name }}</td>
+                    <td>{{ $v->phone_number }}</td>
+                    <td>{{ $v->email }}</td>
                 </tr>
             @endforeach
         </table>

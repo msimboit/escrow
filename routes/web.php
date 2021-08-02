@@ -72,6 +72,7 @@ Route::post('/vendors/store', 'VendorController@store')->name('storevendor');
 Route::post('/vendors/update/{id}', 'VendorController@update')->name('updatevendor');
 Route::post('/vendors/delete/{id}', 'VendorController@delete')->name('deletevendor');
 Route::get('/vendors/show/{id}', 'VendorController@show')->name('showvendor');
+Route::get('/vendors/search', 'VendorController@search')->name('vendorsearch');
 
 
 Route::get('/disputes', 'DisputeController@index')->name('disputes');

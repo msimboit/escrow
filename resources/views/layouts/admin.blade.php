@@ -69,10 +69,10 @@
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href=" {{ route('home') }}" class="nav-link">Home</a>
-      </li>
+      <!-- </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> -->
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -94,7 +94,7 @@
           <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div> -->
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="#" class="d-block">{{ Auth::user()->first_name }}  {{ Auth::user()->last_name }}</a>
         </div>
         <div class="info">
             <a class="d-block" href="{{ route('logout') }}">
@@ -111,71 +111,92 @@
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
+              @if(Auth::user()->role === 'vendor' || Auth::user()->role === 'admin')
               <p>
-                Buyer/Vendor
-                <i class="right fas fa-angle-left"></i>
+                Buyers
+                <i class="right fas fa-angle-left pt-2"></i>
               </p>
+              @endif
+
+              @if(Auth::user()->role === 'client' || Auth::user()->role === 'admin')
+              <p>
+                Vendors
+                <i class="right fas fa-angle-left pt-2"></i>
+              </p>
+              @endif
+
             </a>
             <ul class="nav nav-treeview">
+              @if(Auth::user()->role === 'vendor' || Auth::user()->role === 'admin')
               <li class="nav-item">
                 <a href="{{ route('clients') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buyers</p>
                 </a>
               </li>
+              @endif
+
+              @if(Auth::user()->role === 'client' || Auth::user()->role === 'admin')
               <li class="nav-item">
                 <a href="{{ route('vendors') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Vendors</p>
                 </a>
               </li>
+              @endif
             </ul>
           </li>
+
+          @if(Auth::user()->role === 'admin')
           <li class="nav-item">
             <a href="{{ route('abanks') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
                 Acquiring Banks
-      
               </p>
             </a>
           </li>
+          @endif
+          @if(Auth::user()->role === 'admin')
           <li class="nav-item">
             <a href="{{ route('products') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
                 Products
-          
               </p>
             </a>
           </li>
+          @endif
           <li class="nav-item">
             <a href="{{ route('transactions') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
                 Transactions
-          
               </p>
             </a>
           </li>
+          @if(Auth::user()->role === 'admin')        
           <li class="nav-item">
             <a href="{{ route('deposits') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
                 Deposits
-       
               </p>
             </a>
           </li>
+          @endif
+
+          @if(Auth::user()->role === 'admin')
           <li class="nav-item">
             <a href="{{ route('payments') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
                 Payments
-         
               </p>
             </a>
           </li>
+          @endif
+          @if(Auth::user()->role === 'admin')
           <li class="nav-item">
             <a href="{{ route('settlements') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
@@ -185,16 +206,18 @@
               </p>
             </a>
           </li>
+          @endif
+
           <li class="nav-item">
             <a href="{{ route('deliveries') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
-                Deliveries
-            
+                Deliveries    
               </p>
             </a>
           </li>
 
+          @if(Auth::user()->role === 'admin')        
           <li class="nav-item">
             <a href="{{ route('disputes') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
@@ -212,7 +235,10 @@
            
               </p>
             </a>
-          </li>          
+          </li>
+          @endif
+
+          @if(Auth::user()->role === 'admin')        
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -248,6 +274,7 @@
               </li>
             </ul>
           </li>
+          @endif
         
         </ul>
       </nav>
@@ -264,6 +291,11 @@
 
     <!-- Main content -->
     <section class="content">
+    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
     @yield('content')
     @yield('scripts')
     <!-- /.content -->

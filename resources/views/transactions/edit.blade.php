@@ -73,7 +73,7 @@
                             <input type="number" name="quantities" class="form-control" value="{{ $trans->deposited }}" />
                         </td>
                         <td>
-                            <input type="number" name="prices" class="form-control" value="{{ ($trans->amouont)/($trans->deposited) }}" />
+                            <input type="number" name="prices" class="form-control" value="{{ $trans->amount }}" />
                         </td>
                         <td>
                             <input type="number" name="amount" class="form-control" value="{{ $trans->amount }}" />

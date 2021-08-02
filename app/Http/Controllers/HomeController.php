@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tdetails;
+use App\User;
+use App\Deliveries;
 
 
 class HomeController extends Controller
@@ -27,7 +29,10 @@ class HomeController extends Controller
     {
         $arr['transactions'] = Tdetails::where('void','=',0) 
                                         ->get();
-        return view('home')->with($arr);
-        //return view('home');
+
+        $users = User::all();
+        $deliveries = Tdetails::where('delivered','=',1)->get();
+        
+        return view('home', compact('users', 'deliveries'))->with($arr);
     }
 }

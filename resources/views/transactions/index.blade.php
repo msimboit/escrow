@@ -19,10 +19,12 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
+        @if(Auth::user()->role == 'vendor')
         <p>
             <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>
         </p>
-        <a id="myID" href="#nada" class="button button-primary">Print container</a>
+        @endif
+        <!-- <a id="myID" href="#nada" class="button button-primary">Print container</a> -->
         <table class="table table-bordered table-striped">
             <tr>
                 <!-- <th>ID</th> -->
@@ -33,32 +35,31 @@
                 <th>Validated </th>
                 <th>Action</th>
             </tr>
-            @foreach($trs as $c)
+            @foreach($transactions as $tr)
+                @if(Auth::user()->phone_number == $tr->client_phone || Auth::user()->id == $tr->vendor_id || Auth::user()->role == 'admin' )
                 <tr>
-                    <!-- <td>{{ $c->id }}</td> -->
-                    <!-- <td>{{ $c->client_id }}</td>
-                    <td>{{ $c->vendor_id }}</td> -->
-                    <td>{{ $c->transdetail }}</td>
-                    <td>{{ $c->transamount }}</td>
-                    <td>{{ $c->validated }}</td>
+                    <!-- <td>{{ $tr->id }}</td> -->
+                    <!-- <td>{{ $tr->client_id }}</td>
+                    <td>{{ $tr->vendor_id }}</td> -->
+                    <td>{{ $tr->transdetail }}</td>
+                    <td>{{ $tr->transamount }}</td>
+                    <td>{{ $tr->validated }}</td>
                     <td>
-              <a href="{{ route('edittransactions',$c->id) }}" class="btn btn-info">Edit</a> 
-              <!-- <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
-              <form action="{{ route('deletetransaction',$c->id) }}" method="post">
-                @method('DELETE')
-                <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
-                <a href="{{ route('showtransactions',$c->id) }}" class="btn btn-info">Check</a> 
-              </form>
-            </td>
+                      @if(Auth::user()->role === 'admin')
+                      <a href="{{ route('edittransactions',$tr->id) }}" class="btn btn-info">Edit</a>
+                      @endif
+                      <!-- <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
+                      <form action="{{ route('deletetransaction',$tr->id) }}" method="post">
+                        @method('DELETE')
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+                        <a href="{{ route('showtransactions',$tr->id) }}" class="btn btn-info">Check</a> 
+                      </form>
+                    </td>
                 </tr>
+                @endif
             @endforeach
         </table>
     </div>
     
   </section>	
 @endsection
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js" integrity="sha512-d5Jr3NflEZmFDdFHZtxeJtBzk0eB+kkRXWFQqEc1EKmolXjHm2IKCA7kTvXBNjIYzjXfD5XzIjaaErpkZHCkBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-  $("#myID").printThis();
-</script>

@@ -45,8 +45,8 @@
                 <div class="col-sm-4 invoice-col">
                 <strong><u>Vendor Details</u></strong>
                   <address>
-                    Name: <strong>{{ $vdetails->username }}</strong><br>
-                    Phone: {{ $vdetails->phone }}<br>
+                    Name: <strong>{{ $vdetails->first_name }}</strong><br>
+                    Phone: {{ $vdetails->phone_number }}<br>
                     Email: {{$vdetails->email }}
                   </address>
                 </div>
@@ -54,10 +54,9 @@
                 <div class="col-sm-4 invoice-col">
                   <strong><u>Buyer Details</u></strong> 
                   <address>
-                    Name: <strong>{{ $cdetails->firstname }}</strong><br>
-                    Phone: {{ $cdetails->phoneno }}<br>
+                    Name: <strong>{{ $cdetails->first_name }}</strong><br>
+                    Phone: {{ $cdetails->phone_number }}<br>
                     Email: {{ $cdetails->email }}<br>
-                    Location: {{$cdetails->country }}
                   </address>
                 </div>
                 <!-- /.col -->
@@ -152,14 +151,16 @@
                       </tr>
                       <tr>
                         <th>Delivery Fee <br /> Handled By:</th>
-                        <td>
-                        <input type="checkbox" id="deliveryfee" value="deliveryfee" onclick="myFunction()"> <small> Agree that Vendor handles delivery fee</small> </input>
-                        <p id="text" style="display:none"><small>*Vendor will be <strong>charged!</strong></small></p>
-                        </td>
+                          @if($arr->delivery_fee_handler == 'client')
+                          <td>Buyer</td>
+                          @endif
+                          @if($arr->delivery_fee_handler == 'vendor')
+                          <td>Vendor</td>
+                          @endif
                       </tr>
                       <tr>
                         <th>Total:</th>
-                        <td>Kshs.{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}</td>
+                        <td>Kshs.{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + ($arr->deliveryamount) }}</td>
                       </tr>
                     </table>
                   </div>
@@ -174,6 +175,7 @@
                   <button type="button" class="btn btn-primary float-left" style="margin-right: 5px;" id="lnkPrint">
                     <i class="fas fa-print"></i> Print
                   </button>
+                  @if(Auth::user()->role == 'client' || Auth::user()->role == 'admin')
                   <form action="{{ route('transactionpayment') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="text" name="clientName" value="{{ $cdetails->firstname }}" hidden>
@@ -189,11 +191,11 @@
                     <input type="text" name="subtotal" value="{{ array_sum($prices) }}" hidden>
                     <input type="text" name="shipping" value="1050" hidden>
                     <input type="text" name="total" value="{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}" hidden>
-                    <input type="text" name="deliveryhandler" id="textbox2" value="client" hidden>
                     <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
                     Purchase
                     </button>
                   </form>
+                  @endif
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF 
                   </button>
@@ -215,18 +217,6 @@
             window.print();
           });
         });
-
-        function myFunction() {
-            var checkBox = document.getElementById("deliveryfee");
-            var text = document.getElementById("text");
-            if (checkBox.checked == true){
-                text.style.display = "block";
-                $('#textbox2').val('vendor');
-            } else {
-                text.style.display = "none";
-                $('#textbox2').val('client');
-            }
-        }
 
     </script>
 

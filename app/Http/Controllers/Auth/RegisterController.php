@@ -50,10 +50,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'unique:users', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'g-recaptcha-response' => ['required', 'captcha'],
+            // 'g-recaptcha-response' => ['required', 'captcha'],
         ]);
     }
 
@@ -65,24 +68,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $messages = [
-            'g-recaptcha-response.required' => 'You must check the reCAPTCHA.',
-            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
-        ];
+        // $messages = [
+        //     'g-recaptcha-response.required' => 'You must check the reCAPTCHA.',
+        //     'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+        // ];
 
-        $validator = Validator::make($data, [
-            'g-recaptcha-response' => 'required|captcha'
-        ], $messages);
+        // $validator = Validator::make($data, [
+        //     'g-recaptcha-response' => 'required|captcha'
+        // ], $messages);
  
-        if ($validator->fails()) {
-            return redirect('ROUTE_HERE')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect('ROUTE_HERE')
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
 
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'middle_name' => $data['middle_name'],
+            'last_name' => $data['last_name'],
+            'phone_number' => $data['phone_number'],
             'email' => $data['email'],
+            'role' => $data['role'],
             'password' => Hash::make($data['password']),
         ]);
     }

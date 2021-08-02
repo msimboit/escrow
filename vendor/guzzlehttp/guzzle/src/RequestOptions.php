@@ -56,7 +56,7 @@ final class RequestOptions
      * file in the first array element followed by the certificate password
      * in the second array element.
      */
-    public const CERT = 'cacert.pem';
+    public const CERT = 'cert';
 
     /**
      * cookies: (bool|GuzzleHttp\Cookie\CookieJarInterface, default=false)

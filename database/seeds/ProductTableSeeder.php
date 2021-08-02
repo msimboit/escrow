@@ -15,7 +15,7 @@ class ProductTableSeeder extends Seeder
      */
     public function run()
     {
-        # Remove all existing entrie
+        # Remove all existing entries
         DB::table('products')->delete() ;
         User::create(
             [

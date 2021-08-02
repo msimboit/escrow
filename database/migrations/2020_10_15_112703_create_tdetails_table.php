@@ -22,12 +22,13 @@ class CreateTdetailsTable extends Migration
             $table->string('transdetail');
             $table->string('deliverylocation');
             $table->decimal('deliveryamount');
-            $table->decimal('transamount');
+            $table->string('delivery_fee_handler');
+            $table->string('transamount');
             $table->decimal('trans_long',11,8);
             $table->decimal('trans_lat',10,8);
             $table->integer('users_id');
             $table->boolean('validated')->default(0);
-            $table->boolean('deposited')->default(0);
+            $table->string('deposited')->default(0);
             $table->boolean('delivered')->default(0);
             $table->boolean('closed')->default(0);
             $table->boolean('suspended')->default(0);

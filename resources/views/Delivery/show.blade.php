@@ -45,8 +45,8 @@
                 <div class="col-sm-4 invoice-col">
                 <strong><u>Vendor Details</u></strong>
                   <address>
-                    Name: <strong>{{ $vdetails->username }}</strong><br>
-                    Phone: {{ $vdetails->phone }}<br>
+                    Name: <strong>{{ $vdetails->first_name }}</strong><br>
+                    Phone: {{ $vdetails->phone_number }}<br>
                     Email: {{$vdetails->email }}
                   </address>
                 </div>
@@ -54,10 +54,9 @@
                 <div class="col-sm-4 invoice-col">
                   <strong><u>Buyer Details</u></strong> 
                   <address>
-                    Name: <strong>{{ $cdetails->firstname }}</strong><br>
-                    Phone: {{ $cdetails->phoneno }}<br>
+                    Name: <strong>{{ $cdetails->first_name }}</strong><br>
+                    Phone: {{ $cdetails->phone_number }}<br>
                     Email: {{ $cdetails->email }}<br>
-                    Location: {{$cdetails->country }}
                   </address>
                 </div>
                 <!-- /.col -->
@@ -169,6 +168,7 @@
                     <i class="fas fa-print"></i> Print
                   </button>
 
+                  @if(Auth::user()->role == 'client' || Auth::user()->role == 'admin')
                   <form action="{{ route('acceptdelivery') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
@@ -190,6 +190,7 @@
                     Delivery
                     </button>
                   </form>
+                  @endif
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF 
                   </button>

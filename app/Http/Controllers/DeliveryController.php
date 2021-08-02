@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Deliveries;
 use App\Tdetails;
 use App\Clients;
@@ -28,18 +29,16 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $arr['deliveries'] = Tdetails::where('delivered', '0')->paginate(100);
-        $vendor_id = (($arr['deliveries'][0])->vendor_id);
-        //dd($vendor_id);
+        $deliveries = Tdetails::where('delivered', '0')->paginate(100);
+        //dd($deliveries[0]);
 
-        $vendor = DB::table('ad_supamalluser')
-             ->where('id','=', $vendor_id)
-             ->first();
+        $vendors = User::where('role','vendor')->get();
 
-        $client_id = (($arr['deliveries'][0])->vendor_id);
-        $client = Clients::where('id', $client_id)->first();
-        //dd($arr);
-        return view('Delivery.index', compact('vendor','client'))->with($arr);
+        $clients = User::where('role','client')->get();
+
+        //dd($deliveries[0]);
+    
+        return view('Delivery.index', compact('deliveries','vendors','clients'));
     }
 
     public function create()
@@ -50,8 +49,8 @@ class DeliveryController extends Controller
     public function show($id)
     {
         $arr = Tdetails::where('id', $id)->first();
-        $vdetails = DB::table('ad_supamalluser')->where('id', '=', $arr->vendor_id)->first();
-        $cdetails = Clients::where('id', $arr->client_id)->first();
+        $vdetails = User::where('id', $arr->vendor_id)->first();
+        $cdetails = User::where('id', $arr->client_id)->first();
         $itemdesc = explode(". ", $arr->transdetail);
         $quantities = explode(" ", $arr->deposited);
         $prices = explode(" ", $arr->transamount);
@@ -66,31 +65,6 @@ class DeliveryController extends Controller
         return view('Delivery.edit', compact('deliveries'));   
     }
 
-
-    /** 
-     * Cant add a delivery since it picks from the transactions.
-     * */ 
-    
-    // public function store(Request $request)
-    // {
-    //     $client = new Deliveries;
-
-    //     $client->firstname=$request->clientname;
-    //     $client->middlename = $request->clientname;
-    //     $client->lastname = $request->clientname;
-    //     $client->IdNo = $request->idno;
-    //     $client->phoneno = $request->phoneno;
-    //     $client->email = $request->email;
-    //     $client->country = $request->country;
-    //   //  $client->acceptedtnc = $request->acceptedtnc;
-    //     $client->long=0;
-    //     $client->lat=0;
-
-    //     $client->save();
-
-    //     return redirect()->route('deliveries')->with('success', 'Delivery Added!');
-    // }
-
     public function acceptDelivery(Request $request) {
         $update_table = DB::table('tdetails')
                          ->where('id', $request->input('orderId'))
@@ -98,30 +72,7 @@ class DeliveryController extends Controller
                         'delivered' => '1'                                                                 
                 ]);
 
-        return redirect()->route('deliveries')->with('success', 'Delivered');
-    }
-    
-    public function update(Request $request, $id)
-    {
-        //return view('transactions.create');
-        $client = Deliveries::find($id);
-
-        $client->firstname=$request->clientname;
-        $client->middlename = $request->clientname;
-        $client->lastname = $request->clientname;
-        $client->IdNo = $request->idno;
-        $client->phoneno = $request->phoneno;
-        $client->email = $request->email;
-        $client->country = $request->country;
-      //  $client->acceptedtnc = $request->acceptedtnc;
-        $client->long=0;
-        $client->lat=0;
-
-        $client->save();
-
-        return redirect()->route('deliveries')->with('success', 'Delivery Updated!');
-    
-        //return view('transactions.create');
+        return redirect()->route('deliveries')->with('success', 'Delivery Confirmed');
     }
 
     public function destroy($id)

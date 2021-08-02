@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\User;
 use App\Vendors;
 use App\Ad_supamalluser;
 
@@ -22,17 +23,15 @@ class VendorController extends Controller
      */
     public function index()
     {
+        /*Supamall Vendors */
+        // $arr['vendors'] = DB::table('ad_supamalluser')->orderBy('phone', 'desc')
+        // ->orderBy('id', 'asc')
+        // ->paginate(20);
+        // return view('vendors.index')->with($arr);
 
-    //    $vendors = DB::table('ad_supamalluser')->get();
-        
-        /*
-        $arr['vendors'] = Vendors::paginate(10);
-        */
-
-        $arr['vendors'] = DB::table('ad_supamalluser')->orderBy('phone', 'desc')
-        ->orderBy('id', 'asc')
-        ->paginate(20);
-        return view('vendors.index')->with($arr);
+        $vendors = User::where('role', 'vendor')->paginate(20);
+        // dd($arr);
+        return view('vendors.index', compact('vendors'));
         
         
     }
@@ -129,6 +128,17 @@ class VendorController extends Controller
 
         return redirect('/vendors')->with('success', 'Vendor deleted!');
     }
-
+    
+    public function search(Request $request)
+    {
+        //dd($request->all());
+        $search = User::query()
+            ->where('phone_number', 'like', "%{$request->q}%")
+            ->where('role', 'vendor')
+            ->orderBy('created_at', 'desc')
+            ->first();
+        // dd($search->first_name);
+        return view('vendors.search', ['search' => $search]);
+    }
 
 }

@@ -43,8 +43,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>53<sup style="font-size: 20px">%</sup></h3>
-
+            <h3>{{count($deliveries)/100}}%</h3>
             <p>Transaction Completion Rate</p>
           </div>
           <div class="icon">
@@ -58,8 +57,7 @@
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>44</h3>
-
+            <h3>{{count($users)}}</h3>
             <p>User Registrations</p>
           </div>
           <div class="icon">

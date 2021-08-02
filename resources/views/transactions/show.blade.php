@@ -178,11 +178,11 @@
                   @if(Auth::user()->role == 'client' || Auth::user()->role == 'admin')
                   <form action="{{ route('transactionpayment') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="text" name="clientName" value="{{ $cdetails->firstname }}" hidden>
-                    <input type="text" name="clientNumber" value="{{ $cdetails->phoneno }}" hidden>
+                    <input type="text" name="clientName" value="{{ $cdetails->first_name }}" hidden>
+                    <input type="text" name="clientNumber" value="{{ $cdetails->phone_number }}" hidden>
                     <input type="text" name="clientEmail" value="{{ $cdetails->email }}" hidden>
-                    <input type="text" name="vendorName" value="{{ $vdetails->username }}" hidden>
-                    <input type="text" name="vendorNumber" value="{{ $vdetails->phone }}" hidden>
+                    <input type="text" name="vendorName" value="{{ $vdetails->first_name }}" hidden>
+                    <input type="text" name="vendorNumber" value="{{ $vdetails->phone_number }}" hidden>
                     <input type="text" name="vendorEmail" value="{{ $vdetails->email }}" hidden>
                     <input type="text" name="orderId" value="{{ $arr->id }} "hidden>
                     <input type="text" name="orderdate" value="{{ $arr->created_at->format('d-m-Y') }}" hidden>

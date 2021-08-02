@@ -54,7 +54,7 @@
       <option>Select Buyer</option>
       @foreach ($clients as $client )
           <option value="{{ $client->phone_number }}" > 
-              {{ $client->first_name }} {{ $client->last_name }} - {{ $vendor->phone_number }}
+              {{ $client->first_name }} {{ $client->last_name }} - {{ $client->phone_number }}
           </option>
       @endforeach    
   </select>

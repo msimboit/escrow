@@ -66,19 +66,16 @@ class TransactionController extends Controller
     public function show($id)
     {
         $arr = Tdetails::where('id', $id)->first();
-        
-        //$vdetails = Vendors::where('id', $arr->vendor_id)->first();
     
         $vdetails = User::where('id', $arr->vendor_id)->first();
-        /* Added the square brackets because vdetails returns a collection */
-        //$vdetails = $vdetails[0];
+        
         $cdetails = User::where('phone_number', $arr->client_phone)->first();
 
         $itemdesc = explode(". ", $arr->transdetail);
         $quantities = explode(" ", $arr->deposited);
         $prices = explode(" ", $arr->transamount);
         $product_image = explode(" & ", $arr->product_image);
-        // dd($product_image);
+        
         return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices'))->with($id);
     }
 

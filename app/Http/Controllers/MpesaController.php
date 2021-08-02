@@ -659,7 +659,7 @@ class MpesaController extends Controller
             
         $transactioncode = $request->orderId;
 
-        $pay = new Payment;
+        $pay = new Payments;
         $pay->transactioncode = $transactioncode;
         $pay->phoneno = $phone_number;
         $pay->mpesacode = '';

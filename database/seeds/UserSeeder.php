@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -67,5 +69,6 @@ class UserSeeder extends Seeder
             'role' => 'client',
             'password' => Hash::make('password'),
         ]);
+        
     }
 }

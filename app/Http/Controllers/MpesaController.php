@@ -286,12 +286,6 @@ class MpesaController extends Controller
                                 ->where('phoneno', $phone_number)
                                 ->orderBy('created_at', 'desc')
                                 ->first();
-
-        if((int)$amount < 20){
-            $message = "You have paid an amount less than 20 bob. Your bid shall not be accepted.";              
-            $this->sendBulkSMS( $phone_number, $message );   
-        }
-
         //Check if customer paid successfully
         if($resultCode != 0 ) {
             Log::info('User either cancelled Mpesa STK Push Request or has insufficient funds');
@@ -299,186 +293,216 @@ class MpesaController extends Controller
 
             //Check whether it's paybill or stk push
             if($phone_number == $phone_acc){
-                //STK Push
-                $users_bids = DB::table('bid')->where('phone_number', $phone_number)->get();
-
-                foreach($users_bids as $bids){
-                    if($bid->created_at->diffInSeconds($dateFormat) < 30 ){
-                        $update_bid_status = DB::table('bid')
-                                    ->where('bid_unique_id', $bid->bid_unique_id)                                
-                                    ->update([
-                                        'bid_status' => 'active',
-                                        'mpesa_reciept' => $reciept_number,
-                                        'mpesa_payment_date' => $dateFormat
-                                    ]);
-
-                        $update_rewards = DB::table('users')
-                                            ->where('phone_number', '=',$phone_number)
-                                            ->update([
-                                                'name' => $firstName.' '.$middleName.' '.$lastName,
-                                                'rewards_wallet' => $this_user->rewards_wallet + 5
-                                            ]);            
-                    }                
-    
-                }
-                
-                //Check If User Is Eligible
-                if($specific_user != null && $specific_user->eligible  == false){
-                    //User Is Not Eligible but has now paid
-                    $update_user = DB::table('users')
-                    ->where('phone_number', $phone_number )
-                    ->update([
-                        'name'      => $name,                                    
-                        'eligible'  => true,
-                    ]);
-                }else{
-
-                    $update_user = DB::table('users')
-                    ->where('phone_number', $phone_number )
-                    ->update([
-                        'name'      => $name,                                                           
-                    ]);
-                }
-               
-
-            }else{
-                //Paybill                
-
-                if(stripos($phone_acc, '-')){
-                    $phone_acc = str_replace("-", " ", $phone_acc);
-                }
-
-                $bidder_unique_id= substr( bin2hex( random_bytes( 12 ) ),  0, 12 );
-
-                $password = Crypt::encrypt($phone_number. substr( bin2hex( random_bytes( 4 ) ),  0, 4 ));  
-
-                if (stripos($phone_acc, 'BIKE') !== false) { //Case insensitive
-                    $item = DB::table('item')->where('item_category','=','BIKE')->where('status','=','available')->first();
-                }else if(stripos($phone_acc, 'PHONE') !== false){
-                    $item = DB::table('item')->where('item_category','=','PHONE')->where('status','=','available')->first();
-                }else if(stripos($phone_acc, 'SHOP') !== false){
-                    $item = DB::table('item')->where('item_category','=','VOUCHER')->where('status','=','available')->first();
-                }
-
-                if(stripos($phone_acc, 'MCJ') !== false){
-                    $affiliate = 'mcj';
-                }else if(stripos($phone_acc, 'GHETTO') !== false){
-                    $affiliate = 'ghetto'; 
-                }else if(stripos($phone_acc, 'TEN') !== false){
-                    $affiliate = 'ten';
-                }else if(stripos($phone_acc, 'BAK') !== false){
-                    $affiliate = 'bak';
-                }else if(stripos($phone_acc, 'JAMBO') !== false){
-                    $affiliate = 'jambo';
-                }else{
-                    $affiliate = 'bidleo';
-                }
-                
-                $bid_amount = (int) filter_var($phone_acc, FILTER_SANITIZE_NUMBER_INT);
-                $bid_amount = round($bid_amount);
-                $bid_unique_id = $item->item_category. substr( bin2hex( random_bytes( 6 ) ),  0, 6 );
-
-                //Check for existing user
-               
-                if ($specific_user === null && $amount == '20') {
-                    //user doesn't exist
-
-                    if((int)$amount > 20){
-                        $paybill_balance = (int)$amount - 20;
-
-                        $new_user = new User([
-                            'phone_number' => $phone_number,
-                            'password' => $password,
-                            'bidder_unique_id' => $bidder_unique_id,
-                            'role' => 'bidder',
-                            'rewards_wallet' => 5,
-                            'paybill_balance' => $paybill_balance,
-                            'eligible' => true,           
-                        ]);
-    
-                    } else{
-                        $new_user = new User([
-                            'phone_number' => $phone_number,
-                            'password' => $password,
-                            'bidder_unique_id' => $bidder_unique_id,
-                            'role' => 'bidder',
-                            'rewards_wallet' => 5,
-                            'eligible' => true,           
-                        ]);
+                if($user_latest_payment->created_at->diffInSeconds($dateFormat) < 30){
+                    $update_mpesa_code = DB::table('payments')
+                                        ->where('id', $user_latest_payment->id)
+                                        ->update([
+                                            'mpesacode' => $reciept_number
+                                        ]);
                     }
-            
-                    $new_user->save();
-            
-                    $new_bid = new Bid([
-                            'auction_id' => $item->auction_id,
-                            'bid_amount' =>$bid_amount,
-                            'item_name' => $item->item_name,
-                            'bidder' => $phone_number,
-                            'bidder_name' => $firstName.' '.$middleName.' '.$lastName,
-                            'affiliate' => $affiliate,
-                            'bid_unique_id' => $bid_unique_id,
-                            'bid_start_time' => Carbon::now(),
-                            'item_unique_id' => $item->item_unique_id,
-                            'item_category' => $item->item_category,
-                            'bid_status' => 'active',
-                            'mpesa_reciept' => $reciept_number,
-                            'mpesa_payment_date' => $dateFormat
-                        ]);
-            
-                    $new_bid->save();
-
-                    $auction_id = $item->auction_id;
-
-                    $this->updateAuction($phone_number, $bid_amount, $auction_id);
-                }else{
-
-                    if((int)$amount > 20){
-                        $paybill_balance = (int)$amount - 20;
-    
-                        $update_paybill = DB::table('users')
-                        ->where('phone_number', '=',$phone_number)
-                        ->update([
-                            'paybill_balance' => $this_user->paybill_balance + $paybill_balance
-                        ]); 
-                    }                   
-
-                    $update_rewards = DB::table('users')
-                    ->where('phone_number', '=',$phone_number)
-                    ->update([
-                        'rewards_wallet' => $this_user->rewards_wallet + 5
-                    ]); 
-
-                    $new_bid = new Bid([
-                        'auction_id' => $item->auction_id,
-                        'bid_amount' =>$bid_amount,
-                        'item_name' => $item->item_name,
-                        'bidder' => $phone_number,
-                        'affiliate' => $affiliate,
-                        'bid_unique_id' => $bid_unique_id,
-                        'bid_start_time' => Carbon::now(),
-                        'item_unique_id' => $item->item_unique_id,
-                        'item_category' => $item->item_category,
-                        'bid_status' => 'active',
-                        'mpesa_reciept' => $reciept_number
-                    ]);
-        
-                $new_bid->save();
-
-                $auction_id = $item->auction_id;
-
-                $this->updateAuction($phone_number, $bid_amount, $auction_id);
+                }
+                else{
+                    //Paybill  Details
                 }
 
-            }    
+                $message = "Mpesa Payment Succesfully Received.";              
+                $this->sendBulkSMS( $phone_number, $message );                        
 
-        $message = "Mpesa Payment Succesfully Received.";              
-        $this->sendBulkSMS( $phone_number, $message );                        
+                return response()->json([
+                        'ResultCode' => 0,
+                        'ResultDesc' => "Accepted",
+                        ]);                  
+            }
+        
+        /*BidLeo Checks past this point*/    
 
-        return response()->json([
-                'ResultCode' => 0,
-                'ResultDesc' => "Accepted",
-                ]);       
-            }                         
+        //Check if customer paid successfully
+        // if($resultCode != 0 ) {
+        //     Log::info('User either cancelled Mpesa STK Push Request or has insufficient funds');
+        // }else{
+
+        //     //Check whether it's paybill or stk push
+        //     if($phone_number == $phone_acc){
+        //         //STK Push
+        //         $users_bids = DB::table('bid')->where('phone_number', $phone_number)->get();
+
+        //         foreach($users_bids as $bids){
+        //             if($bid->created_at->diffInSeconds($dateFormat) < 30 ){
+        //                 $update_bid_status = DB::table('bid')
+        //                             ->where('bid_unique_id', $bid->bid_unique_id)                                
+        //                             ->update([
+        //                                 'bid_status' => 'active',
+        //                                 'mpesa_reciept' => $reciept_number,
+        //                                 'mpesa_payment_date' => $dateFormat
+        //                             ]);
+
+        //                 $update_rewards = DB::table('users')
+        //                                     ->where('phone_number', '=',$phone_number)
+        //                                     ->update([
+        //                                         'name' => $firstName.' '.$middleName.' '.$lastName,
+        //                                         'rewards_wallet' => $this_user->rewards_wallet + 5
+        //                                     ]);            
+        //             }                
+    
+        //         }
+                
+        //         //Check If User Is Eligible
+        //         if($specific_user != null && $specific_user->eligible  == false){
+        //             //User Is Not Eligible but has now paid
+        //             $update_user = DB::table('users')
+        //             ->where('phone_number', $phone_number )
+        //             ->update([
+        //                 'name'      => $name,                                    
+        //                 'eligible'  => true,
+        //             ]);
+        //         }else{
+
+        //             $update_user = DB::table('users')
+        //             ->where('phone_number', $phone_number )
+        //             ->update([
+        //                 'name'      => $name,                                                           
+        //             ]);
+        //         }
+               
+
+        //     }else{
+        //         //Paybill                
+
+        //         if(stripos($phone_acc, '-')){
+        //             $phone_acc = str_replace("-", " ", $phone_acc);
+        //         }
+
+        //         $bidder_unique_id= substr( bin2hex( random_bytes( 12 ) ),  0, 12 );
+
+        //         $password = Crypt::encrypt($phone_number. substr( bin2hex( random_bytes( 4 ) ),  0, 4 ));  
+
+        //         if (stripos($phone_acc, 'BIKE') !== false) { //Case insensitive
+        //             $item = DB::table('item')->where('item_category','=','BIKE')->where('status','=','available')->first();
+        //         }else if(stripos($phone_acc, 'PHONE') !== false){
+        //             $item = DB::table('item')->where('item_category','=','PHONE')->where('status','=','available')->first();
+        //         }else if(stripos($phone_acc, 'SHOP') !== false){
+        //             $item = DB::table('item')->where('item_category','=','VOUCHER')->where('status','=','available')->first();
+        //         }
+
+        //         if(stripos($phone_acc, 'MCJ') !== false){
+        //             $affiliate = 'mcj';
+        //         }else if(stripos($phone_acc, 'GHETTO') !== false){
+        //             $affiliate = 'ghetto'; 
+        //         }else if(stripos($phone_acc, 'TEN') !== false){
+        //             $affiliate = 'ten';
+        //         }else if(stripos($phone_acc, 'BAK') !== false){
+        //             $affiliate = 'bak';
+        //         }else if(stripos($phone_acc, 'JAMBO') !== false){
+        //             $affiliate = 'jambo';
+        //         }else{
+        //             $affiliate = 'bidleo';
+        //         }
+                
+        //         $bid_amount = (int) filter_var($phone_acc, FILTER_SANITIZE_NUMBER_INT);
+        //         $bid_amount = round($bid_amount);
+        //         $bid_unique_id = $item->item_category. substr( bin2hex( random_bytes( 6 ) ),  0, 6 );
+
+        //         //Check for existing user
+               
+        //         if ($specific_user === null && $amount == '20') {
+        //             //user doesn't exist
+
+        //             if((int)$amount > 20){
+        //                 $paybill_balance = (int)$amount - 20;
+
+        //                 $new_user = new User([
+        //                     'phone_number' => $phone_number,
+        //                     'password' => $password,
+        //                     'bidder_unique_id' => $bidder_unique_id,
+        //                     'role' => 'bidder',
+        //                     'rewards_wallet' => 5,
+        //                     'paybill_balance' => $paybill_balance,
+        //                     'eligible' => true,           
+        //                 ]);
+    
+        //             } else{
+        //                 $new_user = new User([
+        //                     'phone_number' => $phone_number,
+        //                     'password' => $password,
+        //                     'bidder_unique_id' => $bidder_unique_id,
+        //                     'role' => 'bidder',
+        //                     'rewards_wallet' => 5,
+        //                     'eligible' => true,           
+        //                 ]);
+        //             }
+            
+        //             $new_user->save();
+            
+        //             $new_bid = new Bid([
+        //                     'auction_id' => $item->auction_id,
+        //                     'bid_amount' =>$bid_amount,
+        //                     'item_name' => $item->item_name,
+        //                     'bidder' => $phone_number,
+        //                     'bidder_name' => $firstName.' '.$middleName.' '.$lastName,
+        //                     'affiliate' => $affiliate,
+        //                     'bid_unique_id' => $bid_unique_id,
+        //                     'bid_start_time' => Carbon::now(),
+        //                     'item_unique_id' => $item->item_unique_id,
+        //                     'item_category' => $item->item_category,
+        //                     'bid_status' => 'active',
+        //                     'mpesa_reciept' => $reciept_number,
+        //                     'mpesa_payment_date' => $dateFormat
+        //                 ]);
+            
+        //             $new_bid->save();
+
+        //             $auction_id = $item->auction_id;
+
+        //             $this->updateAuction($phone_number, $bid_amount, $auction_id);
+        //         }else{
+
+        //             if((int)$amount > 20){
+        //                 $paybill_balance = (int)$amount - 20;
+    
+        //                 $update_paybill = DB::table('users')
+        //                 ->where('phone_number', '=',$phone_number)
+        //                 ->update([
+        //                     'paybill_balance' => $this_user->paybill_balance + $paybill_balance
+        //                 ]); 
+        //             }                   
+
+        //             $update_rewards = DB::table('users')
+        //             ->where('phone_number', '=',$phone_number)
+        //             ->update([
+        //                 'rewards_wallet' => $this_user->rewards_wallet + 5
+        //             ]); 
+
+        //             $new_bid = new Bid([
+        //                 'auction_id' => $item->auction_id,
+        //                 'bid_amount' =>$bid_amount,
+        //                 'item_name' => $item->item_name,
+        //                 'bidder' => $phone_number,
+        //                 'affiliate' => $affiliate,
+        //                 'bid_unique_id' => $bid_unique_id,
+        //                 'bid_start_time' => Carbon::now(),
+        //                 'item_unique_id' => $item->item_unique_id,
+        //                 'item_category' => $item->item_category,
+        //                 'bid_status' => 'active',
+        //                 'mpesa_reciept' => $reciept_number
+        //             ]);
+        
+        //         $new_bid->save();
+
+        //         $auction_id = $item->auction_id;
+
+        //         $this->updateAuction($phone_number, $bid_amount, $auction_id);
+        //         }
+
+        //     }    
+
+        // $message = "Mpesa Payment Succesfully Received.";              
+        // $this->sendBulkSMS( $phone_number, $message );                        
+
+        // return response()->json([
+        //         'ResultCode' => 0,
+        //         'ResultDesc' => "Accepted",
+        //         ]);       
+        //     }                         
                    
     }
 

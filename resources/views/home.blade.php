@@ -43,7 +43,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{count($deliveries)/100}}%</h3>
+            <h3>{{((count($deliveries))*100)/(count($transactions))}}%</h3>
             <p>Transaction Completion Rate</p>
           </div>
           <div class="icon">

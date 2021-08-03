@@ -1,7 +1,7 @@
 @component('mail::message')
-# An Escrow Transaction Was Created By You.
+# You have accepted a delivery using Escrow.
 
-The transaction was made successfully for:
+You have accepted the delivery for:
 <br/>
 <b>Buyer Name:</b> {{ $data['client_name']}}
 <br/>
@@ -9,22 +9,16 @@ The transaction was made successfully for:
 <b>Buyer Phone Number:</b> {{ $data['client_phone']}}
 <br/>
 <br/>
-<b>Item Descriptions:</b> {{ $data['itemdesc']}}
+<b>Transaction Details:</b> {{ $data['transaction_details']}}
 <br/>
 <br/>
-<b>Prices:</b> {{ $data['prices']}}
-<br/>
-<br/>
-<b>location:</b> {{ $data['location']}}
-<br/>
-<br/>
-<b>Delivered In:</b> {{ $data['delivery_time']}}hrs
+<b>Delivered At:</b> {{ $data['delivery_location']}}
 <br/>
 <br/>
 <b>Delivery Fee:</b> {{ $data['delivery_fee']}}
 <br/>
 <br/>
-<b>Delivery Fee To Be Handled By:</b> @if($data['delivery_fee_handler'] == 'client')Buyer @else Vendor @endif
+<b>Delivery Fee Handled By:</b> @if($data['delivery_fee_handler'] == 'client')Buyer @else Vendor @endif
 <br/>
 
 
@@ -34,5 +28,6 @@ Go Back To Escrow
 
 Thanks,<br>
 {{ config('app.name') }}
+<br/>
 <small>By MsimboIT</small>
 @endcomponent

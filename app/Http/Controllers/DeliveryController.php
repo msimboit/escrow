@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\DeliveryMail;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Deliveries;
 use App\Tdetails;
 use App\Clients;
 use DB;
+use Auth;
 
 
 class DeliveryController extends Controller
@@ -66,12 +69,33 @@ class DeliveryController extends Controller
     }
 
     public function acceptDelivery(Request $request) {
+
         $update_table = DB::table('tdetails')
                          ->where('id', $request->input('orderId'))
                          ->update([
                         'delivered' => '1'                                                                 
                 ]);
 
+        $transaction = Tdetails::where('id', $request->input('orderId'))
+                        ->first();
+
+        $email = Auth::user()->email;
+        // dd($transaction);
+        $vendor = User::where('id', $transaction->vendor_id)->first();
+        
+        $client = User::where('id', $transaction->client_id)->first();
+
+        $data = [
+            'client_name' => $client->first_name,
+            'client_phone' => $client->phone_number,
+            'transaction_details' => $transaction->transdetail,
+            'delivery_location' => $transaction->deliverylocation,
+            'delivery_time' => $transaction->deliverytime,
+            'delivery_fee' => $transaction->deliveryamount,
+            'delivery_fee_handler' => $transaction->delivery_fee_handler,
+        ];
+        Mail::to($email)->send(new DeliveryMail($data));
+        
         return redirect()->route('deliveries')->with('success', 'Delivery Confirmed');
     }
 

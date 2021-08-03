@@ -111,7 +111,7 @@ class MpesaController extends Controller
         'PartyA' => $phone_number, // replace this with your phone number
         'PartyB' => 174379,
         'PhoneNumber' => $phone_number, // replace this with your phone number
-        'CallBackURL' => 'http://phplaravel-607367-1966954.cloudwaysapps.com',
+        'CallBackURL' => 'https://phplaravel-607367-1966954.cloudwaysapps.com/v1/escrow/transaction/confirmation',
         'AccountReference' => $phone_number,
         'TransactionDesc' => "Testing stk push on sandbox"
         ];
@@ -214,7 +214,6 @@ class MpesaController extends Controller
      * Mpesa callback, gives response which is then stored in the DB
      */
     public function mpesaCallback( Request $request ){
-        $bulk=new SmsController(); 
 
         if ($request['ResultCode'] == '1032') {
             Log::info('User cancelled Mpesa STK Push Request');
@@ -276,14 +275,17 @@ class MpesaController extends Controller
         $phone_acc = $request['BillRefNumber'];
         $phone_number = $request['MSISDN'];
 
-        $this_user = DB::table('users')->where('phone_number','=',$phone_number)->first();
-
-        $specific_user = User::where('phone_number', '=', $phone_number)->first();
+        $user = DB::table('users')->where('phone_number','=',$phone_number)->first();
 
         $resultCode = $request['Body']['stkCallback']['ResultCode'];
 
         $date = strtotime(strval($transaction_date));
         $dateFormat = date('Y-m-d H:i:s',$date);
+
+        $user_latest_payment = DB::table('payments')
+                                ->where('phoneno', $phone_number)
+                                ->orderBy('created_at', 'desc')
+                                ->first();
 
         if((int)$amount < 20){
             $message = "You have paid an amount less than 20 bob. Your bid shall not be accepted.";              

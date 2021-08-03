@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\ThankyouMail;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Tdetails;
 use App\Vendors;
@@ -75,7 +77,7 @@ class TransactionController extends Controller
         $quantities = explode(" ", $arr->deposited);
         $prices = explode(" ", $arr->transamount);
         $product_image = explode(" & ", $arr->product_image);
-        
+
         return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices'))->with($id);
     }
 
@@ -190,9 +192,24 @@ class TransactionController extends Controller
         //     }
         // }
 
+        $email = Auth::user()->email;
+        $data = [
+            'client_name' => $client->first_name,
+            'client_phone' => $client->phone_number,
+            'itemdesc' => $itemdesc,
+            'quantities' => $quantities,
+            'prices' => $prices,
+            'location' => $request->location,
+            'delivery_time' => $request->deliverytime,
+            'delivery_fee' => $request->deliveryfee,
+            'delivery_fee_handler' => $request->delivery_fee_handler,
+        ];
+        Mail::to($email)->send(new ThankyouMail($data));
         return redirect()->route('transactions')->with('success', 'Transaction Added!');
     //}
     }
+
+
 
     public function update(Request $request)
     {

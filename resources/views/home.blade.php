@@ -43,8 +43,8 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{((count($deliveries))*100)/(count($transactions))}}%</h3>
-            <p>Transaction Completion Rate</p>
+            <h3>{{ (count($deliveries)) }}</h3>
+            <p>Transactions Completed</p>
           </div>
           <div class="icon">
             <i class="ion ion-stats-bars"></i>

@@ -1,5 +1,5 @@
 @component('mail::message')
-# You have accepted a delivery using Escrow.
+# A delivery was accepted using Escrow.
 
 You have accepted the delivery for:
 <br/>

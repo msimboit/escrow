@@ -38,9 +38,7 @@
                 <!-- <th>ID</th> -->
                 <th>Client Name </th>
                 <th>Client Number </th>
-                <th>Client Email</th>
                 <th>Transaction Detail</th>
-                <th>Mpesa Code</th>
                 <th>Action</th>
             </tr>
             @foreach($deliveries as $d)
@@ -50,7 +48,6 @@
                     <td>{{ \App\User::where('id', $d->client_id)->pluck('phone_number')->first() }}</td>
                     <td>{{ \App\User::where('id', $d->client_id)->pluck('email')->first() }}</td>
                     <td>{{ $d->transdetail }}</td>
-                    <td>N/A</td>
                     <td>
                       <a href="{{ route('showdelivery',$d->id) }}" class="btn btn-info">Sale Order</a> 
                     </td>

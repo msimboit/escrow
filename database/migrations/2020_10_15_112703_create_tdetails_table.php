@@ -30,6 +30,7 @@ class CreateTdetailsTable extends Migration
             $table->boolean('validated')->default(0);
             $table->string('deposited')->default(0);
             $table->boolean('delivered')->default(0);
+            $table->boolean('paid')->default(0);
             $table->boolean('closed')->default(0);
             $table->boolean('suspended')->default(0);
             $table->boolean('negotiated')->default(0);

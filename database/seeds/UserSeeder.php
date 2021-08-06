@@ -37,6 +37,7 @@ class UserSeeder extends Seeder
             'phone_number' => '071122334455',
             'email' => 'johndoe@escrow.com',
             'role' => 'vendor',
+            'business_name' => 'The Does',
             'password' => Hash::make('password'),
         ]);
 
@@ -47,6 +48,7 @@ class UserSeeder extends Seeder
             'phone_number' => '072233445566',
             'email' => 'janedoe@escrow.com',
             'role' => 'vendor',
+            'business_name' => 'Femme Does',
             'password' => Hash::make('password'),
         ]);
 

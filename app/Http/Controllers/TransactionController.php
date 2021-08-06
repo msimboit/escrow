@@ -153,6 +153,7 @@ class TransactionController extends Controller
         $trns->trans_lat = $request->lat;
         $trns->delivery_time = $request->deliverytime;
         $trns->delivery_fee_handler = $request->delivery_fee_handler;
+        $trns->paid = 0;
 
 
         $imageName = [];
@@ -227,6 +228,7 @@ class TransactionController extends Controller
         $trns->validated = 0;
         $trns->deposited = $request->quantities;
         $trns->delivered = 0;
+        $trns->paid = 0;
         $trns->closed=0;
         $trns->deliveryamount=0;
         $trns->transamount=$request->amount;

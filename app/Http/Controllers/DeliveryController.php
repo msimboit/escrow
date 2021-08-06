@@ -32,7 +32,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $deliveries = Tdetails::where('delivered', '0')->paginate(100);
+        $deliveries = Tdetails::where('paid', '1')->paginate(100)->where('closed', '0');
         //dd($deliveries[0]);
 
         $vendors = User::where('role','vendor')->get();
@@ -73,7 +73,8 @@ class DeliveryController extends Controller
         $update_table = DB::table('tdetails')
                          ->where('id', $request->input('orderId'))
                          ->update([
-                        'delivered' => '1'                                                                 
+                        'delivered' => '1',
+                        'closed' => '1'                                                                 
                 ]);
 
         $transaction = Tdetails::where('id', $request->input('orderId'))

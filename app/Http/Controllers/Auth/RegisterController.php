@@ -49,6 +49,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // dd($data);
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['required', 'string', 'max:255'],
@@ -91,6 +92,7 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'email' => $data['email'],
             'role' => $data['role'],
+            'business_name' => $data['business_name'],
             'password' => Hash::make($data['password']),
         ]);
     }

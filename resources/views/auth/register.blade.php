@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
+                    
                         <div class="form-group row">
                             <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First_name') }}</label>
 
@@ -86,9 +86,9 @@
 
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">Select Role:</label>
-                            <select class="form-control col-md-5 ml-3" name="role">
+                            <select class="form-control col-md-5 ml-3" name="role" id="change">
                                 <option>Select role</option>
-                                <option value="vendor" > 
+                                <option value="vendor" data-toggle="modal" data-target="#myModal"> 
                                     Vendor
                                 </option>
                                 <option value="client" > 
@@ -96,6 +96,31 @@
                                 </option>
                             </select>
                         </div>
+
+                        <div class="modal fade" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="d-flex justify-content-end m-2">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Modal title</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="business_name" class="col-md-4 col-form-label text-md-right">{{ __('Business Name') }}</label>
+
+                                            <div class="col-md-6">
+                                                <input id="modal_business_name" type="text" class="form-control" name="modal_business_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger sm" data-dismiss="modal" id="modal_save">Save</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -119,13 +144,13 @@
                             </div>
                         </div>
 
-                        <!-- <div class="col-md-6 offset-md-4 mb-2">
+                        <div class="col-md-6 offset-md-4 mb-2">
                             {!! NoCaptcha::display() !!}
-                        </div> -->
+                        </div>
                         
-
+                        <input id="business_name" type="text" class="form-control" name="business_name" hidden>
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-6">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>

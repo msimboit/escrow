@@ -147,11 +147,17 @@
                         <div class="col-md-6 offset-md-4 mb-2">
                             {!! NoCaptcha::display() !!}
                         </div>
+
+                        <div class="form-group row m-3">
+                            <div class="col-md-6 offset-md-5">
+                                <input type="checkbox" class="number mx-2" value="One">Accept Terms & Conditions<br>
+                            </div>
+                        </div>
                         
                         <input id="business_name" type="text" class="form-control" name="business_name" hidden>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-6">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="reg" disabled>
                                     {{ __('Register') }}
                                 </button>
                             </div>

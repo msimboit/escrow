@@ -14,3 +14,16 @@ $('#change').change(function(){
         $('#business_name').val(buyer);
     }
 });
+
+
+
+$( ".number" ).on( "click", function() {
+    if($( ".number:checked" ).length == 1)
+        {
+            $('#reg').prop('disabled', false);
+        }
+    else
+        {
+            $('#reg').prop('disabled', true);
+        }  
+});

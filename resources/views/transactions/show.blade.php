@@ -143,7 +143,7 @@
                       </tr>
                       <tr>
                         <th>Handling Fee(1%)</th>
-                        <td>Kshs.{{ round(((array_sum($prices))/100)*1) }}.00</td>
+                        <td>Kshs.{{ round(((array_sum($prices))*1)/100) }}.00</td>
                       </tr>
                       <tr>
                         <th>Delivery Fee:</th>

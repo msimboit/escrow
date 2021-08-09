@@ -111,7 +111,7 @@ class MpesaController extends Controller
         'PartyA' => $phone_number, // replace this with your phone number
         'PartyB' => 174379,
         'PhoneNumber' => $phone_number, // replace this with your phone number
-        'CallBackURL' => 'https://phplaravel-607367-1966954.cloudwaysapps.com/v1/escrow/transaction/confirmation',
+        'CallBackURL' => 'https://supamallescrow.com/v1/escrow/transaction/confirmation',
         'AccountReference' => $phone_number,
         'TransactionDesc' => "Testing stk push on sandbox"
         ];

@@ -142,8 +142,8 @@
                         <td>Kshs.{{ array_sum($prices) }}</td>
                       </tr>
                       <tr>
-                        <th>Handling Fee(1%)</th>
-                        <td>Kshs.{{ round(((array_sum($prices))*1)/100) }}.00</td>
+                        <th>Handling Fee(Tariff Charges)</th>
+                        <td>Kshs.{{ $tariff }}.00</td>
                       </tr>
                       <tr>
                         <th>Delivery Fee:</th>
@@ -160,7 +160,7 @@
                       </tr>
                       <tr>
                         <th>Total:</th>
-                        <td>Kshs.{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + ($arr->deliveryamount) }}</td>
+                        <td>Kshs.{{ (array_sum($prices)) + $tariff + ($arr->deliveryamount) }}</td>
                       </tr>
                     </table>
                   </div>

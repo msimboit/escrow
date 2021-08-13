@@ -111,7 +111,7 @@ class MpesaController extends Controller
         'PartyA' => $phone_number, // replace this with your phone number
         'PartyB' => 3029009,
         'PhoneNumber' => $phone_number, // replace this with your phone number
-        'CallBackURL' => 'https://supamallescrow.com/v1/escrow/transaction/confirmation',
+        'CallBackURL' => 'https://0efc926e5cd5.ngrok.io',
         'AccountReference' => $phone_number,
         'TransactionDesc' => "Testing stk push on sandbox"
         ];

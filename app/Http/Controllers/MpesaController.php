@@ -123,7 +123,6 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         
         $curl_response = curl_exec($curl);
-        Log::info($curl_response);
         return $curl_response;
         }
 
@@ -158,7 +157,7 @@ class MpesaController extends Controller
         $access_token = json_decode($curl_response);
 
         $token= $access_token->access_token;
-        Log::info('URL fxn tkn '.$token);
+        Log::info('generateAccessToken generated: '.$token);
    
     return $token;
 }
@@ -218,6 +217,7 @@ class MpesaController extends Controller
         if ($request['ResultCode'] == '1032') {
             Log::info('User cancelled Mpesa STK Push Request');
         }else{
+            Log::info('Callback Request came through');
             Log::info($request->all());
 
         $reciept_number     = $request['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value'];

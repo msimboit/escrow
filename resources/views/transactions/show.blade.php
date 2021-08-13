@@ -189,8 +189,8 @@
                     <input type="text" name="transdetail" value="{{ $arr->transdetail }}" hidden>
                     <input type="text" name="quantity" value="{{ $arr->deposited }}" hidden>
                     <input type="text" name="subtotal" value="{{ array_sum($prices) }}" hidden>
-                    <input type="text" name="shipping" value="1050" hidden>
-                    <input type="text" name="total" value="{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}" hidden>
+                    <!-- <input type="text" name="shipping" value="1050" hidden> -->
+                    <input type="text" name="total" value="{{ (array_sum($prices)) + $tariff + ($arr->deliveryamount) }}" hidden>
                     <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
                     Purchase
                     </button>

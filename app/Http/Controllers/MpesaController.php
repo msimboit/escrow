@@ -213,6 +213,7 @@ class MpesaController extends Controller
      * Mpesa callback, gives response which is then stored in the DB
      */
     public function mpesaCallback( Request $request ){
+        Log::info('Callback function engaged');
 
         if ($request['ResultCode'] == '1032') {
             Log::info('User cancelled Mpesa STK Push Request');

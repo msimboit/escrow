@@ -149,7 +149,7 @@
                         <th>Delivery Fee:</th>
                         <td>{{ $arr->deliveryamount }}</td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <th>Delivery Fee <br /> Handled By:</th>
                           @if($arr->delivery_fee_handler == 'client')
                           <td>Buyer</td>
@@ -157,7 +157,7 @@
                           @if($arr->delivery_fee_handler == 'vendor')
                           <td>Vendor</td>
                           @endif
-                      </tr>
+                      </tr> -->
                       <tr>
                         <th>Total:</th>
                         <td>Kshs.{{ (array_sum($prices)) + $tariff + ($arr->deliveryamount) }}</td>

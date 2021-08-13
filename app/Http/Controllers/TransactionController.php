@@ -256,7 +256,7 @@ class TransactionController extends Controller
         $trns->trans_long = $request->long;
         $trns->trans_lat = $request->lat;
         $trns->delivery_time = $request->deliverytime;
-        $trns->delivery_fee_handler = $request->delivery_fee_handler;
+        $trns->delivery_fee_handler = 'client';
         $trns->paid = 0;
 
 

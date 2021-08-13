@@ -176,14 +176,14 @@
             <input type="number" name="deliveryfee" class="form-control col-sm-2" value="1" />
             </div>
 
-            <div class="row m-3 pt-2">
+            <!-- <div class="row m-3 pt-2">
               <label class="col-md-2">Charging Fee Handled By:</label>
               <select class="form-control col-sm-4" name="delivery_fee_handler" required>
                 <option>Select Delivery Fee Handler</option>
                 <option value="client">Buyer</option>
                 <option value="vendor">Vendor</option>      
               </select>
-            </div>
+            </div> -->
 
             <div>
                 <input type="text" name="lat" id="latitude" value="latitude" hidden>

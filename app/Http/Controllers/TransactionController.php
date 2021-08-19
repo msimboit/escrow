@@ -83,7 +83,7 @@ class TransactionController extends Controller
 
         if($total_amount >= 1 && $total_amount < 50)
         {
-            $tariff = 181;
+            $tariff = 3;
         }
 
         if($total_amount >= 50 && $total_amount <= 100)
@@ -232,7 +232,21 @@ class TransactionController extends Controller
         $client = User::where('phone_number', $request->client_id)->first();
         //dd($client);
 
-        //dd($user);
+        
+        $email = Auth::user()->email;
+        $data = [
+            'client_name' => $client->first_name,
+            'client_phone' => $client->phone_number,
+            'itemdesc' => $itemdesc,
+            'quantities' => $quantities,
+            'prices' => $prices,
+            'location' => $request->location,
+            'delivery_time' => $request->deliverytime,
+            'delivery_fee' => $request->deliveryfee,
+            'delivery_fee_handler' => $request->delivery_fee_handler,
+        ];
+        
+        Mail::to($email)->send(new ThankyouMail($data));
 
         $trns->vendor_id = $vendor->id;
         $trns->client_id = $client->id;
@@ -272,8 +286,7 @@ class TransactionController extends Controller
             }}
         $product_image = implode(" & ", $imageName);
         
-       $trns->product_image = $product_image;
-    //    dd($trns);
+        $trns->product_image = $product_image;
         $trns->save();
         
         //Save the product details
@@ -296,20 +309,6 @@ class TransactionController extends Controller
               
         //     }
         // }
-
-        $email = Auth::user()->email;
-        $data = [
-            'client_name' => $client->first_name,
-            'client_phone' => $client->phone_number,
-            'itemdesc' => $itemdesc,
-            'quantities' => $quantities,
-            'prices' => $prices,
-            'location' => $request->location,
-            'delivery_time' => $request->deliverytime,
-            'delivery_fee' => $request->deliveryfee,
-            'delivery_fee_handler' => $request->delivery_fee_handler,
-        ];
-        Mail::to($email)->send(new ThankyouMail($data));
         return redirect()->route('transactions')->with('success', 'Transaction Added!');
     //}
     }

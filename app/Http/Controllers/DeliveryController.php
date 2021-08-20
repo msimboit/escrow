@@ -95,7 +95,7 @@ class DeliveryController extends Controller
             'delivery_fee' => $transaction->deliveryamount,
             'delivery_fee_handler' => $transaction->delivery_fee_handler,
         ];
-        Mail::to($email)->send(new DeliveryMail($data));
+        // Mail::to($email)->send(new DeliveryMail($data));
         
         return redirect()->route('deliveries')->with('success', 'Delivery Confirmed');
     }

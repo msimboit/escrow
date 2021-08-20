@@ -26,7 +26,6 @@
             <tr>
                 <th>Names </th>
                 <th>Phone No </th>
-                <th>Email </th>
                 @if(Auth::user()->role === 'admin')
                 <th>Action</th>
                 @endif
@@ -35,7 +34,6 @@
                 <tr>
                     <td>{{ $c->first_name }} {{ $c->last_name }}</td>
                     <td>{{ $c->phone_number }}</td>
-                    <td>{{ $c->email }}</td>
                     @if(Auth::user()->role === 'admin')
                     <td>
                       <a href="{{ route('editclient',$c->id) }}" class="btn btn-info">Edit</a> 

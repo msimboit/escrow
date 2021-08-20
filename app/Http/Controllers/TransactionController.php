@@ -233,20 +233,20 @@ class TransactionController extends Controller
         //dd($client);
 
         
-        // $email = Auth::user()->email;
-        // $data = [
-        //     'client_name' => $client->first_name,
-        //     'client_phone' => $client->phone_number,
-        //     'itemdesc' => $itemdesc,
-        //     'quantities' => $quantities,
-        //     'prices' => $prices,
-        //     'location' => $request->location,
-        //     'delivery_time' => $request->deliverytime,
-        //     'delivery_fee' => $request->deliveryfee,
-        //     'delivery_fee_handler' => $request->delivery_fee_handler,
-        // ];
+        $email = Auth::user()->email;
+        $data = [
+            'client_name' => $client->first_name,
+            'client_phone' => $client->phone_number,
+            'itemdesc' => $itemdesc,
+            'quantities' => $quantities,
+            'prices' => $prices,
+            'location' => $request->location,
+            'delivery_time' => $request->deliverytime,
+            'delivery_fee' => $request->deliveryfee,
+            'delivery_fee_handler' => $request->delivery_fee_handler,
+        ];
         
-        // Mail::to($email)->send(new ThankyouMail($data));
+        Mail::to($email)->send(new ThankyouMail($data));
 
         $trns->vendor_id = $vendor->id;
         $trns->client_id = $client->id;

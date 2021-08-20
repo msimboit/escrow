@@ -29,6 +29,7 @@ class ThankyouMail extends Mailable
     public function build()
     {
         return $this->markdown('emails.thankyou')
+                    ->from('coders@msimboit.net', 'Escrow')
                     ->subject('Thanks For Using Escrow')
                     ->with([
                         'data' => $this->data

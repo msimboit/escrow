@@ -11,9 +11,8 @@
             <table class="table table-bordered table-striped">
             <tr>
                 <!-- <th>ID</th> -->
-                <th>Client Name </th>
-                <th>Client No </th>
-                <th>Client Email</th>
+                <th>Buyer Name </th>
+                <th>Buyer Number </th>
                 <th>Transaction Detail</th>
                 <th>Mpesa Code</th>
                 <th>Action</th>
@@ -23,7 +22,6 @@
                     <!-- <td>{{ $s->id }}</td> -->
                     <td>{{ \App\User::where('id', $s->client_id)->pluck('first_name')->first() }}</td>
                     <td>{{ \App\User::where('id', $s->client_id)->pluck('phone_number')->first() }}</td>
-                    <td>{{ \App\User::where('id', $s->client_id)->pluck('email')->first() }}</td>
                     <td>{{ $s->transdetail }}</td>
                     <td>N/A</td>
                     <td>

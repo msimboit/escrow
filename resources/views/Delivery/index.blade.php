@@ -36,8 +36,8 @@
         <table class="table table-bordered table-striped">
             <tr>
                 <!-- <th>ID</th> -->
-                <th>Client Name </th>
-                <th>Client Number </th>
+                <th>Buyer Name </th>
+                <th>Buyer Number </th>
                 <th>Transaction Detail</th>
                 <th>Action</th>
             </tr>

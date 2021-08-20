@@ -25,7 +25,7 @@
             <form class="card-body" action="/deliveries/search" method="GET" role="search">
                 {{ csrf_field() }}
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for..." name="q">
+                    <input type="text" class="form-control" placeholder="Search for 070012345678" name="q">
                     <span class="input-group-btn">
                 <button class="btn btn-secondary" type="submit">Go!</button>
               </span>

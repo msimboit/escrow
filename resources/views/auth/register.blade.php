@@ -87,12 +87,11 @@
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">Select Role:</label>
                             <select class="form-control col-md-5 ml-3" name="role" id="change">
-                                <option>Select role</option>
-                                <option value="vendor" data-toggle="modal" data-target="#myModal"> 
-                                    Vendor
-                                </option>
                                 <option value="client" > 
                                     Buyer
+                                </option>
+                                <option value="vendor" data-toggle="modal" data-target="#myModal"> 
+                                    Vendor
                                 </option>
                             </select>
                         </div>

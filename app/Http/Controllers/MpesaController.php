@@ -278,7 +278,7 @@ class MpesaController extends Controller
 
         $user = DB::table('users')->where('phone_number','=',$phone_number)->first();
 
-        $resultCode = $request['Body']['stkCallback']['ResultCode'];
+        // $resultCode = $request['Body']['stkCallback']['ResultCode'];
 
         $date = strtotime(strval($transaction_date));
         $dateFormat = date('Y-m-d H:i:s',$date);
@@ -288,7 +288,7 @@ class MpesaController extends Controller
                                 ->orderBy('created_at', 'desc')
                                 ->first();
         //Check if customer paid successfully
-        if($resultCode != 0 ) {
+        if($receipt_number != 0 ) {
             Log::info('User either cancelled Mpesa STK Push Request or has insufficient funds');
         }else{
 

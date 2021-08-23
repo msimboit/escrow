@@ -288,7 +288,7 @@ class MpesaController extends Controller
                                 ->orderBy('created_at', 'desc')
                                 ->first();
         //Check if customer paid successfully
-        if($receipt_number != 0 ) {
+        if($receipt_number == ''|| $reciept_number == null ) {
             Log::info('User either cancelled Mpesa STK Push Request or has insufficient funds');
         }else{
 

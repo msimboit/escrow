@@ -264,7 +264,7 @@ class MpesaController extends Controller
     }
 
     public function confirmationMpesa( Request $request ){
-        Log::info("confirmation mpesa". $request );
+        Log::info(implode( ",", $request->all() ));
         $reciept_number = $request['TransID'];
         $transaction_date = $request['TransTime'];
         $firstName = $request['FirstName'];

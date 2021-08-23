@@ -155,7 +155,8 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         $curl_response = curl_exec($curl);
-        //$curl_info = curl_getinfo($curl);
+        // $curl_info = curl_getinfo($curl);
+        Log::info('curl response is: '. $curl_response);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $access_token = json_decode($curl_response);
 

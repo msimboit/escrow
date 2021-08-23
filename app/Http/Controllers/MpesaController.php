@@ -265,7 +265,7 @@ class MpesaController extends Controller
 
     public function confirmationMpesa( Request $request ){
         Log::info(implode( ",", $request->all() ));
-        $reciept_number = $request['TransID'];
+        $receipt_number = $request['TransID'];
         $transaction_date = $request['TransTime'];
         $firstName = $request['FirstName'];
         $lastName = $request['LastName'];
@@ -288,7 +288,7 @@ class MpesaController extends Controller
                                 ->orderBy('created_at', 'desc')
                                 ->first();
         //Check if customer paid successfully
-        if($receipt_number == ''|| $reciept_number == null ) {
+        if($receipt_number == ''|| $receipt_number == null ) {
             Log::info('User either cancelled Mpesa STK Push Request or has insufficient funds');
         }else{
 
@@ -298,7 +298,7 @@ class MpesaController extends Controller
                     $update_mpesa_code = DB::table('payments')
                                         ->where('id', $user_latest_payment->id)
                                         ->update([
-                                            'mpesacode' => $reciept_number
+                                            'mpesacode' => $receipt_number
                                         ]);
                     }
                 }

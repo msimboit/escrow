@@ -58,6 +58,9 @@ class RejectDeliveryController extends Controller
             'deliveryfee' => $request->deliveryfee,
         ]);
 
+        Tdetails::where('id', $request->orderId)
+                        ->update(['suspended' => 1]);
+
         return redirect()->route('deliveries')->with('success', 'Report Has Been Sent');
 
     }

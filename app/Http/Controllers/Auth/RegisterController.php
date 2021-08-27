@@ -83,10 +83,10 @@ class RegisterController extends Controller
         //                 ->withErrors($validator)
         //                 ->withInput();
         // }
-
+        $middle_name = $data['middle_name'] ? $data['middle_name'] : ' ';
         return User::create([
             'first_name' => $data['first_name'],
-            'middle_name' => $data['middle_name'],
+            'middle_name' => $middle_name,
             'last_name' => $data['last_name'],
             'phone_number' => $data['phone_number'],
             'email' => $data['email'],

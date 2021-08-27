@@ -19,7 +19,7 @@
                     <h5>Created By: {{ $rejection->clientName }}</h5>
                     <h5>Created At: {{ $rejection->created_at }}</h5>
                     <div class="my-5">
-                        <p>Reason for rejection:    {{ $rejection->detail }}</p>
+                        <p>Reason for rejection:    {{ $rejection->details }}</p>
                         <p>Transaction detail in question:   {{ $rejection->transdetail }}</p>
                     </div>
 

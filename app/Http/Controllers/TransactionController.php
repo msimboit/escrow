@@ -53,7 +53,7 @@ class TransactionController extends Controller
             $vendors = User::where('role', 'vendor')->get();
             // $clients = User::where('role', 'client')->get();
             $clients = User::where('role' ,'!=', 'admin')
-                        ->orderBy('name', 'asc')
+                        ->orderBy('first_name', 'asc')
                         ->get();
             /*
             $prds = Product::all(); //('name','id');

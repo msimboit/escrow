@@ -105,13 +105,14 @@ class MpesaController extends Controller
         $curl_post_data = [
         
         //Fill in the request parameters with valid values
-        'BusinessShortCode' => 3029009,
+        // 'BusinessShortCode' => 3029009,
+        'BusinessShortCode' => 174379,
         'Password' => $this->lipaNaMpesaPassword(),
         'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
         'TransactionType' => 'CustomerPayBillOnline',
         'Amount' => 1,
         'PartyA' => $phone_number, // replace this with your phone number
-        'PartyB' => 3029009,
+        'PartyB' => 174379,
         'PhoneNumber' => $phone_number, // replace this with your phone number
         'CallBackURL' => 'https://supamallescrow.com/v1/escrow/transaction/confirmation',
         'AccountReference' => $phone_number,

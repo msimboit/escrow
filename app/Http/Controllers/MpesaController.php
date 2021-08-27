@@ -95,7 +95,7 @@ class MpesaController extends Controller
         // $phone_number = 254700682679;
         // $amount = 1;
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-            // $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        // $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
         $curl = curl_init();
         
@@ -105,10 +105,8 @@ class MpesaController extends Controller
         $curl_post_data = [
         
         //Fill in the request parameters with valid values
-        // 'BusinessShortCode' => 3029009,
         'BusinessShortCode' => 174379,
-        // 'Password' => $this->lipaNaMpesaPassword(),
-        'Password' => 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3',
+        'Password' => $this->lipaNaMpesaPassword(),
         'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
         'TransactionType' => 'CustomerPayBillOnline',
         'Amount' => 1,
@@ -127,7 +125,7 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         
         $curl_response = curl_exec($curl);
-        Log::info('STK curl response: '.$curl_response);
+        Log::info($curl_response);
         return $curl_response;
         }
 
@@ -143,13 +141,12 @@ class MpesaController extends Controller
 
     public function generateAccessToken(){
         Log::info('generateAccessToken function reached');
-        $consumer_key = 'bnPGeAyk31w5RXWyezVaZJM4phNAJiwV';
-        $consumer_secret = 'zo8nSFeWokhGddNI';
+        $consumer_key = env('MPESA_CONSUMER_KEY', '');
+        $consumer_secret = env('MPESA_CONSUMER_SECRET', '');
         $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
 
         //$url    = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-        
-        $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+        $url = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -712,7 +709,7 @@ class MpesaController extends Controller
                 $pay->phoneno = $phone_number;
                 $pay->mpesacode = '';
                 $pay->amount_paid = $amount;
-                $$pay->amount_due = 0;
+                $pay->amount_due = 0;
                 $pay->save();
 
                 return redirect('/home');
@@ -847,8 +844,6 @@ class MpesaController extends Controller
                 $pay->transactioncode = $transactioncode;
                 $pay->phoneno = $phone_number;
                 $pay->mpesacode = '';
-                $pay->amount_paid = '';
-                $$pay->amount_due = '';
                 $pay->save();
 
                 return redirect('/home');

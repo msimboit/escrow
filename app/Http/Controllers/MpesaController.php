@@ -28,7 +28,7 @@ class MpesaController extends Controller
 
         $lipa_time              = Carbon::rawParse('now')->format('YmdHms');
         $passkey                = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
-        $BusinessShortCode      = 3029009;
+        $BusinessShortCode      = 174379;
         $timestamp              = $lipa_time;
         $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$timestamp);
 
@@ -126,7 +126,7 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         
         $curl_response = curl_exec($curl);
-        Log::info($curl_response);
+        Log::info('STK curl response: '.$curl_response);
         return $curl_response;
         }
 

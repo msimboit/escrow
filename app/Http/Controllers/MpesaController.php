@@ -141,12 +141,12 @@ class MpesaController extends Controller
 
     public function generateAccessToken(){
         Log::info('generateAccessToken function reached');
-        $consumer_key = env('MPESA_CONSUMER_KEY', '');
-        $consumer_secret = env('MPESA_CONSUMER_SECRET', '');
+        $consumer_key = 'bnPGeAyk31w5RXWyezVaZJM4phNAJiwV';
+        $consumer_secret = 'zo8nSFeWokhGddNI';
         $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
 
         //$url    = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-        $url = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+        $url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $url);

@@ -36,7 +36,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Tdetails::orderBy('created_at', 'desc')->paginate(100);
+        $transactions = Tdetails::where('paid', 0)->orderBy('created_at', 'desc')->paginate(100);
         $vendors = User::where('role','vendor')->get();
         $clients = User::where('role','client')->get();
         //dd($transactions);

@@ -84,7 +84,7 @@
                       <th class="text-center" scope="col">Quantity</th>
                       <th class="text-center" scope="col">Amount</th>
                       <th class="text-center" scope="col">Images</th>
-                      <th class="text-center" scope="col">Accept</th>
+                      <!-- <th class="text-center" scope="col">Accept</th> -->
                     </tr>
                     </thead>
                     <tbody>

@@ -679,7 +679,8 @@ class MpesaController extends Controller
     public function transactionpayment( Request $request ){
         if($request->itemCheckbox == null || $request->itemCheckbox == '')
         {
-            $sum = array_sum($request->itemCheckbox);
+            //$sum = array_sum($request->itemCheckbox);
+            $sum = $request->subtotal;
         
 
             // dd($request->all());

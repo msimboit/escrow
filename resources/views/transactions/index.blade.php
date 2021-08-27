@@ -19,10 +19,11 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
-       
+        @if(Auth::user()->role == 'vendor')
         <p>
             <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>
         </p>
+        @endif
        
         <!-- <a id="myID" href="#nada" class="button button-primary">Print container</a> -->
         <table class="table table-bordered table-striped">

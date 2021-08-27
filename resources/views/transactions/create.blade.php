@@ -41,9 +41,6 @@
              @if(Auth::user()->role == 'vendor')
             <input type="text" name="{{ Auth::user()->phone_number}}" placeholder="{{ Auth::user()->business_name}} - {{ Auth::user()->phone_number}}" class="form-control col-sm-4 font-weight-bold" readonly>
             @endif
-            @if(Auth::user()->role == 'client')
-            <input type="text" name="{{ Auth::user()->phone_number}}" placeholder="{{ Auth::user()->first_name}} - {{ Auth::user()->phone_number}}" class="form-control col-sm-4 font-weight-bold" readonly>
-            @endif
   </select>
 </div>
 <div class="row m-3">

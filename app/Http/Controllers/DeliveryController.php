@@ -189,6 +189,7 @@ class DeliveryController extends Controller
             
             if($request->itemCheckbox != null)
                 {
+                    //do a check if all items have been accepted or rejected then prompt the vendor accordingly
                         $update_tdetails_table = DB::table('tdetails')
                                     ->where('id', $request->input('orderId'))
                                     ->update([

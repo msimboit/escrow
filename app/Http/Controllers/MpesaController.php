@@ -710,6 +710,7 @@ class MpesaController extends Controller
                 $pay->transactioncode = $transactioncode;
                 $pay->phoneno = $phone_number;
                 $pay->mpesacode = '';
+                $pay->amount_paid = $amount;
                 $pay->save();
 
                 return redirect('/home');
@@ -844,6 +845,8 @@ class MpesaController extends Controller
                 $pay->transactioncode = $transactioncode;
                 $pay->phoneno = $phone_number;
                 $pay->mpesacode = '';
+                $pay->amount_paid = '';
+                $$pay->amount_due = '';
                 $pay->save();
 
                 return redirect('/home');

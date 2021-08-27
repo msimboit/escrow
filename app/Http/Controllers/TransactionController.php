@@ -79,6 +79,9 @@ class TransactionController extends Controller
         $product_image = explode(" & ", $arr->product_image);
         $total_amount = (array_sum($prices)) + ($arr->deliveryamount);
         
+        $collection = collect($itemdesc);
+
+        $combined = $collection->combine($prices);
 
         $tariff = 0;
 
@@ -183,7 +186,7 @@ class TransactionController extends Controller
         }
 
         // dd($tariff);
-        return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff'))->with($id);
+        return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff',  'combined'))->with($id);
     }
 
     public function edit($id)

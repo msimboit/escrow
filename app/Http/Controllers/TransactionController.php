@@ -408,5 +408,12 @@ class TransactionController extends Controller
         return response()->json($response);
      }
 
+     public function buyerSearch()
+     {
+         $buyers =User::get();
+
+         return response()->json($buyers);
+     }
+
 
 }

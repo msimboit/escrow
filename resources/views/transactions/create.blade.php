@@ -38,7 +38,12 @@
                   </option>
               @endforeach    
             </select> -->
+             @if(Auth::user()->role == 'vendor')
             <input type="text" name="{{ Auth::user()->phone_number}}" placeholder="{{ Auth::user()->business_name}} - {{ Auth::user()->phone_number}}" class="form-control col-sm-4 font-weight-bold" readonly>
+            @endif
+            @if(Auth::user()->role == 'client')
+            <input type="text" name="{{ Auth::user()->phone_number}}" placeholder="{{ Auth::user()->first_name}} - {{ Auth::user()->phone_number}}" class="form-control col-sm-4 font-weight-bold" readonly>
+            @endif
   </select>
 </div>
 <div class="row m-3">
@@ -254,6 +259,21 @@ function calc_total()
 	$('#total_amount').val((tax_sum+total).toFixed(2));
 } 
 
+$.ajax({
+  url:"/api/get-buyers",
+  type:"GET",
+  success: function(result){
+    console.log("success");
+    result.forEach((item) => {
+      buyers.push(item.phone_number);
+    });
+  },
+  error:function(){
+    console.log("error");
+  }
+});
+
+$(".bsearch").autocomplete("widget");
 
 // $('#livesearch').select2({
 //         placeholder: 'Type Vendor Name',

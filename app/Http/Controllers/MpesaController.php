@@ -107,7 +107,8 @@ class MpesaController extends Controller
         //Fill in the request parameters with valid values
         // 'BusinessShortCode' => 3029009,
         'BusinessShortCode' => 174379,
-        'Password' => $this->lipaNaMpesaPassword(),
+        // 'Password' => $this->lipaNaMpesaPassword(),
+        'Password' => 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3',
         'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
         'TransactionType' => 'CustomerPayBillOnline',
         'Amount' => 1,
@@ -711,7 +712,7 @@ class MpesaController extends Controller
                 $pay->phoneno = $phone_number;
                 $pay->mpesacode = '';
                 $pay->amount_paid = $amount;
-                $$pay->amount_due = '';
+                $$pay->amount_due = 0;
                 $pay->save();
 
                 return redirect('/home');

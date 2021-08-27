@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddAmountDueToPaymentsTable' => $baseDir . '/database/migrations/2021_08_23_170148_add_amount_due_to_payments_table.php',
+    'AddAmountPaidToPaymentsTable' => $baseDir . '/database/migrations/2021_08_23_163833_add_amount_paid_to_payments_table.php',
     'AddDeliveryTimeToTdetailsTable' => $baseDir . '/database/migrations/2021_06_10_061109_add_delivery_time_to_tdetails_table.php',
     'AddProductImageToTdetailsTable' => $baseDir . '/database/migrations/2021_06_09_130752_add_product_image_to_tdetails_table.php',
     'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
@@ -51,6 +53,8 @@ return array(
     'App\\Http\\Middleware\\TrustHosts' => $baseDir . '/app/Http/Middleware/TrustHosts.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Mail\\DeliveryMail' => $baseDir . '/app/Mail/DeliveryMail.php',
+    'App\\Mail\\ThankyouMail' => $baseDir . '/app/Mail/ThankyouMail.php',
     'App\\Mediations' => $baseDir . '/app/Mediations.php',
     'App\\MpesaTransaction' => $baseDir . '/app/MpesaTransaction.php',
     'App\\Payments' => $baseDir . '/app/Payments.php',
@@ -60,6 +64,7 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\RejectDelivery' => $baseDir . '/app/RejectDelivery.php',
     'App\\Settings' => $baseDir . '/app/Settings.php',
     'App\\Settlements' => $baseDir . '/app/Settlements.php',
     'App\\Tdetails' => $baseDir . '/app/Tdetails.php',
@@ -183,6 +188,7 @@ return array(
     'CreatePaymentsTable' => $baseDir . '/database/migrations/2020_10_23_121056_create_payments_table.php',
     'CreateProductTdetailsTable' => $baseDir . '/database/migrations/2020_12_08_105539_create_product_tdetails_table.php',
     'CreateProductsTable' => $baseDir . '/database/migrations/2020_12_02_083615_create_products_table.php',
+    'CreateRejectDeliveriesTable' => $baseDir . '/database/migrations/2021_08_25_125229_create_reject_deliveries_table.php',
     'CreateSettingsTable' => $baseDir . '/database/migrations/2020_11_26_070306_create_settings_table.php',
     'CreateTdepositsTable' => $baseDir . '/database/migrations/2020_10_15_113034_create_tdeposits_table.php',
     'CreateTdetailsProductTable' => $baseDir . '/database/migrations/2020_12_08_105013_create_tdetails_product_table.php',
@@ -205,6 +211,7 @@ return array(
     'Database\\Seeders\\ProductTableSeeder' => $baseDir . '/database/seeds/ProductTableSeeder.php',
     'Database\\Seeders\\SupamallproductSeeder' => $baseDir . '/database/seeds/SupamallproductSeeder.php',
     'Database\\Seeders\\SupamalluserSeeder' => $baseDir . '/database/seeds/SupamalluserSeeder.php',
+    'Database\\Seeders\\UserSeeder' => $baseDir . '/database/seeds/UserSeeder.php',
     'DeepCopy\\DeepCopy' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
     'DeepCopy\\Exception\\CloneException' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
     'DeepCopy\\Exception\\PropertyException' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',

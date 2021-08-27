@@ -107,6 +107,10 @@ Route::get('/settlements/show', 'SettlementController@show')->name('showsettleme
 Route::get('/deliveries', 'DeliveryController@index')->name('deliveries');
 Route::get('/deliveries/create', 'DeliveryController@create')->name('adddelivery');
 Route::post('/deliveries/acceptdelivery', 'DeliveryController@acceptDelivery')->name('acceptdelivery');
+Route::post('/deliveries/rejectDelivery', 'RejectDeliveryController@rejectDelivery')->name('rejectDelivery');
+Route::get('/deliveries/rejections', 'RejectDeliveryController@index')->name('rejections');
+Route::get('/deliveries/rejectionInfo/{id}', 'RejectDeliveryController@show')->name('rejectionInfo');
+Route::get('/deliveries/clearRejection/{id}', 'RejectDeliveryController@clearRejection')->name('clearRejection');
 Route::get('/deliveries/search', 'DeliveryController@search')->name('deliverysearch');
 Route::post('/deliveries/update', 'DeliveryController@update')->name('updatedelivery');
 Route::post('/deliveries/delete', 'DeliveryController@delete')->name('deletedelviery');

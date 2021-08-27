@@ -30,7 +30,7 @@ class MpesaController extends Controller
         $passkey                = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
         $BusinessShortCode      = 3029009;
         $timestamp              = $lipa_time;
-        $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$passkey.$timestamp);
+        $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$timestamp);
 
         return $lipa_na_mpesa_password;
     }
@@ -94,8 +94,8 @@ class MpesaController extends Controller
     public function customerMpesaSTKPush($phone_number, $amount){
         // $phone_number = 254700682679;
         // $amount = 1;
-        // $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-            $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+            // $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
         $curl = curl_init();
         
@@ -145,7 +145,8 @@ class MpesaController extends Controller
         $consumer_secret = env('MPESA_CONSUMER_SECRET', '');
         $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
 
-        $url    = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";        
+        //$url    = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+        $url = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -302,7 +303,8 @@ class MpesaController extends Controller
                     $update_mpesa_code = DB::table('payments')
                                         ->where('id', $user_latest_payment->id)
                                         ->update([
-                                            'mpesacode' => $receipt_number
+                                            'mpesacode' => $receipt_number,
+                                            'amount_paid' => $amount
                                         ]);
                     }
                 }
@@ -675,28 +677,178 @@ class MpesaController extends Controller
 
 
     public function transactionpayment( Request $request ){
-
-        $values = $request->except(['_token']);
-        // dd($values);
-        $phone_number = $request->clientNumber; 
-        $amount =   $request->total; 
-        $phone_number = substr($phone_number, -9);
-        $phone_number = 254 . $phone_number;
+        if($request->itemCheckbox != null || $request->itemCheckbox != '')
+        {
+            $sum = array_sum($request->itemCheckbox);
         
-        $this->customerMpesaSTKPush($phone_number, $amount);
-        
-        Tdetails::where('id', '=', $values['orderId'])
-                ->update(['transactioncode' => 'mpesaCode']);
-            
-        $transactioncode = $request->orderId;
 
-        $pay = new Payments;
-        $pay->transactioncode = $transactioncode;
-        $pay->phoneno = $phone_number;
-        $pay->mpesacode = '';
-        $pay->save();
+            // dd($request->all());
 
-        return redirect('/home');
+            $values = $request->except(['_token']);
+            $phone_number = $request->clientNumber; 
+
+            if($request->subtotal == $sum)
+            {
+                $amount = $request->total; 
+                
+                //dd('equal and total = '.$amount);
+
+                $phone_number = substr($phone_number, -9);
+                $phone_number = 254 . $phone_number;
+                
+                $this->customerMpesaSTKPush($phone_number, $amount);
+                
+                Tdetails::where('id', '=', $values['orderId'])
+                        ->update(['transactioncode' => 'mpesaCode']);
+                    
+                $transactioncode = $request->orderId;
+
+                $pay = new Payments;
+                $pay->transactioncode = $transactioncode;
+                $pay->phoneno = $phone_number;
+                $pay->mpesacode = '';
+                $pay->save();
+
+                return redirect('/home');
+
+            }
+
+            if($request->total != $sum)
+            {
+                $tariff = 0;
+
+                $total = $request->total;
+                // $t = (intval($total) - ( intval($total) - intval($sum)));
+                $t = $sum;
+
+                if($t >= 1 && $t < 50)
+                {
+                    $tariff = 3;
+                }
+
+                if($t >= 50 && $t <= 100)
+                {
+                    $tariff = 13;
+                }
+
+                if($t >= 101 && $t <= 499)
+                {
+                    $tariff = 83;
+                }
+
+                if($t >= 500 && $t <= 999)
+                {
+                    $tariff = 89;
+                }
+
+                if($t >= 1000 && $t <= 1499)
+                {
+                    $tariff = 105;
+                }
+
+                if($t >= 1500 && $t <= 2499)
+                {
+                    $tariff = 110;
+                }
+
+                if($t >= 2500 && $t <= 3499)
+                {
+                    $tariff = 159;
+                }
+
+                if($t >= 3500 && $t <= 4999)
+                {
+                    $tariff = 181;
+                }
+
+                if($t >= 5000 && $t <= 7499)
+                {
+                    $tariff = 232;
+                }
+
+                if($t >= 7500 && $t <= 9999)
+                {
+                    $tariff = 265;
+                }
+
+                if($t >= 10000 && $t <= 14999)
+                {
+                    $tariff = 347;
+                }
+
+                if($t >= 15000 && $t <= 19999)
+                {
+                    $tariff = 370;
+                }
+
+                if($t >= 20000 && $t<= 24999)
+                {
+                    $tariff = 386;
+                }
+
+                if($t >= 25000 && $t <= 29999)
+                {
+                    $tariff = 391;
+                }
+
+                if($t >= 30000 && $t <= 34999)
+                {
+                    $tariff = 396;
+                }
+
+                if($t >= 35000 && $t <= 39999)
+                {
+                    $tariff = 570;
+                }
+
+                if($t >= 40000 && $t <= 44999)
+                {
+                    $tariff = 575;
+                }
+
+                if($t >= 45000 && $t <= 49999)
+                {
+                    $tariff = 580;
+                }
+
+                if($t >= 50000 && $t <= 69999)
+                {
+                    $tariff = 623;
+                }
+
+                if($t >= 70000 && $t <= 150000)
+                {
+                    $tariff = 628;
+                }
+
+                // dd('not equal and total = '. ($t + intval($tariff)) );
+
+                $amount = $t + intval($tariff);
+
+                // dd($amount);
+
+                $phone_number = substr($phone_number, -9);
+                $phone_number = 254 . $phone_number;
+                
+                $this->customerMpesaSTKPush($phone_number, $amount);
+                
+                Tdetails::where('id', '=', $values['orderId'])
+                        ->update(['transactioncode' => 'mpesaCode']);
+                    
+                $transactioncode = $request->orderId;
+
+                $pay = new Payments;
+                $pay->transactioncode = $transactioncode;
+                $pay->phoneno = $phone_number;
+                $pay->mpesacode = '';
+                $pay->save();
+
+                return redirect('/home');
+
+            }
+        } else {
+            return back();
+        }
 
     }
 }

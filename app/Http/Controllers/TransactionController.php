@@ -77,7 +77,8 @@ class TransactionController extends Controller
         $quantities = explode(" ", $arr->deposited);
         $prices = explode(" ", $arr->transamount);
         $product_image = explode(" & ", $arr->product_image);
-        $total_amount = (array_sum($prices)) + (((array_sum($prices))/100)*1) + ($arr->deliveryamount);
+        $total_amount = (array_sum($prices)) + ($arr->deliveryamount);
+        
 
         $tariff = 0;
 

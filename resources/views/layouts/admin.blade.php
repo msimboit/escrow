@@ -216,17 +216,18 @@
               </p>
             </a>
           </li>
-
-          @if(Auth::user()->role === 'admin')        
+          
           <li class="nav-item">
-            <a href="{{ route('disputes') }}" class="nav-link">
+            <a href="{{ route('rejections') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
                 Disputes
-               
               </p>
             </a>
           </li>
+
+          
+          @if(Auth::user()->role === 'admin')   
           <li class="nav-item">
             <a href="{{ route('mediations') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
@@ -296,6 +297,12 @@
                             {{ session('success') }}
                         </div>
                     @endif
+
+    @if (session('alert'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('alert') }}
+        </div>
+    @endif
     @yield('content')
     @yield('scripts')
     <!-- /.content -->

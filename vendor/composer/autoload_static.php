@@ -15,25 +15,25 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
-        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
-        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
+        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
+        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
@@ -189,8 +189,8 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Whoops\\' => 
         array (
@@ -334,8 +334,8 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -535,6 +535,8 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
     );
 
     public static $classMap = array (
+        'AddAmountDueToPaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2021_08_23_170148_add_amount_due_to_payments_table.php',
+        'AddAmountPaidToPaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2021_08_23_163833_add_amount_paid_to_payments_table.php',
         'AddDeliveryTimeToTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2021_06_10_061109_add_delivery_time_to_tdetails_table.php',
         'AddProductImageToTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2021_06_09_130752_add_product_image_to_tdetails_table.php',
         'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
@@ -580,6 +582,8 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Mail\\DeliveryMail' => __DIR__ . '/../..' . '/app/Mail/DeliveryMail.php',
+        'App\\Mail\\ThankyouMail' => __DIR__ . '/../..' . '/app/Mail/ThankyouMail.php',
         'App\\Mediations' => __DIR__ . '/../..' . '/app/Mediations.php',
         'App\\MpesaTransaction' => __DIR__ . '/../..' . '/app/MpesaTransaction.php',
         'App\\Payments' => __DIR__ . '/../..' . '/app/Payments.php',
@@ -589,6 +593,7 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\RejectDelivery' => __DIR__ . '/../..' . '/app/RejectDelivery.php',
         'App\\Settings' => __DIR__ . '/../..' . '/app/Settings.php',
         'App\\Settlements' => __DIR__ . '/../..' . '/app/Settlements.php',
         'App\\Tdetails' => __DIR__ . '/../..' . '/app/Tdetails.php',
@@ -712,6 +717,7 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'CreatePaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_23_121056_create_payments_table.php',
         'CreateProductTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_08_105539_create_product_tdetails_table.php',
         'CreateProductsTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_02_083615_create_products_table.php',
+        'CreateRejectDeliveriesTable' => __DIR__ . '/../..' . '/database/migrations/2021_08_25_125229_create_reject_deliveries_table.php',
         'CreateSettingsTable' => __DIR__ . '/../..' . '/database/migrations/2020_11_26_070306_create_settings_table.php',
         'CreateTdepositsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_113034_create_tdeposits_table.php',
         'CreateTdetailsProductTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_08_105013_create_tdetails_product_table.php',
@@ -734,6 +740,7 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'Database\\Seeders\\ProductTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ProductTableSeeder.php',
         'Database\\Seeders\\SupamallproductSeeder' => __DIR__ . '/../..' . '/database/seeds/SupamallproductSeeder.php',
         'Database\\Seeders\\SupamalluserSeeder' => __DIR__ . '/../..' . '/database/seeds/SupamalluserSeeder.php',
+        'Database\\Seeders\\UserSeeder' => __DIR__ . '/../..' . '/database/seeds/UserSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
         'DeepCopy\\Exception\\PropertyException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',

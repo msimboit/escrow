@@ -29,6 +29,8 @@
 
 
             <!-- Main content -->
+            <form action="{{ route('transactionpayment') }}" method="POST" enctype="multipart/form-data">
+                @csrf
             <div class="invoice p-3 mb-3">
               <!-- title row -->
               <div class="row">
@@ -72,6 +74,7 @@
               <!-- /.row -->
 
               <!-- Table row -->
+
               <div class="row mt-4">
                 <div class="col-12 table-responsive">
                   <table class="table table-hover">
@@ -175,9 +178,7 @@
                   <button type="button" class="btn btn-primary float-left" style="margin-right: 5px;" id="lnkPrint">
                     <i class="fas fa-print"></i> Print
                   </button>
-                  @if(Auth::user()->role == 'client' || Auth::user()->role == 'admin')
-                  <form action="{{ route('transactionpayment') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                  
                     <input type="text" name="clientName" value="{{ $cdetails->first_name }}" hidden>
                     <input type="text" name="clientNumber" value="{{ $cdetails->phone_number }}" hidden>
                     <input type="text" name="clientEmail" value="{{ $cdetails->email }}" hidden>
@@ -189,13 +190,15 @@
                     <input type="text" name="transdetail" value="{{ $arr->transdetail }}" hidden>
                     <input type="text" name="quantity" value="{{ $arr->deposited }}" hidden>
                     <input type="text" name="subtotal" value="{{ array_sum($prices) }}" hidden>
+                    <input type="text" name="tariff" value="{{ $tariff }}" hidden>
                     <!-- <input type="text" name="shipping" value="1050" hidden> -->
                     <input type="text" name="total" value="{{ (array_sum($prices)) + $tariff + ($arr->deliveryamount) }}" hidden>
+                    @if(Auth::user()->role == 'client' || Auth::user()->role == 'admin')
                     <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
                     Purchase
                     </button>
+                    @endif
                   </form>
-                  @endif
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF 
                   </button>

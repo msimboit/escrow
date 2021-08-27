@@ -113,12 +113,12 @@
                             
                           @endforeach
                         </td>
-                        <td class="text-center" style="width: 100px; height: 100px;">
+                        <!-- <td class="text-center" style="width: 100px; height: 100px;">
                           @foreach ($combined as $key => $combo)
                             <input type="checkbox" name="itemCheckbox[]" value="{{ $combo }}">
                             <br/><br/><br/><br/><br />
                           @endforeach
-                        </td>
+                        </td> -->
                     </tr>
                     </tbody>
                   </table>

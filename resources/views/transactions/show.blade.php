@@ -84,6 +84,7 @@
                       <th class="text-center" scope="col">Quantity</th>
                       <th class="text-center" scope="col">Amount</th>
                       <th class="text-center" scope="col">Images</th>
+                      <th class="text-center" scope="col">Accept</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -110,6 +111,12 @@
                                   class="img-fluid max-width: 100%; height: auto;"
                                   alt="">
                             
+                          @endforeach
+                        </td>
+                        <td class="text-center" style="width: 100px; height: 100px;">
+                          @foreach ($combined as $key => $combo)
+                            <input type="checkbox" name="itemCheckbox[]" value="{{ $combo }}">
+                            <br/><br/><br/><br/><br />
                           @endforeach
                         </td>
                     </tr>

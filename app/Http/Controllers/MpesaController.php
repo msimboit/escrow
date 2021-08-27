@@ -30,7 +30,7 @@ class MpesaController extends Controller
         $passkey                = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
         $BusinessShortCode      = 174379;
         $timestamp              = $lipa_time;
-        $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$timestamp);
+        $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$passkey.$timestamp);
 
         return $lipa_na_mpesa_password;
     }
@@ -146,7 +146,7 @@ class MpesaController extends Controller
         $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
 
         //$url    = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-        $url = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+        $url ='https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $url);

@@ -206,6 +206,7 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'client_id' => 'required',
             'itemdesc' => 'required',
@@ -215,13 +216,18 @@ class TransactionController extends Controller
             'deliveryfee' => 'required'
         ]);
 
-        //dd($request->all());
+        // dd($request->all());
         $itemdesc = implode (". ", $request->input('itemdesc',[]));
         $quantities = implode (" ", $request->input('quantities',[]));
         $prices = implode (" ", $request->input('prices',[])); 
 
         $prices_sum = array_sum ($request->input('prices',[]));
         $quantities_sum = array_sum ($request->input('quantities',[]));
+
+        if($prices_sum  > 300000)
+        {
+            return redirect()->back()->with('alert', 'Transaction cannot be greater than Ksh.300,000');
+        }
 
 
         $user = Auth::user();
@@ -413,7 +419,7 @@ class TransactionController extends Controller
 
      public function buyerSearch()
      {
-         $buyers =User::get();
+         $buyers = User::get();
 
          return response()->json($buyers);
      }

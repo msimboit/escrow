@@ -93,10 +93,18 @@
         <!-- <div class="image">
           <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div> -->
-        <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->first_name }}  {{ Auth::user()->last_name }}</a>
+        <div class="info mx-2">
+          <a href="#" class="d-block">Hello {{ Auth::user()->first_name }}</a>
         </div>
-        <div class="info">
+      </div>
+
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-between">
+        <div class="info mx-2">
+            <a class="d-block" href="{{ route('profile') }}">
+                                        {{ __('Profile') }}
+            </a>
+        </div>
+        <div class="info mx-2">
             <a class="d-block" href="{{ route('logout') }}">
                                         {{ __('Logout') }}
             </a>

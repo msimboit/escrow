@@ -155,10 +155,10 @@
                         <th>Handling Fee(Tariff Charges)</th>
                         <td>Kshs.{{ $tariff }}.00</td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <th>Delivery Fee:</th>
                         <td>{{ $arr->deliveryamount }}</td>
-                      </tr>
+                      </tr> -->
                       <!-- <tr>
                         <th>Delivery Fee <br /> Handled By:</th>
                           @if($arr->delivery_fee_handler == 'client')
@@ -170,7 +170,7 @@
                       </tr> -->
                       <tr>
                         <th>Total:</th>
-                        <td>Kshs.{{ (array_sum($prices)) + $tariff + ($arr->deliveryamount) }}</td>
+                        <td>Kshs.{{ (array_sum($prices)) + $tariff }}</td>
                       </tr>
                     </table>
                   </div>
@@ -199,16 +199,16 @@
                     <input type="text" name="subtotal" value="{{ array_sum($prices) }}" hidden>
                     <input type="text" name="tariff" value="{{ $tariff }}" hidden>
                     <!-- <input type="text" name="shipping" value="1050" hidden> -->
-                    <input type="text" name="total" value="{{ (array_sum($prices)) + $tariff + ($arr->deliveryamount) }}" hidden>
+                    <input type="text" name="total" value="{{ (array_sum($prices)) + $tariff }}" hidden>
                     @if(Auth::user()->role == 'client' || Auth::user()->role == 'admin')
                     <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
                     Purchase
                     </button>
                     @endif
                   </form>
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                  <!-- <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF 
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>

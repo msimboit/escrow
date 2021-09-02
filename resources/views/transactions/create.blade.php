@@ -60,6 +60,8 @@
           </option>
       @endforeach    
   </select>
+  <!-- Works -->
+  <!-- <input type="text" name="client_id" id="buyers" class="bsearch form-control col-sm-4 font-weight-bold" placeholder="Key in the Buyer number"> -->
 
   <div class="row mt-4 ml-3">
     <label >Set Your Delivery Location Below: <small>(Please enter a valid location as possible, e.g "example,city,country")</small></label>
@@ -173,9 +175,9 @@
               </select>
             </div>
 
-            <div class="row m-3">
+            <div class="row m-3" hidden>
               <label class="col-md-2">Delivery Fee:</label>
-            <input type="number" name="deliveryfee" class="form-control col-sm-2" value="1" />
+            <input type="number" name="deliveryfee" class="form-control col-sm-2" value="0" />
             </div>
 
             <!-- <div class="row m-3 pt-2">
@@ -256,21 +258,28 @@ function calc_total()
 	$('#total_amount').val((tax_sum+total).toFixed(2));
 } 
 
+var buyers = [];
 $.ajax({
-  url:"/api/get-buyers",
+  url:"/buyer/search",
   type:"GET",
   success: function(result){
     console.log("success");
+    console.log(result);
     result.forEach((item) => {
       buyers.push(item.phone_number);
+      console.log(item.phone_number);
     });
+    $('#buyers option:selected').val();
   },
   error:function(){
     console.log("error");
   }
 });
 
-$(".bsearch").autocomplete("widget");
+// $(".bsearch").autocomplete("widget");
+$( "#buyers" ).autocomplete({
+      source: buyers
+    });
 
 // $('#livesearch').select2({
 //         placeholder: 'Type Vendor Name',

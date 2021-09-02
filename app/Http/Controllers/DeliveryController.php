@@ -189,7 +189,14 @@ class DeliveryController extends Controller
             
             if($request->itemCheckbox != null)
                 {
-                    //do a check if all items have been accepted or rejected then prompt the vendor accordingly
+                    $sum = array_sum($request->itemCheckbox);
+                    // dd($sum);
+
+                    //Doing a check if all items have been accepted or rejected then prompt the vendor accordingly
+                    
+                    if($request->subtotal == $sum)
+                    {
+                        // dd('Entire Delivery was accepted');
                         $update_tdetails_table = DB::table('tdetails')
                                     ->where('id', $request->input('orderId'))
                                     ->update([
@@ -197,38 +204,82 @@ class DeliveryController extends Controller
                                     'closed' => '1'                                                                 
                             ]);
 
-                    $amount_due = 
+                        $amount_due = ($request->subtotal) - $sum;
 
-                    $update_payments_table = DB::table('payments')
-                                ->where('transactioncode', $request->input('orderId'))
-                                ->update([
-                                'amount_due' => '1',                                                          
-                            ]);
+                        $update_payments_table = DB::table('payments')
+                                    ->where('transactioncode', $request->input('orderId'))
+                                    ->update([
+                                    'amount_due' => $amount_due,                                                          
+                                ]);
 
-                    $transaction = Tdetails::where('id', $request->input('orderId'))
-                                    ->first();
+                        $transaction = Tdetails::where('id', $request->input('orderId'))
+                                        ->first();
 
-                    $email = Auth::user()->email;
-                    // dd($transaction);
-                    $vendor = User::where('id', $transaction->vendor_id)->first();
+                        $email = Auth::user()->email;
+                        // dd($transaction);
+                        $vendor = User::where('id', $transaction->vendor_id)->first();
+                        
+                        $client = User::where('id', $transaction->client_id)->first();
+
+                        $data = [
+                            'client_name' => $client->first_name,
+                            'client_phone' => $client->phone_number,
+                            'transaction_details' => $transaction->transdetail,
+                            'delivery_location' => $transaction->deliverylocation,
+                            'delivery_time' => $transaction->deliverytime,
+                            'delivery_fee' => $transaction->deliveryamount,
+                            'delivery_fee_handler' => $transaction->delivery_fee_handler,
+                        ];
+                        // Mail::to($email)->send(new DeliveryMail($data));
+                        
+                        return redirect()->route('deliveries')->with('success', 'Delivery Confirmed');
+
+                    } else{
+                            // dd('Entire Delivery was not accepted');
+                            $trans_details = $request->all();
+
+                            $update_tdetails_table = DB::table('tdetails')
+                                        ->where('id', $request->input('orderId'))
+                                        ->update([
+                                        'delivered' => '1',
+                                        'closed' => '1'                                                                 
+                                ]);
+
+                            $amount_due = ($request->subtotal) - $sum;
+                            // dd($amount_due);
+
+                            $update_payments_table = DB::table('payments')
+                                        ->where('transactioncode', $request->input('orderId'))
+                                        ->update([
+                                        'amount_due' => $amount_due,                                                          
+                                    ]);
+
+                            $transaction = Tdetails::where('id', $request->input('orderId'))
+                                            ->first();
+
+                            $email = Auth::user()->email;
+                            // dd($transaction);
+                            $vendor = User::where('id', $transaction->vendor_id)->first();
+                            
+                            $client = User::where('id', $transaction->client_id)->first();
+
+                            $data = [
+                                'client_name' => $client->first_name,
+                                'client_phone' => $client->phone_number,
+                                'transaction_details' => $transaction->transdetail,
+                                'delivery_location' => $transaction->deliverylocation,
+                                'delivery_time' => $transaction->deliverytime,
+                                'delivery_fee' => $transaction->deliveryamount,
+                                'delivery_fee_handler' => $transaction->delivery_fee_handler,
+                            ];
+                            // Mail::to($email)->send(new DeliveryMail($data));
+                            
+                            return view('Delivery.rejectDelivery', compact('trans_details'))->with('alert', 'Not all purchases were accepted upon delivery');
+                    }
                     
-                    $client = User::where('id', $transaction->client_id)->first();
-
-                    $data = [
-                        'client_name' => $client->first_name,
-                        'client_phone' => $client->phone_number,
-                        'transaction_details' => $transaction->transdetail,
-                        'delivery_location' => $transaction->deliverylocation,
-                        'delivery_time' => $transaction->deliverytime,
-                        'delivery_fee' => $transaction->deliveryamount,
-                        'delivery_fee_handler' => $transaction->delivery_fee_handler,
-                    ];
-                    // Mail::to($email)->send(new DeliveryMail($data));
-                    
-                    return redirect()->route('deliveries')->with('success', 'Delivery Confirmed');
                 }
                 else{
-                    return redirect()->back()->with('alert', 'Accept at least one delivery using the accept checkboxes!');
+                    return redirect()->back()->with('alert', 'Accept at least one or all deliveries using the accept checkboxes!');
                 }
         }
 

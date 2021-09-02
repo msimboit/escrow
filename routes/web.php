@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::get('/profile', '\App\Http\Controllers\Auth\ProfileController@show')->name('profile');
 
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/create', 'ProductsController@create')->name('addproducts');
@@ -38,7 +39,7 @@ Route::get('/transactions', 'TransactionController@index')->name('transactions')
 Route::get('/transactions/create', 'TransactionController@create')->name('addtransactions');
 // Route::get('ajax-autocomplete-search', 'TransactionController@selectSearch')->name('search');
 // Route::get('ajax-autocomplete-search2', 'TransactionController@selectSearch2')->name('search');
-Route::get('/buyers/search', 'TransactionController@buyerSearch')->name('buyerSearch');
+Route::get('/buyer/search', 'TransactionController@buyerSearch')->name('buyerSearch');
 Route::post('/transactions/getVendors/','TransactionController@getVendors')->name('transaction.getVendors');
 Route::post('/transactions/getClients/','TransactionController@getClients')->name('transaction.getClients');
 Route::get('/transactions/edit/{id}', 'TransactionController@edit')->name('edittransactions');

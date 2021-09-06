@@ -224,7 +224,7 @@ class TransactionController extends Controller
         $prices_sum = array_sum ($request->input('prices',[]));
         $quantities_sum = array_sum ($request->input('quantities',[]));
 
-        if($prices_sum  > 300000)
+        if($prices_sum  >250000)
         {
             return redirect()->back()->with('alert', 'Transaction cannot be greater than Ksh.300,000');
         }

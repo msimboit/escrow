@@ -27,8 +27,9 @@ class MpesaController extends Controller
     public function lipaNaMpesaPassword(){
 
         $lipa_time              = Carbon::rawParse('now')->format('YmdHms');
-        $passkey                = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
-        $BusinessShortCode      = 174379;
+        $passkey                = 'CRQ000007574605';
+        // $BusinessShortCode      = 174379;
+        $BusinessShortCode = 3029009;
         $timestamp              = $lipa_time;
         $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$passkey.$timestamp);
 
@@ -94,8 +95,8 @@ class MpesaController extends Controller
     public function customerMpesaSTKPush($phone_number, $amount){
         // $phone_number = 254700682679;
         // $amount = 1;
-        $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-        // $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        // $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
         $curl = curl_init();
         
@@ -105,13 +106,13 @@ class MpesaController extends Controller
         $curl_post_data = [
         
         //Fill in the request parameters with valid values
-        'BusinessShortCode' => 174379,
+        'BusinessShortCode' => 3029009,
         'Password' => $this->lipaNaMpesaPassword(),
         'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
         'TransactionType' => 'CustomerPayBillOnline',
         'Amount' => 1,
         'PartyA' => $phone_number, // replace this with your phone number
-        'PartyB' => 174379,
+        'PartyB' => 3029009,
         'PhoneNumber' => $phone_number, // replace this with your phone number
         'CallBackURL' => 'https://supamallescrow.com/v1/escrow/transaction/confirmation',
         'AccountReference' => $phone_number,
@@ -145,8 +146,8 @@ class MpesaController extends Controller
         $consumer_secret = env('MPESA_CONSUMER_SECRET', '');
         $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
 
-        //$url    = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-        $url ='https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+        $url    = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+        // $url ='https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $url);

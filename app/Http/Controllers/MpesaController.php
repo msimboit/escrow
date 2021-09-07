@@ -27,9 +27,9 @@ class MpesaController extends Controller
     public function lipaNaMpesaPassword(){
 
         $lipa_time              = Carbon::rawParse('now')->format('YmdHms');
-        $passkey                = 'CRQ000007574605';
+        $passkey                = '9f202c6227ba12753d83b4cac5f376ca01ccce8556c4fb65b2e1050dc770848e';
         // $BusinessShortCode      = 174379;
-        $BusinessShortCode = 3029009;
+        $BusinessShortCode = 4051259;
         $timestamp              = $lipa_time;
         $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$passkey.$timestamp);
 
@@ -106,13 +106,13 @@ class MpesaController extends Controller
         $curl_post_data = [
         
         //Fill in the request parameters with valid values
-        'BusinessShortCode' => 3029009,
+        'BusinessShortCode' => 4051259,
         'Password' => $this->lipaNaMpesaPassword(),
         'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
         'TransactionType' => 'CustomerPayBillOnline',
         'Amount' => 1,
         'PartyA' => $phone_number, // replace this with your phone number
-        'PartyB' => 3029009,
+        'PartyB' => 4051259,
         'PhoneNumber' => $phone_number, // replace this with your phone number
         'CallBackURL' => 'https://supamallescrow.com/v1/escrow/transaction/confirmation',
         'AccountReference' => $phone_number,

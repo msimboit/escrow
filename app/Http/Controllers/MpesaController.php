@@ -301,7 +301,7 @@ class MpesaController extends Controller
         //                         ->orderBy('id', 'DESC')
         //                         ->first();
 
-        $user_latest_payment = Payments::where('transactioncode', $trans_id)
+        $user_latest_payment = Payments::where('transactioncode','=', $trans_id)
                                         ->first();
 
         Log::info('User Payment Details: '.$user_latest_payment);

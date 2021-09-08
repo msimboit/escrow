@@ -301,10 +301,10 @@ class MpesaController extends Controller
         //                         ->orderBy('id', 'DESC')
         //                         ->first();
 
-        $user_latest_payment = Payments::where('transactioncode','=', $trans_id)
-                                        ->first();
+        // $user_latest_payment = Payments::where('transactioncode','=', $trans_id)
+        //                                 ->first();
 
-        Log::info('User Payment Details: '.$user_latest_payment);
+        // Log::info('User Payment Details: '.$user_latest_payment);
 
         $user_payment_time = new DateTime($user_latest_payment->created_at);
         //Check if customer paid successfully

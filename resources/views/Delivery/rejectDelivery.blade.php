@@ -5,12 +5,11 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card mt-4">
+            @if(!empty($alertMsg))
+                <div class="alert alert-danger" role="alert"> {{ $alertMsg }}</div>
+            @endif
                 <div class="card-header d-flex justify-content-between"><span>{{ __('Reason For Rejecting The Delivery') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
-                
-                @if(!empty($alertMsg))
-                <div class="alert alert-success" role="alert"> {{ $alertMsg }}</div>
-                @endif
-                
+
                 <div class="card-body">
                     {{__('Hello')}}
                     {{ Auth::user()->first_name }},

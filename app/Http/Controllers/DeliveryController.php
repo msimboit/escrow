@@ -274,7 +274,7 @@ class DeliveryController extends Controller
                             ];
                             // Mail::to($email)->send(new DeliveryMail($data));
                             
-                            return view('Delivery.rejectDelivery', compact('trans_details'))->with('alert', 'Not all purchases were accepted upon delivery');
+                            return view('Delivery.rejectDelivery', compact('trans_details'))->with('alertMsg', 'Not all purchases were accepted upon delivery');
                     }
                     
                 }

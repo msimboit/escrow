@@ -125,3 +125,14 @@ Route::post('/mediations/store', 'MediationController@store')->name('storemediat
 Route::post('/mediations/update', 'MediationController@update')->name('updatemediation');
 Route::post('/mediations/delete', 'MediationController@delete')->name('deletemediation');
 Route::get('/mediations/show', 'MediationController@show')->name('showmediation');
+
+
+/**
+ * Mpesa Web Route For B2c
+ */
+
+Route::get('b2c', function(){
+    return view('b2c');
+});
+
+Route::post('simulateb2c', [MPESAController::class, 'b2cRequest'])->name('b2cRequest');

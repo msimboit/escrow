@@ -880,4 +880,67 @@ class MpesaController extends Controller
         }
 
     }
+
+
+
+
+    /**
+     * B2C Functions Start Here
+     * 
+     */
+
+
+    public function makeHttp($url, $body)
+    {
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/' . $url;
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                    CURLOPT_URL => $url,
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '. $this->getAccessToken()),
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POST => true,
+                    CURLOPT_POSTFIELDS => json_encode($body)
+                )
+        );
+        $curl_response = curl_exec($curl);
+        curl_close($curl);
+        return $curl_response;
+    }
+
+    public function b2cRequest(Request $request)
+    {
+        $curl_post_data = array(
+            'InitiatorName' => 'testapi',
+            'SecurityCredential' => 'oD6iCdfGWza+jyPCQ74PIGq90jNtESOxQvAwr+fAJyVZh9ziiUOBahUFHN22TnP/oNHOmViBgs/gD9/8fKN/UV4AQRrmjJinZsTHAgjQj1S5j+nle/VZJLudVgDhGwF7+qSJgMSB7leiCkIFrM3UQslhwM5impry3POGOQXsihqIfFQU4JfzMDoELgSBj/eF7JSnwpZIodxcFUROHG/+eCwSj3lNmzurrX5ZbdnSh8dmpWef1BkRt7rkGFUl8CSTDBr5F4W2WUWcNnVpjksu9Tuntms9DhHgjb1Dr6Xp25Agq+bBvKQc7ZwIeBTLzYhl+RkdTSmC9GQWKI4i8BO+pg==',
+            'CommandID' => 'BusinessPayment',
+            // 'Amount' => $request->amount,
+            'Amount' => 1,
+            'PartyA' => 600982,
+            'PartyB' => 254700682679,
+            'Remarks' => 'Transaction Complete',
+            'QueueTimeOutURL' => 'https://supamallescrow.com/v1/escrow/b2c/queue',
+            'ResultURL' => 'https://supamallescrow.com/v1/escrow/b2c/result',
+            'Occasion' => 'Payment by Escrow Complete'
+          );
+          
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                    CURLOPT_URL => $url,
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '. $this->getAccessToken()),
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POST => true,
+                    CURLOPT_POSTFIELDS => json_encode($body)
+                )
+        );
+        $curl_response = curl_exec($curl);
+        curl_close($curl);
+        $res = $curl_response;
+
+        return $res;
+    }
 }

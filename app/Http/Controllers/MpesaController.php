@@ -852,7 +852,7 @@ class MpesaController extends Controller
                 $phone_number = substr($phone_number, -9);
                 $phone_number = 254 . $phone_number;
 
-                $trans_id = $values['orderId'];
+                $trans_id = $request->orderId;
                 
                 $this->customerMpesaSTKPush($phone_number, $amount, $trans_id);
                 

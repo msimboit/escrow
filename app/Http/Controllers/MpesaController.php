@@ -889,6 +889,28 @@ class MpesaController extends Controller
      * 
      */
 
+    public function getAccessToken()
+    {
+        $url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+        // $url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+
+        $curl = curl_init($url);
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_HTTPHEADER => ['Content-Type: application/json; charset=utf8'],
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HEADER => false,
+                CURLOPT_USERPWD => env('MPESA_CONSUMER_KEY') . ':' . env('MPESA_CONSUMER_SECRET')
+            )
+        );
+        $response = json_decode(curl_exec($curl));
+        curl_close($curl);
+
+        // return $response;
+        return $response->access_token;
+    }
+
 
     public function makeHttp($url, $body)
     {
@@ -918,7 +940,7 @@ class MpesaController extends Controller
             // 'Amount' => $request->amount,
             'Amount' => 1,
             'PartyA' => 600991,
-            'PartyB' => 254708374149,
+            'PartyB' => 254700682679,
             'Remarks' => 'Transaction Complete',
             'QueueTimeOutURL' => 'https://supamallescrow.com/v1/escrow/b2c/queue',
             'ResultURL' => 'https://supamallescrow.com/v1/escrow/b2c/result',
@@ -931,7 +953,7 @@ class MpesaController extends Controller
             $curl,
             array(
                     CURLOPT_URL => $url,
-                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer 0LqRaweGSD5BNSAf0TGu9R4oVw8T'),
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '. $this->getAccessToken()),
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POST => true,
                     CURLOPT_POSTFIELDS => json_encode($curl_post_data)

@@ -288,9 +288,11 @@ class MpesaController extends Controller
 
         // $resultCode = $request['Body']['stkCallback']['ResultCode'];
 
-        $date = strtotime(strval($transaction_date));
-        $dateFormat = date('Y-m-d H:i:s',$date);
+        // $date = strtotime(strval($transaction_date));
+        // $dateFormat = date('Y-m-d H:i:s',$date);
 
+        $trans_date = new DateTime($transaction_date);
+        
         $user_latest_payment = DB::table('payments')
                                 ->where('phoneno', $phone_number)
                                 ->latest()
@@ -302,7 +304,7 @@ class MpesaController extends Controller
 
             //Check whether it's paybill or stk push
             if($phone_number == $phone_acc){
-                if($user_latest_payment->created_at->diffInSeconds($dateFormat) < 30){
+                if($user_latest_payment->created_at->diffInSeconds($trans_date) < 30){
                     $update_mpesa_code = DB::table('payments')
                                         ->where('id', $user_latest_payment->id)
                                         ->update([

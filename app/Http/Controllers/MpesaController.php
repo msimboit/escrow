@@ -913,11 +913,11 @@ class MpesaController extends Controller
     {
         $curl_post_data = array(
             'InitiatorName' => 'testapi',
-            'SecurityCredential' => 'oD6iCdfGWza+jyPCQ74PIGq90jNtESOxQvAwr+fAJyVZh9ziiUOBahUFHN22TnP/oNHOmViBgs/gD9/8fKN/UV4AQRrmjJinZsTHAgjQj1S5j+nle/VZJLudVgDhGwF7+qSJgMSB7leiCkIFrM3UQslhwM5impry3POGOQXsihqIfFQU4JfzMDoELgSBj/eF7JSnwpZIodxcFUROHG/+eCwSj3lNmzurrX5ZbdnSh8dmpWef1BkRt7rkGFUl8CSTDBr5F4W2WUWcNnVpjksu9Tuntms9DhHgjb1Dr6Xp25Agq+bBvKQc7ZwIeBTLzYhl+RkdTSmC9GQWKI4i8BO+pg==',
+            'SecurityCredential' => 'sRL3zLpIU7busCEAeYMB/AaLm2i2DfmUpmkUvYo568m+YGztxwzk+aeBIRTCa2putYJqjJurE59EhYzLpoInTRQXcC6jtdGoFiRHT+LJlI9Oa064zgah0lCkUhFYYrdKIBr3IT/gW81W4VoQZ7lQec9tifPlwijOeCqnMI5U8FhGTsIiPiAoOlphVMNaudI+OdxvzSG8GyQ7pdeR0lNEen81sAkglLAo4MjHwp17b0Vy/CWnns7SnwckQLM86we3tHLqgpMlp5p9fmgdhqz8Pi25f/0Kf2H6qGlO5zoXU+Hmo/T2uqhpOVrftfRPBj+kycMbWPvjrpiV9fxEsWnzww==',
             'CommandID' => 'BusinessPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,
-            'PartyA' => 4051259,
+            'PartyA' => 600991,
             'PartyB' => 254700682679,
             'Remarks' => 'Transaction Complete',
             'QueueTimeOutURL' => 'https://supamallescrow.com/v1/escrow/b2c/queue',
@@ -931,7 +931,7 @@ class MpesaController extends Controller
             $curl,
             array(
                     CURLOPT_URL => $url,
-                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '. $this->generateAccessToken()),
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer 0LqRaweGSD5BNSAf0TGu9R4oVw8T'),
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POST => true,
                     CURLOPT_POSTFIELDS => json_encode($curl_post_data)

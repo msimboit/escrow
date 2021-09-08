@@ -935,7 +935,7 @@ class MpesaController extends Controller
     {
         $curl_post_data = array(
             'InitiatorName' => 'testapi',
-            'SecurityCredential' => 'sRL3zLpIU7busCEAeYMB/AaLm2i2DfmUpmkUvYo568m+YGztxwzk+aeBIRTCa2putYJqjJurE59EhYzLpoInTRQXcC6jtdGoFiRHT+LJlI9Oa064zgah0lCkUhFYYrdKIBr3IT/gW81W4VoQZ7lQec9tifPlwijOeCqnMI5U8FhGTsIiPiAoOlphVMNaudI+OdxvzSG8GyQ7pdeR0lNEen81sAkglLAo4MjHwp17b0Vy/CWnns7SnwckQLM86we3tHLqgpMlp5p9fmgdhqz8Pi25f/0Kf2H6qGlO5zoXU+Hmo/T2uqhpOVrftfRPBj+kycMbWPvjrpiV9fxEsWnzww==',
+            'SecurityCredential' => 'l9o9im6bFFV//bXJoMsrm1ZzZefHA2TgGf+jb/XSM8B0laHoTEYJ1s0KTHF8KFEPKVRFxkfRYLIL3avvS4/ZuJ8St14B70NUBUpMwUvFX1IvVKYBnj2ywtfKx4JGir9yEHT4bWTLO0IZaalbGHL0XMiS6Qe9G1KCY2/C0mBAGk/hk+hE6ytrAPi99FNap6wVOUdPIxSIlVY9ywaBpRu4fXKu0ObDb72iNiyxPN14vZV372hmoXSA8rzex4Wb3wMPDUS/veTa6bwKGO0IAmPSFkmK6iPLaiddL89rod7FeLRuG2wpKqtsyaIjSewSJLzsd29DQ8HKRWJq7KhccpJ3cg==',
             'CommandID' => 'SalaryPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,

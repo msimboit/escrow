@@ -309,6 +309,13 @@ class MpesaController extends Controller
                                             'mpesacode' => $receipt_number,
                                             'amount_paid' => $amount
                                         ]);
+
+                    $update_paid_status = DB::table('tdetails')
+                    ->where('id', $user_latest_payment->id)
+                    ->update([
+                        'paid' => 1,
+                        'transactioncode' => $receipt_number,
+                    ]);
                     }
                 }
                 else{

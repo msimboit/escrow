@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use DateTime;
 
 use Log;
 use DB;
@@ -292,7 +293,7 @@ class MpesaController extends Controller
         // $dateFormat = date('Y-m-d H:i:s',$date);
 
         $trans_date = new DateTime($transaction_date);
-        
+
         $user_latest_payment = DB::table('payments')
                                 ->where('phoneno', $phone_number)
                                 ->latest()

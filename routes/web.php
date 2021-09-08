@@ -135,4 +135,4 @@ Route::get('b2c', function(){
     return view('Mpesa/b2c');
 });
 
-Route::post('simulateb2c', [MPESAController::class, 'b2cRequest'])->name('b2cRequest');
+Route::post('simulateb2c', [MpesaController::class, 'b2cRequest'])->name('b2cRequest');

@@ -940,7 +940,7 @@ class MpesaController extends Controller
         $curl_response = curl_exec($curl);
         curl_close($curl);
         $res = $curl_response;
-
+        Log::info($res);
         return $res;
     }
 }

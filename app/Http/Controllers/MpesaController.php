@@ -306,7 +306,9 @@ class MpesaController extends Controller
 
         // Log::info('User Payment Details: '.$user_latest_payment);
 
-        $user_payment_time = new DateTime($user_latest_payment->created_at);
+        // $user_payment_time = new DateTime($user_latest_payment->created_at);
+
+        
         //Check if customer paid successfully
         if($receipt_number == ''|| $receipt_number == null ) {
             Log::info('User either cancelled Mpesa STK Push Request or has insufficient funds');

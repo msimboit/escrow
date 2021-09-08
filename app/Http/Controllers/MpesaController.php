@@ -93,7 +93,7 @@ class MpesaController extends Controller
 
 
 
-    public function customerMpesaSTKPush($phone_number, $amount){
+    public function customerMpesaSTKPush($phone_number, $amount, $trans_id){
         // $phone_number = 254700682679;
         // $amount = 1;
         // $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
@@ -116,7 +116,7 @@ class MpesaController extends Controller
         'PartyB' => 4051259,
         'PhoneNumber' => $phone_number, // replace this with your phone number
         'CallBackURL' => 'https://supamallescrow.com/v1/escrow/transaction/confirmation',
-        'AccountReference' => $phone_number,
+        'AccountReference' => $trans_id,
         'TransactionDesc' => "Testing stk push on sandbox"
         ];
         
@@ -282,7 +282,8 @@ class MpesaController extends Controller
         $amount = $request['TransAmount'];
         $status = $request['failed'];
         $name = $firstName." ".$middleName." ".$lastName;
-        $phone_acc = $request['BillRefNumber'];
+        //$phone_acc = $request['BillRefNumber'];
+        $trans_id = $request['BillRefNumber'];
         $phone_number = $request['MSISDN'];
 
         $user = DB::table('users')->where('phone_number','=',$phone_number)->first();
@@ -299,9 +300,9 @@ class MpesaController extends Controller
         //                         ->orderBy('id', 'DESC')
         //                         ->first();
 
-        $user_latest_payment = Payments::where('phoneno', $phone_number)
-                                        ->orderBy('id', 'DESC')
+        $user_latest_payment = Payments::where('transactionid', $trans_id)
                                         ->first();
+
         Log::info('User Payment Details: '.$user_latest_payment);
 
         $user_payment_time = new DateTime($user_latest_payment->created_at);
@@ -311,22 +312,20 @@ class MpesaController extends Controller
         }else{
 
             //Check whether it's paybill or stk push
-            if($phone_number == $phone_acc){
-                if($user_payment_time->diffInSeconds($trans_date) < 30){
+            if($phone_number){
                     $update_mpesa_code = DB::table('payments')
-                                        ->where('id', $user_latest_payment->id)
+                                        ->where('transactioncode', $trans_id)
                                         ->update([
                                             'mpesacode' => $receipt_number,
                                             'amount_paid' => $amount
                                         ]);
 
                     $update_paid_status = DB::table('tdetails')
-                    ->where('id', $user_latest_payment->id)
+                    ->where('id', $trans_id)
                     ->update([
                         'paid' => 1,
                         'transactioncode' => $receipt_number,
                     ]);
-                    }
                 }
                 else{
                     //Paybill  Details
@@ -853,7 +852,7 @@ class MpesaController extends Controller
                 $phone_number = substr($phone_number, -9);
                 $phone_number = 254 . $phone_number;
                 
-                $this->customerMpesaSTKPush($phone_number, $amount);
+                $this->customerMpesaSTKPush($phone_number, $amount, $values['orderId']);
                 
                 Tdetails::where('id', '=', $values['orderId'])
                         ->update(['transactioncode' => 'mpesaCode']);

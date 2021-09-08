@@ -22,7 +22,7 @@ Route::post('v1/escrow/access/token', 'MpesaController@generateAccessToken');
 Route::post('v1/escrow/token', 'MpesaController@GenerateToken');
 Route::post('v1/escrow/PASSS', 'MpesaController@GenerateToken');
 Route::post('v1/escrow/stk/push', 'MpesaController@customerMpesaSTKPush')->name("push");
-Route::post('v1/escrow/validation', 'MpesaController@mpesaValidation');
+Route::post('v1/escrow/transaction/validation', 'MpesaController@mpesaValidation');
 Route::post('v1/escrow/transaction/confirmation', 'MpesaController@confirmationMpesa')->name("mpesaConfirmation");
 Route::post('v1/escrow/register/url', 'MpesaController@mpesaRegisterUrls');
 

@@ -293,7 +293,7 @@ class MpesaController extends Controller
 
         $user_latest_payment = DB::table('payments')
                                 ->where('phoneno', $phone_number)
-                                ->orderBy('created_at', 'desc')
+                                ->latest()
                                 ->first();
         //Check if customer paid successfully
         if($receipt_number == ''|| $receipt_number == null ) {
@@ -315,8 +315,8 @@ class MpesaController extends Controller
                     //Paybill  Details
                 }
 
-                $message = "Mpesa Payment Succesfully Received.";              
-                $this->sendBulkSMS( $phone_number, $message );                        
+                // $message = "Mpesa Payment Succesfully Received.";              
+                // $this->sendBulkSMS( $phone_number, $message );                        
 
                 return response()->json([
                         'ResultCode' => 0,

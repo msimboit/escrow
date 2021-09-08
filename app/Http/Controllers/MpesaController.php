@@ -924,14 +924,14 @@ class MpesaController extends Controller
             'ResultURL' => 'https://supamallescrow.com/v1/escrow/b2c/result',
             'Occasion' => 'Payment by Escrow Complete'
           );
-          
+
         $url = 'https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
         $curl = curl_init();
         curl_setopt_array(
             $curl,
             array(
                     CURLOPT_URL => $url,
-                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '. $this->getAccessToken()),
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '. $this->generateAccessToken()),
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POST => true,
                     CURLOPT_POSTFIELDS => json_encode($body)

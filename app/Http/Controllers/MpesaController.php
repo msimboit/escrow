@@ -936,7 +936,7 @@ class MpesaController extends Controller
         $curl_post_data = array(
             'InitiatorName' => 'testapi',
             'SecurityCredential' => 'sRL3zLpIU7busCEAeYMB/AaLm2i2DfmUpmkUvYo568m+YGztxwzk+aeBIRTCa2putYJqjJurE59EhYzLpoInTRQXcC6jtdGoFiRHT+LJlI9Oa064zgah0lCkUhFYYrdKIBr3IT/gW81W4VoQZ7lQec9tifPlwijOeCqnMI5U8FhGTsIiPiAoOlphVMNaudI+OdxvzSG8GyQ7pdeR0lNEen81sAkglLAo4MjHwp17b0Vy/CWnns7SnwckQLM86we3tHLqgpMlp5p9fmgdhqz8Pi25f/0Kf2H6qGlO5zoXU+Hmo/T2uqhpOVrftfRPBj+kycMbWPvjrpiV9fxEsWnzww==',
-            'CommandID' => 'BusinessPayment',
+            'CommandID' => 'SalaryPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,
             'PartyA' => 600991,

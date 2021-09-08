@@ -898,7 +898,7 @@ class MpesaController extends Controller
             $curl,
             array(
                     CURLOPT_URL => $url,
-                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '. $this->getAccessToken()),
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer XLVbw4PXyLnrwBl6b2BNzhQKgyG8'),
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POST => true,
                     CURLOPT_POSTFIELDS => json_encode($body)

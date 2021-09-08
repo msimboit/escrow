@@ -298,7 +298,7 @@ class MpesaController extends Controller
                                 ->where('phoneno', $phone_number)
                                 ->latest()
                                 ->first();
-        dd($user_latest_payment);
+        Log::info('User Payment Details: '.$user_latest_payment);
 
         $user_payment_time = new DateTime($user_latest_payment->created_at);
         //Check if customer paid successfully

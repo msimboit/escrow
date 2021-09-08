@@ -132,7 +132,7 @@ Route::get('/mediations/show', 'MediationController@show')->name('showmediation'
  */
 
 Route::get('b2c', function(){
-    return view('b2c');
+    return view('Mpesa/b2c');
 });
 
 Route::post('simulateb2c', [MPESAController::class, 'b2cRequest'])->name('b2cRequest');

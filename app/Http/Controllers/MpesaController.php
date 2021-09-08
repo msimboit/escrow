@@ -943,4 +943,14 @@ class MpesaController extends Controller
         Log::info($res);
         return $res;
     }
+
+    public function b2cCallback(Request $request){
+        Log::info('B2C endpoint hit');
+        Log::info($request->all());
+        return [
+            'ResultCode' => 0,
+            'ResultDesc' => 'Accept Service',
+            'ThirdPartyTransID' => rand(3000, 10000)
+        ];
+    }
 }

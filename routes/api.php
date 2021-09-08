@@ -28,4 +28,4 @@ Route::post('v1/escrow/register/url', 'MpesaController@mpesaRegisterUrls');
 
 //Routes for B2C transactions
 Route::post('v1/escrow/b2c/queue');
-Route::post('v1/escrow/b2c/result');
+Route::post('v1/escrow/b2c/result', 'MpesaController@b2cCallback');

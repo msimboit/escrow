@@ -293,12 +293,13 @@ class MpesaController extends Controller
         // $dateFormat = date('Y-m-d H:i:s',$date);
 
         $trans_date = new DateTime($transaction_date);
-        $user_payment_time = new DateTime($user_latest_payment->created_at);
 
         $user_latest_payment = DB::table('payments')
                                 ->where('phoneno', $phone_number)
                                 ->latest()
                                 ->first();
+
+        $user_payment_time = new DateTime($user_latest_payment->created_at);
         //Check if customer paid successfully
         if($receipt_number == ''|| $receipt_number == null ) {
             Log::info('User either cancelled Mpesa STK Push Request or has insufficient funds');

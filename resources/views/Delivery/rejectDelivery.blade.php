@@ -6,7 +6,11 @@
         <div class="col-md-8">
             <div class="card mt-4">
                 <div class="card-header d-flex justify-content-between"><span>{{ __('Reason For Rejecting The Delivery') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
-
+                @if (session('alert'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('alert') }}
+                    </div>
+                @endif
                 <div class="card-body">
                     {{__('Hello')}}
                     {{ Auth::user()->first_name }},

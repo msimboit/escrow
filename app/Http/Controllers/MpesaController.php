@@ -918,7 +918,7 @@ class MpesaController extends Controller
             // 'Amount' => $request->amount,
             'Amount' => 1,
             'PartyA' => 600991,
-            'PartyB' => 254700682679,
+            'PartyB' => 254708374149,
             'Remarks' => 'Transaction Complete',
             'QueueTimeOutURL' => 'https://supamallescrow.com/v1/escrow/b2c/queue',
             'ResultURL' => 'https://supamallescrow.com/v1/escrow/b2c/result',

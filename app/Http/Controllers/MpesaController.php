@@ -294,10 +294,14 @@ class MpesaController extends Controller
 
         $trans_date = new DateTime($transaction_date);
 
-        $user_latest_payment = DB::table('payments')
-                                ->where('phoneno', $phone_number)
-                                ->latest()
-                                ->first();
+        // $user_latest_payment = DB::table('payments')
+        //                         ->where('phoneno', $phone_number)
+        //                         ->orderBy('id', 'DESC')
+        //                         ->first();
+
+        $user_latest_payment = Payments::where('phoneno', $phone_number)
+                                        ->orderBy('id', 'DESC')
+                                        ->first();
         Log::info('User Payment Details: '.$user_latest_payment);
 
         $user_payment_time = new DateTime($user_latest_payment->created_at);
@@ -724,7 +728,7 @@ class MpesaController extends Controller
                 $pay->transactioncode = $transactioncode;
                 $pay->phoneno = $phone_number;
                 $pay->mpesacode = '';
-                $pay->amount_paid = $amount;
+                $pay->amount_paid = 0;
                 $pay->amount_due = 0;
                 $pay->save();
 

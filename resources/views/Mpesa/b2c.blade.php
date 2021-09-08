@@ -17,8 +17,9 @@
                     <div class="card-header">B2C Transaction</div>
                     <div class="card-body">
                         <div id="c2b_response"></div>
-                        <form action="{{ route('b2cRequest') }}">
+                        <form action="{{ route('b2cRequest') }}" method="POST">
                             @csrf
+                            @method('POST')
                             <div class="form-group">
                                 <label for="phone">Phone</label>
                                 <input type="number" name="phone" class="form-control" id="phone">

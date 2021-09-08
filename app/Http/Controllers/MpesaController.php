@@ -286,6 +286,7 @@ class MpesaController extends Controller
         $trans_id = $request['BillRefNumber'];
         $phone_number = $request['MSISDN'];
 
+        Log::info($trans_id);
         $user = DB::table('users')->where('phone_number','=',$phone_number)->first();
 
         // $resultCode = $request['Body']['stkCallback']['ResultCode'];
@@ -300,7 +301,7 @@ class MpesaController extends Controller
         //                         ->orderBy('id', 'DESC')
         //                         ->first();
 
-        $user_latest_payment = Payments::where('transactionid', $trans_id)
+        $user_latest_payment = Payments::where('transactioncode', $trans_id)
                                         ->first();
 
         Log::info('User Payment Details: '.$user_latest_payment);

@@ -917,7 +917,7 @@ class MpesaController extends Controller
             'CommandID' => 'BusinessPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,
-            'PartyA' => 600982,
+            'PartyA' => 4051259,
             'PartyB' => 254700682679,
             'Remarks' => 'Transaction Complete',
             'QueueTimeOutURL' => 'https://supamallescrow.com/v1/escrow/b2c/queue',

@@ -935,6 +935,7 @@ class MpesaController extends Controller
     {
         $initiatorPassword = env('MPESA_B2C_INITIATOR_PASSWORD');
         // $certificate = env('MPESA_B2C_CERTIFICATE');
+        $iv = substr( md5( "123sdfsdf4567812345678" ), 0, 16 );
 
         $certificate='-----BEGIN CERTIFICATE-----
         MIIGkzCCBXugAwIBAgIKXfBp5gAAAD+hNjANBgkqhkiG9w0BAQsFADBbMRMwEQYK
@@ -975,7 +976,7 @@ class MpesaController extends Controller
         0ah6M/q/KA==
         -----END CERTIFICATE-----';
         
-        $b2cPassword = base64_encode(openssl_encrypt($initiatorPassword,'AES-256-CTR',$certificate,true));
+        $b2cPassword = base64_encode( openssl_encrypt ($initiatorPassword, 'AES-256-CTR', $certificate, true, $iv));
 
         return $b2cPassword;
     }

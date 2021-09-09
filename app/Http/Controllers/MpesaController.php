@@ -901,7 +901,7 @@ class MpesaController extends Controller
                 CURLOPT_HTTPHEADER => ['Content-Type: application/json; charset=utf8'],
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_HEADER => false,
-                CURLOPT_USERPWD => env('MPESA_CONSUMER_KEY') . ':' . env('MPESA_CONSUMER_SECRET')
+                CURLOPT_USERPWD => env('MPESA_B2C_CONSUMER_KEY') . ':' . env('MPESA_B2C_CONSUMER_SECRET')
             )
         );
         $response = json_decode(curl_exec($curl));
@@ -920,7 +920,7 @@ class MpesaController extends Controller
             $curl,
             array(
                     CURLOPT_URL => $url,
-                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer XLVbw4PXyLnrwBl6b2BNzhQKgyG8'),
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '.$this->getAccessToken()),
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POST => true,
                     CURLOPT_POSTFIELDS => json_encode($body)
@@ -931,15 +931,25 @@ class MpesaController extends Controller
         return $curl_response;
     }
 
+    public function b2cPassword()
+    {
+        $initiatorPassword = env('MPESA_B2C_INITIATOR_PASSWORD');
+        $certificate = env('MPESA_B2C_CERTIFICATE');
+        $b2cPassword = base64_encode(openssl_encrypt($initiatorPassword.$certificate));
+
+        return $b2cPassword;
+    }
+
     public function b2cRequest(Request $request)
     {
         $curl_post_data = array(
-            'InitiatorName' => 'testapi',
-            'SecurityCredential' => 'l9o9im6bFFV//bXJoMsrm1ZzZefHA2TgGf+jb/XSM8B0laHoTEYJ1s0KTHF8KFEPKVRFxkfRYLIL3avvS4/ZuJ8St14B70NUBUpMwUvFX1IvVKYBnj2ywtfKx4JGir9yEHT4bWTLO0IZaalbGHL0XMiS6Qe9G1KCY2/C0mBAGk/hk+hE6ytrAPi99FNap6wVOUdPIxSIlVY9ywaBpRu4fXKu0ObDb72iNiyxPN14vZV372hmoXSA8rzex4Wb3wMPDUS/veTa6bwKGO0IAmPSFkmK6iPLaiddL89rod7FeLRuG2wpKqtsyaIjSewSJLzsd29DQ8HKRWJq7KhccpJ3cg==',
-            'CommandID' => 'SalaryPayment',
+            'InitiatorName' => env('MPESA_B2C_INITIATOR'),
+            'SecurityCredential' => $this->b2cPassword(),
+            'CommandID' => 'BusinessPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,
             'PartyA' => 600991,
+            // 'PartyB' => $request->phone_number,
             'PartyB' => 254700682679,
             'Remarks' => 'Transaction Complete',
             'QueueTimeOutURL' => 'https://supamallescrow.com/v1/escrow/b2c/queue',
@@ -953,7 +963,7 @@ class MpesaController extends Controller
             $curl,
             array(
                     CURLOPT_URL => $url,
-                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer 0LqRaweGSD5BNSAf0TGu9R4oVw8T'),
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '.$this->getAccessToken()),
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POST => true,
                     CURLOPT_POSTFIELDS => json_encode($curl_post_data)

@@ -22,7 +22,7 @@
                             @method('POST')
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input type="number" name="phone" class="form-control" id="phone">
+                                <input type="number" name="phone_number" class="form-control" id="phone">
                             </div>
                             <div class="form-group">
                                 <label for="amount">Amount</label>

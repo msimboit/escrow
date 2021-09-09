@@ -891,8 +891,8 @@ class MpesaController extends Controller
 
     public function getAccessToken()
     {
-        $url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
-        // $url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+        // $url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+        $url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
 
         $curl = curl_init($url);
         curl_setopt_array(
@@ -989,7 +989,7 @@ class MpesaController extends Controller
             'CommandID' => 'BusinessPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,
-            'PartyA' => 600991,
+            'PartyA' => 3029009,
             // 'PartyB' => $request->phone_number,
             'PartyB' => 254700682679,
             'Remarks' => 'Transaction Complete',
@@ -998,7 +998,8 @@ class MpesaController extends Controller
             'Occasion' => 'Payment by Escrow Complete'
           );
 
-        $url = 'https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
+        // $url = 'https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
+        $url = 'https://api.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
         $curl = curl_init();
         curl_setopt_array(
             $curl,

@@ -943,7 +943,7 @@ class MpesaController extends Controller
     public function b2cRequest(Request $request)
     {
         $curl_post_data = array(
-            'InitiatorName' => env('MPESA_B2C_INITIATOR'),
+            'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
             'SecurityCredential' => $this->b2cPassword(),
             'CommandID' => 'BusinessPayment',
             // 'Amount' => $request->amount,

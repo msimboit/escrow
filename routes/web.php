@@ -132,7 +132,7 @@ Route::get('/mediations/show', 'MediationController@show')->name('showmediation'
  * Mpesa Web Route For B2c
  */
 
-Route::get('b2c', function(){
+Route::get('/b2c', function(){
     return view('Mpesa/b2c');
 });
 

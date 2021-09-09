@@ -983,16 +983,16 @@ class MpesaController extends Controller
     public function b2cRequest(Request $request)
     {
         $curl_post_data = array(
-            // 'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
-            'InitiatorName' => 'testapi',
-            'SecurityCredential' => $this->b2cPassword(),
+            'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
+            // 'InitiatorName' => 'testapi',
+            'SecurityCredential' => 'LpgiqWyC1ZIY5xn0yKB9MUVcFwWs4bbU5MHyb+SLwBdbnSbzm2yFypLfjHuGOQHMvisoMBx1zFuxQ0j+RDGH8Y75jOdYmmG96lxBC3N1vLFWe5j/RYysN/PL4lLjVJ41513DDM6Irk80rKYS73eHBsZznkGyloBvDBIhicXBkQV2Uw8Kxlxed+wxMmZ0s2xYWxvkb8j01AGMo4/nBkZBEygMyfz2FwopXdqTpwPjOo0bgGUhzND0021+o1EzHaT13ufelxQ+SfmXbpkgAAlBaeoDSNLjCnKARvlQLfiBv4nc2b6mU7SuqRi1SbvpjmXems1mXjOa/V0rq9bz/x7b/Q==',
             'CommandID' => 'BusinessPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,
-            // 'PartyA' => 3029009,
-            'PartyA' => 600981,
+            'PartyA' => 3029009,
+            // 'PartyA' => 600981,
             // 'PartyB' => $request->phone_number,
-            'PartyB' => 254708374149,
+            'PartyB' => 254700682679,
             'Remarks' => 'Transaction Complete',
             'QueueTimeOutURL' => 'https://supamallescrow.com/v1/escrow/b2c/queue',
             'ResultURL' => 'https://supamallescrow.com/v1/escrow/b2c/result',

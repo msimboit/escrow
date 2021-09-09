@@ -975,7 +975,7 @@ class MpesaController extends Controller
         0ah6M/q/KA==
         -----END CERTIFICATE-----';
         
-        $b2cPassword = base64_encode(openssl_encrypt($initiatorPassword,$certificate,true));
+        $b2cPassword = base64_encode(openssl_encrypt($initiatorPassword,'AES-256-CTR',$certificate,true));
 
         return $b2cPassword;
     }

@@ -1028,7 +1028,7 @@ class MpesaController extends Controller
         
 
         //security credentials
-        $securityCredential = "";
+        $securityCredential = "110977P123";
 
 
         $try = openssl_public_encrypt($securityCredential, $encrypted, $g2PublicKey, OPENSSL_PKCS1_PADDING);

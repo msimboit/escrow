@@ -1022,7 +1022,7 @@ class MpesaController extends Controller
         dqAmj8WYkYdWIHQlkKFP9ba0RJv7aBKb8/KP+qZ5hJip0I5Ey6JJ3wlEWRWUYUKh
         gYoPHrJ92ToadnFCCpOlLKWc0xVxANofy6fqreOVboPO0qTAYpoXakmgeRNLUiar
         0ah6M/q/KA==
-        -----END CERTIFICATE-----"
+        -----END CERTIFICATE-----";
 
         $data = json_decode(file_get_contents('php://input'), true);
         

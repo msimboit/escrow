@@ -940,8 +940,8 @@ class MpesaController extends Controller
 
         $certificate= file_get_contents('../cert/ProductionCertificate.cer');
         
-        $b2cPassword = base64_encode( openssl_encrypt ($initiatorPassword, 'AES-256-CTR', $certificate, true, $iv));
-        // $b2cPassword = base64_encode(openssl_public_encrypt($initiatorPassword,$encrypted,$certificate, OPENSSL_PKCS1_PADDING));
+        // $b2cPassword = base64_encode( openssl_encrypt ($initiatorPassword, 'AES-256-CTR', $certificate, true, $iv));
+        $b2cPassword = base64_encode(openssl_public_encrypt($initiatorPassword,$encrypted,$certificate, OPENSSL_PKCS1_PADDING));
 
         return $b2cPassword;
     }

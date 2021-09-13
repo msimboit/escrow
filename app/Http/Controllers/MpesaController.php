@@ -989,7 +989,7 @@ class MpesaController extends Controller
         $curl_post_data = array(
             'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
             // 'InitiatorName' => 'testapi',
-            'SecurityCredential' => 'BiPyJiePctBLYvBHttI8H0GGi8NdmJiyf62f9/PweQTtNuRRask786HWHbTQyXT3rRmdDsi0VpXZE/CjZ7tzfhfNzIE8wO3qHFZ9B/IPyr032yTIuYNPjOi7Kfs04FNCgV1SX+ev4ct3YnEvH6SjW4z6LoKViqRtr98LJa3m+9s6hQxg9cBKcXqnuzhvnXLywbTouSgPt1vEU8jpbrtQjUCn5Q2pWjSk8KFVDKShXcsLl9sIs7nVNa66ncyz/55Xw/W85btcRyGIeFBZTOjYXtnSLx3OEL/zn2GLdwlvcJjCfhWHFXX35ffZjzya4ZgD+poEe1aK2tNZlkGm6OthcA==',
+            'SecurityCredential' => 'hkIpWLTWzrgqLMk3+GWGXlxahwT6LNmzgjmW1toTti+ukgN6OJ7tVbrYyLdzekvBUVrOmZdpjIBqe6m+WL/ha6U8lNA+J9FsY+kZa/ds78ngETz1j8fgtaa6sJOJh6X9df3e/eGaB3Ys6jXEysDas0UF6zypYwHsvFdhquZ7bZQu7YnXqg+SawTFRbo+4b7h7qEW3xum5ab2uVcmi3YZrOeQ9xaPDNjEIUB5Pk+ekE9NO9P4mQ8gBhfKqXTiNzo4KXxHK5QhcSnBAal5OG86Z7TdcL9H+0eLrgdxm7C21wEq9mBz7iICfWsvY7KtuzsJcmVkal1eI20ewbcVLDUSlA==',
             'CommandID' => 'BusinessPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,

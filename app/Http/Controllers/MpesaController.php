@@ -967,10 +967,12 @@ class MpesaController extends Controller
             //@TODO do URL encoding for $g2Encrypted???
             $g2Encrypted = base64_encode($encrypted);
 
-            $response = [
-                'success' => true,
-                'g2Encrypt' => $g2Encrypted
-            ];
+            // $response = [
+            //     'success' => true,
+            //     'g2Encrypt' => $g2Encrypted
+            // ];
+
+            $response = $g2Encrypted;
 
         } else {
             $response = [

@@ -989,7 +989,8 @@ class MpesaController extends Controller
         $curl_post_data = array(
             'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
             // 'InitiatorName' => 'testapi',
-            'SecurityCredential' => 'hkIpWLTWzrgqLMk3+GWGXlxahwT6LNmzgjmW1toTti+ukgN6OJ7tVbrYyLdzekvBUVrOmZdpjIBqe6m+WL/ha6U8lNA+J9FsY+kZa/ds78ngETz1j8fgtaa6sJOJh6X9df3e/eGaB3Ys6jXEysDas0UF6zypYwHsvFdhquZ7bZQu7YnXqg+SawTFRbo+4b7h7qEW3xum5ab2uVcmi3YZrOeQ9xaPDNjEIUB5Pk+ekE9NO9P4mQ8gBhfKqXTiNzo4KXxHK5QhcSnBAal5OG86Z7TdcL9H+0eLrgdxm7C21wEq9mBz7iICfWsvY7KtuzsJcmVkal1eI20ewbcVLDUSlA==',
+            //'SecurityCredential' => 'hkIpWLTWzrgqLMk3+GWGXlxahwT6LNmzgjmW1toTti+ukgN6OJ7tVbrYyLdzekvBUVrOmZdpjIBqe6m+WL/ha6U8lNA+J9FsY+kZa/ds78ngETz1j8fgtaa6sJOJh6X9df3e/eGaB3Ys6jXEysDas0UF6zypYwHsvFdhquZ7bZQu7YnXqg+SawTFRbo+4b7h7qEW3xum5ab2uVcmi3YZrOeQ9xaPDNjEIUB5Pk+ekE9NO9P4mQ8gBhfKqXTiNzo4KXxHK5QhcSnBAal5OG86Z7TdcL9H+0eLrgdxm7C21wEq9mBz7iICfWsvY7KtuzsJcmVkal1eI20ewbcVLDUSlA==',
+            'SecurityCredential' => $this->encryptfxn(),
             'CommandID' => 'BusinessPayment',
             // 'Amount' => $request->amount,
             'Amount' => 1,
@@ -1002,7 +1003,8 @@ class MpesaController extends Controller
             'ResultURL' => 'https://supamallescrow.com/v1/escrow/b2c/result',
             'Occasion' => 'Payment by Escrow Complete'
           );
-
+        
+        Log::info('Security Credential is: '. $curl_post_data['SecurityCredential']);
         // $url = 'https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
         $url = 'https://api.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
         $curl = curl_init();

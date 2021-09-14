@@ -1176,8 +1176,17 @@ class MpesaController extends Controller
         }
 
         if($request->has('rejectDelivery')) 
-        {
+        {   
             //Entire Delivery was rejected
+            $tdetails_check = DB::table('tdetails')
+                                    ->where('id', $request->input('orderId'))
+                                    ->first();
+
+            if ($tdetails_check->closed == 1)
+            {
+                return redirect()->route('deliveries')->with('success', 'Delivery Has Already  Been Confirmed');   
+            }
+            
             $update_tdetails_table = DB::table('tdetails')
                                     ->where('id', $request->input('orderId'))
                                     ->update([

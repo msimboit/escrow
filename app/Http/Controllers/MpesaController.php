@@ -1013,19 +1013,24 @@ class MpesaController extends Controller
     public function b2cCallback(Request $request){
         Log::info('B2C endpoint hit');
         Log::info($request->all());
-        Log::info('B2C Result Parameters: '.$request['Results']['ResultParameters']['ResultParameter']);
+        foreach(($request->all()) as $array){    
+            foreach($array as $key=>$value){
+                Log::info('Value: '.$value);
+            }
+        }
+        // Log::info('B2C Result Parameters: '.$request['Results']['ResultParameters']['ResultParameter']);
 
-        $receipt_number = $request['TransactionID'];
-        $transaction_date = $request['TransactionCompletedDateTime'];
-        $receiver_name = $request['ReceiverPartyPublicName'];
-        $amount = $request['TransactionAmount'];
+        // $receipt_number = $request['TransactionID'];
+        // $transaction_date = $request['TransactionCompletedDateTime'];
+        // $receiver_name = $request['ReceiverPartyPublicName'];
+        // $amount = $request['TransactionAmount'];
 
-        $store_settlement = DB::table('settlements')
-                                            ->insert([
-                                                'amount' => $amount,
-                                                'phoneno' => $receiver_name,
-                                                'mpesacode' => $receipt_number
-                                            ]);
+        // $store_settlement = DB::table('settlements')
+        //                                     ->insert([
+        //                                         'amount' => $amount,
+        //                                         'phoneno' => $receiver_name,
+        //                                         'mpesacode' => $receipt_number
+        //                                     ]);
         return [
             'ResultCode' => 0,
             'ResultDesc' => 'Accept Service',

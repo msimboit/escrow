@@ -113,12 +113,14 @@
                               
                             @endforeach
                         </td>
+                        @if(Auth::user()->role() == 'client')
                         <td class="text-center" style="width: 100px; height: 100px;">
                         @foreach ($combined as $key => $combo)
                           <input type="checkbox" name="itemCheckbox[]" value="{{ $combo }}">
                           <br/><br/><br/><br/><br />
                         @endforeach
                         </td>
+                        @endif
                       </tr>
                       </tbody>
                     </table>
@@ -161,7 +163,7 @@
                         </tr>
                         <tr>
                           <th>Total:</th>
-                          <td>Kshs.{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) + 1050 }}</td>
+                          <td>Kshs.{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) }}</td>
                         </tr>
                       </table>
                     </div>

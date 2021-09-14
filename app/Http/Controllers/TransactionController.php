@@ -229,6 +229,11 @@ class TransactionController extends Controller
             return redirect()->back()->with('alert', 'Transaction cannot be greater than Ksh.300,000');
         }
 
+        if($prices_sum  < 15)
+        {
+            return redirect()->back()->with('alert', 'Transaction cannot be less than Ksh.15');
+        }
+
 
         $user = Auth::user();
         $trns = new Tdetails;

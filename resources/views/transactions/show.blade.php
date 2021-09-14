@@ -110,6 +110,8 @@
                                   src=" {{ asset('product_images/' .$image) }}" 
                                   class="img-fluid max-width: 100%; height: auto;"
                                   alt="">
+
+                                  <br/><br/>
                             
                           @endforeach
                         </td>

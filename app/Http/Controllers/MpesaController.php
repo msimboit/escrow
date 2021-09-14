@@ -967,8 +967,9 @@ class MpesaController extends Controller
 
     }
 
-    public function b2cRequest($phone_number, $amount, $trans_id)
+    public function b2cRequest()
     {
+        // $phone_number, $amount, $trans_id
         $curl_post_data = array(
             'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
             // 'InitiatorName' => 'testapi',

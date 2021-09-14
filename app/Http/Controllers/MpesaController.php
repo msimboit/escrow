@@ -1020,7 +1020,9 @@ class MpesaController extends Controller
                 if($counter == 7){
                     foreach($value as $key=>$v){
                         foreach($v as $key=>$detail){
-                            Log::info('Final: '.$detail);
+                            foreach($detail as $key=>$d){
+                                Log::info('Final: '.$d);
+                            }
                         }
                     }
                 }

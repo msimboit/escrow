@@ -1021,7 +1021,7 @@ class MpesaController extends Controller
 
         $store_settlement = DB::table('settlements')
                                             ->insert([
-                                                'amounte' => $amount,
+                                                'amount' => $amount,
                                                 'phoneno' => $receiver_name,
                                                 'mpesacode' => $receipt_number
                                             ]);

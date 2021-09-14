@@ -1013,7 +1013,7 @@ class MpesaController extends Controller
     public function b2cCallback(Request $request){
         Log::info('B2C endpoint hit');
         Log::info($request->all());
-        Log::info('B2C Result Parameters: '.$request['ResultParameters']);
+        Log::info('B2C Result Parameters: '.$request['Results']['ResultParameters']['ResultParameter']);
 
         $receipt_number = $request['TransactionID'];
         $transaction_date = $request['TransactionCompletedDateTime'];
@@ -1184,7 +1184,7 @@ class MpesaController extends Controller
 
             if ($tdetails_check->closed == 1)
             {
-                return redirect()->route('deliveries')->with('success', 'Delivery Has Already  Been Confirmed');   
+                return redirect()->route('deliveries')->with('success', 'Rejection Has Already  Been Confirmed');   
             }
             
             $update_tdetails_table = DB::table('tdetails')

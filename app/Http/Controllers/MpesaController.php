@@ -1013,6 +1013,18 @@ class MpesaController extends Controller
     public function b2cCallback(Request $request){
         Log::info('B2C endpoint hit');
         Log::info($request->all());
+
+        $receipt_number = $request['TransactionID'];
+        $transaction_date = $request['TransactionCompletedDateTime'];
+        $receiver_name = $request['ReceiverPartyPublicName'];
+        $amount = $request['TransactionAmount'];
+
+        $store_settlement = DB::table('settlements')
+                                            ->insert([
+                                                'amounte' => $amount,
+                                                'phoneno' => $receiver_name,
+                                                'mpesacode' => $receipt_number
+                                            ]);
         return [
             'ResultCode' => 0,
             'ResultDesc' => 'Accept Service',
@@ -1031,7 +1043,7 @@ class MpesaController extends Controller
 
         if ($tdetails_check->closed == 1)
         {
-            return redirect()->route('deliveries')->with('success', 'Delivery Had Already  Been Confirmed');   
+            return redirect()->route('deliveries')->with('success', 'Delivery Has Already  Been Confirmed');   
         }
 
         if($request->has('acceptDelivery'))
@@ -1112,6 +1124,8 @@ class MpesaController extends Controller
                                         ->update([
                                         'amount_due' => $amount_due,                                                          
                                     ]);
+
+                            
 
                             $transaction = Tdetails::where('id', $request->input('orderId'))
                                             ->first();

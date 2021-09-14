@@ -1155,6 +1155,8 @@ class MpesaController extends Controller
         {
             $trans_details = $request->all();
             // dd($trans_details);
+            
+            $client = User::where('id', $transaction->client_id)->first();
 
             //Client Settlement
             $phone_number = $client->phone_number;

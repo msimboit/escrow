@@ -1017,11 +1017,13 @@ class MpesaController extends Controller
         foreach(($request->all()) as $array){    
             foreach($array as $key=>$value){
                 $counter++;
-                if($counter == 6){
+                if($counter == 7){
+                    foreach($value as $key=>$v){
                         Log::info($value);
                     }
                 }
             }
+        }
         // Log::info('B2C Result Parameters: '.$request['Results']['ResultParameters']['ResultParameter']);
 
         // $receipt_number = $request['TransactionID'];

@@ -1027,11 +1027,12 @@ class MpesaController extends Controller
         // dd($request->all());
         $tdetails_check = DB::table('tdetails')
                                     ->where('id', $request->input('orderId'));
+                                    
         if ($tdetails_check->closed == 1)
         {
             return redirect()->route('deliveries')->with('success', 'Delivery Confirmed');   
         }
-        
+
         if($request->has('acceptDelivery'))
         {
             

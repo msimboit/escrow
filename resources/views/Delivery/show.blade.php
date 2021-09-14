@@ -157,17 +157,21 @@
                           <th style="width:50%">Subtotal:</th>
                           <td>Kshs.{{ array_sum($prices) }}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                           <th>Transaction Fee(1%)</th>
                           <td>Kshs.{{ round(((array_sum($prices))/100)*1) }}.00</td>
                         </tr>
                         <tr>
                           <th>Delivery Fee:</th>
                           <td>{{ $arr->deliveryamount}}</td>
-                        </tr>
+                        </tr> -->
+                        <tr>
+                        <th>Handling Fee(Tariff Charges)</th>
+                        <td>Kshs.{{ $tariff }}.00</td>
+                      </tr>
                         <tr>
                           <th>Total:</th>
-                          <td>Kshs.{{ (array_sum($prices)) + (((array_sum($prices))/100)*1) }}</td>
+                          <td>Kshs.{{ (array_sum($prices)) + $tariff }}</td>
                         </tr>
                       </table>
                     </div>

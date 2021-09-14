@@ -1131,14 +1131,14 @@ class MpesaController extends Controller
 
                             $amount = $amount_due;
                             $trans_id = $request->input('orderId');
-                            $this->b2cRequest($phone_number, $amount, $trans_id);
+                            $this->b2cRequest($phone_number, $amount_due, $trans_id);
 
                             //Vendor Settlement
-                            $phone = $vendor->phone_number;
+                            $phone_number = $vendor->phone_number;
                             $phone_number = substr($phone_number, -9);
                             $phone_number = 254 . $phone_number;
 
-                            $amount = $request->subtotal;
+                            $amount = (($request->subtotal) - $amount_due);
                             $trans_id = $request->input('orderId');
                             $this->b2cRequest($phone_number, $amount, $trans_id);
                             

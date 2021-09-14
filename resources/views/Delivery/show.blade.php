@@ -213,7 +213,7 @@
                       <input type="text" name="quantity" value="{{ $arr->deposited }}" hidden>
                       <input type="text" name="subtotal" value="{{ array_sum($prices) }}" hidden>
                       <input type="text" name="tariff" value="{{ $tariff }}" hidden>
-                      <input type="text" name="total" value="{{ (array_sum($prices)) + + $tariff + ($arr->deliveryamount) }}" hidden>
+                      <input type="text" name="total" value="{{ (array_sum($prices)) +  $tariff + ($arr->deliveryamount) }}" hidden>
                       <input type="text" name="deliveryfee" id="textbox2" value="vendor" hidden>
 
                       <button type="submit" name="rejectDelivery" class="btn btn-danger float-right submit_order mx-5"><i class="fas fa-times"></i> Reject

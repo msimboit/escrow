@@ -111,7 +111,7 @@ class MpesaController extends Controller
         'Password' => $this->lipaNaMpesaPassword(),
         'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
         'TransactionType' => 'CustomerPayBillOnline',
-        'Amount' => 1,
+        'Amount' => $amount,
         'PartyA' => $phone_number, // replace this with your phone number
         'PartyB' => 4051259,
         'PhoneNumber' => $phone_number, // replace this with your phone number
@@ -912,25 +912,6 @@ class MpesaController extends Controller
     }
 
 
-    public function makeHttp($url, $body)
-    {
-        $url = 'https://sandbox.safaricom.co.ke/mpesa/' . $url;
-        $curl = curl_init();
-        curl_setopt_array(
-            $curl,
-            array(
-                    CURLOPT_URL => $url,
-                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '.$this->getAccessToken()),
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_POST => true,
-                    CURLOPT_POSTFIELDS => json_encode($body)
-                )
-        );
-        $curl_response = curl_exec($curl);
-        curl_close($curl);
-        return $curl_response;
-    }
-
     public function b2cPassword()
     {
         // $initiatorPassword = env('MPESA_B2C_INITIATOR_PASSWORD');
@@ -986,7 +967,7 @@ class MpesaController extends Controller
 
     }
 
-    public function b2cRequest(Request $request)
+    public function b2cRequest($phone_number, $amount, $trans_id)
     {
         $curl_post_data = array(
             'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
@@ -994,16 +975,16 @@ class MpesaController extends Controller
             //'SecurityCredential' => 'hkIpWLTWzrgqLMk3+GWGXlxahwT6LNmzgjmW1toTti+ukgN6OJ7tVbrYyLdzekvBUVrOmZdpjIBqe6m+WL/ha6U8lNA+J9FsY+kZa/ds78ngETz1j8fgtaa6sJOJh6X9df3e/eGaB3Ys6jXEysDas0UF6zypYwHsvFdhquZ7bZQu7YnXqg+SawTFRbo+4b7h7qEW3xum5ab2uVcmi3YZrOeQ9xaPDNjEIUB5Pk+ekE9NO9P4mQ8gBhfKqXTiNzo4KXxHK5QhcSnBAal5OG86Z7TdcL9H+0eLrgdxm7C21wEq9mBz7iICfWsvY7KtuzsJcmVkal1eI20ewbcVLDUSlA==',
             'SecurityCredential' => $this->encryptfxn(),
             'CommandID' => 'BusinessPayment',
-            // 'Amount' => $request->amount,
-            'Amount' => 1,
+            // 'Amount' => $amount,
+            'Amount' => 10,
             'PartyA' => 3029009,
             // 'PartyA' => 600981,
-            // 'PartyB' => $request->phone_number,
+            // 'PartyB' => $phone_number,
             'PartyB' => 254700682679,
             'Remarks' => 'Transaction Complete',
             'QueueTimeOutURL' => 'https://supamallescrow.com/v1/escrow/b2c/queue',
             'ResultURL' => 'https://supamallescrow.com/v1/escrow/b2c/result',
-            'Occasion' => 'Payment by Escrow Complete'
+            'Occasion' => 'Payment by SupamallEscrow For Transaction Id:'.$trans_id
           );
         
         Log::info('Security Credential is: '. $curl_post_data['SecurityCredential']);
@@ -1036,4 +1017,142 @@ class MpesaController extends Controller
             'ThirdPartyTransID' => rand(3000, 10000)
         ];
     }
+
+
+
+    public function acceptDelivery(Request $request) 
+    {
+        // dd($request->all());
+        if($request->has('acceptDelivery'))
+        {
+            
+            if($request->itemCheckbox != null)
+                {
+                    $sum = array_sum($request->itemCheckbox);
+                    // dd($sum);
+
+                    //Doing a check if all items have been accepted or rejected then prompt the vendor accordingly
+                    
+                    if($request->subtotal == $sum)
+                    {
+                        // dd('Entire Delivery was accepted');
+                        $update_tdetails_table = DB::table('tdetails')
+                                    ->where('id', $request->input('orderId'))
+                                    ->update([
+                                    'delivered' => '1',
+                                    'closed' => '1'                                                                 
+                            ]);
+
+                        $amount_due = ($request->subtotal) - $sum;
+
+                        $update_payments_table = DB::table('payments')
+                                    ->where('transactioncode', $request->input('orderId'))
+                                    ->update([
+                                    'amount_due' => $amount_due,                                                          
+                                ]);
+
+                        $transaction = Tdetails::where('id', $request->input('orderId'))
+                                        ->first();
+
+                        $email = Auth::user()->email;
+                        // dd($transaction);
+                        $vendor = User::where('id', $transaction->vendor_id)->first();
+                        
+                        $client = User::where('id', $transaction->client_id)->first();
+
+                        $data = [
+                            'client_name' => $client->first_name,
+                            'client_phone' => $client->phone_number,
+                            'transaction_details' => $transaction->transdetail,
+                            'delivery_location' => $transaction->deliverylocation,
+                            'delivery_time' => $transaction->deliverytime,
+                            'delivery_fee' => $transaction->deliveryamount,
+                            'delivery_fee_handler' => $transaction->delivery_fee_handler,
+                        ];
+                        // Mail::to($email)->send(new DeliveryMail($data));
+                        
+                        $phone_number = $vendor->phone_number;
+                        $amount = $request->subtotal;
+                        $trans_id = $request->input('orderId');
+                        $this->b2cRequest($phone_number, $amount, $trans_id);
+
+                        return redirect()->route('deliveries')->with('success', 'Delivery Confirmed');
+
+                    } else{
+                            // dd('Entire Delivery was not accepted');
+                            $trans_details = $request->all();
+
+                            $update_tdetails_table = DB::table('tdetails')
+                                        ->where('id', $request->input('orderId'))
+                                        ->update([
+                                        'delivered' => '1',
+                                        'closed' => '1'                                                                 
+                                ]);
+
+                            $amount_due = ($request->subtotal) - $sum;
+                            // dd($amount_due);
+
+                            $update_payments_table = DB::table('payments')
+                                        ->where('transactioncode', $request->input('orderId'))
+                                        ->update([
+                                        'amount_due' => $amount_due,                                                          
+                                    ]);
+
+                            $transaction = Tdetails::where('id', $request->input('orderId'))
+                                            ->first();
+
+                            $email = Auth::user()->email;
+                            // dd($transaction);
+                            $vendor = User::where('id', $transaction->vendor_id)->first();
+                            
+                            $client = User::where('id', $transaction->client_id)->first();
+
+                            $data = [
+                                'client_name' => $client->first_name,
+                                'client_phone' => $client->phone_number,
+                                'transaction_details' => $transaction->transdetail,
+                                'delivery_location' => $transaction->deliverylocation,
+                                'delivery_time' => $transaction->deliverytime,
+                                'delivery_fee' => $transaction->deliveryamount,
+                                'delivery_fee_handler' => $transaction->delivery_fee_handler,
+                            ];
+                            // Mail::to($email)->send(new DeliveryMail($data));
+
+                            //Client Settlement
+                            $phone_number = $client->phone_number;
+                            $amount = $amount_due;
+                            $trans_id = $request->input('orderId');
+                            $this->b2cRequest($phone_number, $amount, $trans_id);
+
+                            //Vendor Settlement
+                            $phone_number = $vendor->phone_number;
+                            $amount = $request->subtotal;
+                            $trans_id = $request->input('orderId');
+                            $this->b2cRequest($phone_number, $amount, $trans_id);
+                            
+                            return view('Delivery.rejectDelivery', compact('trans_details'))->with('alertMsg', 'Not all purchases were accepted upon delivery');
+                    }
+                    
+                }
+                else{
+                    return redirect()->back()->with('alert', 'Accept at least one or all deliveries using the accept checkboxes!');
+                }
+        }
+
+        if($request->has('rejectDelivery')) 
+        {
+            $trans_details = $request->all();
+            // dd($trans_details);
+
+            $phone_number = $client->phone_number;
+            $amount = $request->subtotal;
+            $trans_id = $request->input('orderId');
+            $this->b2cRequest($phone_number, $amount, $trans_id);
+
+
+            return view('Delivery.rejectDelivery', compact('trans_details'));
+        }
+        
+    }
+
 }

@@ -63,11 +63,11 @@
 
                     </form>
 
-                    <div class="my-3">
+                    <!-- <div class="my-3">
                         <button class="btn btn-secondary">
                             <a href="{{ route('showdelivery', $trans_details['orderId']) }}" style="text-decoration:none; color:#fff">Go Back</a>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

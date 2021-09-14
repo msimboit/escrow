@@ -1176,6 +1176,14 @@ class MpesaController extends Controller
 
         if($request->has('rejectDelivery')) 
         {
+            //Entire Delivery was rejected
+            $update_tdetails_table = DB::table('tdetails')
+                                    ->where('id', $request->input('orderId'))
+                                    ->update([
+                                    'delivered' => '1',
+                                    'closed' => '1'                                                                 
+                            ]);
+
             $trans_details = $request->all();
             // dd($trans_details);
             $transaction = Tdetails::where('id', $request->input('orderId'))

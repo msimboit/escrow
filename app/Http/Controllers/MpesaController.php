@@ -1060,7 +1060,7 @@ class MpesaController extends Controller
 
         if ($tdetails_check->closed == 1)
         {
-            return redirect()->route('deliveries')->with('success', 'Delivery Has Already  Been Confirmed');   
+            return redirect()->route('deliveries')->with('success', 'Delivery Has Already  Been Confirmed and Payment Delivered');   
         }
 
         if($request->has('acceptDelivery'))

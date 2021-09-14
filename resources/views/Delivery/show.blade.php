@@ -84,7 +84,9 @@
                         <th class="text-center" scope="col">Quantity</th>
                         <th class="text-center" scope="col">Amount</th>
                         <th class="text-center" scope="col">Images</th>
+                        @if(Auth::user()->role == 'client')
                         <th class="text-ccenter" scope="col">Accept</th>
+                        @endif
                       </tr>
                       </thead>
                       <tbody>
@@ -109,7 +111,7 @@
                               <img 
                                     src=" {{ asset('product_images/' .$image) }}" 
                                     class="img-fluid max-width: 100%; height: auto;"
-                                    alt="">
+                                    alt=""><br/><br/><br/><br />
                               
                             @endforeach
                         </td>

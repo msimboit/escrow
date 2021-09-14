@@ -1013,6 +1013,7 @@ class MpesaController extends Controller
     public function b2cCallback(Request $request){
         Log::info('B2C endpoint hit');
         Log::info($request->all());
+        Log::info('B2C Result Parameters: '.$request['ResultParameters']);
 
         $receipt_number = $request['TransactionID'];
         $transaction_date = $request['TransactionCompletedDateTime'];

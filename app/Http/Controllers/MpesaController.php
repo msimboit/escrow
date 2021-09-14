@@ -1013,9 +1013,15 @@ class MpesaController extends Controller
     public function b2cCallback(Request $request){
         Log::info('B2C endpoint hit');
         Log::info($request->all());
+        $counter = 0;
         foreach(($request->all()) as $array){    
             foreach($array as $key=>$value){
-                Log::info($value);
+                $counter++;
+                if($counter == 6){
+                    foreach($value as $key=>$v){
+                        Log::info($v);
+                    }
+                }
             }
         }
         // Log::info('B2C Result Parameters: '.$request['Results']['ResultParameters']['ResultParameter']);

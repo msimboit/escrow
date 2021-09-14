@@ -1022,7 +1022,6 @@ class MpesaController extends Controller
                     }
                 }
             }
-        }
         // Log::info('B2C Result Parameters: '.$request['Results']['ResultParameters']['ResultParameter']);
 
         // $receipt_number = $request['TransactionID'];

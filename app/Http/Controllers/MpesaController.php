@@ -1014,6 +1014,7 @@ class MpesaController extends Controller
         Log::info('B2C endpoint hit');
         Log::info($request->all());
         $counter = 0;
+        $dets = [];
         foreach(($request->all()) as $array){    
             foreach($array as $key=>$value){
                 $counter++;
@@ -1021,14 +1022,14 @@ class MpesaController extends Controller
                     foreach($value as $key=>$v){
                         foreach($v as $key=>$detail){
                             foreach($detail as $key=>$d){
-                                Log::info('Final: '.$d);
+                                array_push($dets, $d);
                             }
                         }
                     }
                 }
             }
         }
-        // Log::info('B2C Result Parameters: '.$request['Results']['ResultParameters']['ResultParameter']);
+        Log::info('B2C Result Parameters: '.implode(",",$dets));
 
         // $receipt_number = $request['TransactionID'];
         // $transaction_date = $request['TransactionCompletedDateTime'];

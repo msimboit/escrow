@@ -989,6 +989,7 @@ class MpesaController extends Controller
           );
         
         Log::info('Security Credential is: '. $curl_post_data['SecurityCredential']);
+        Log::info('Party B is: '. $curl_post_data['PartyB']);
         // $url = 'https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
         $url = 'https://api.safaricom.co.ke/mpesa/b2c/v1/paymentrequest';
         $curl = curl_init();

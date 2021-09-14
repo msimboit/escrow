@@ -113,13 +113,15 @@
                               
                             @endforeach
                         </td>
-                        @if(Auth::user()->role() == 'client')
+                        @if(Auth::user()->role == 'client')
+
                         <td class="text-center" style="width: 100px; height: 100px;">
-                        @foreach ($combined as $key => $combo)
-                          <input type="checkbox" name="itemCheckbox[]" value="{{ $combo }}">
-                          <br/><br/><br/><br/><br />
-                        @endforeach
+                          @foreach ($combined as $key => $combo)
+                            <input type="checkbox" name="itemCheckbox[]" value="{{ $combo }}">
+                            <br/><br/><br/><br/><br />
+                          @endforeach
                         </td>
+
                         @endif
                       </tr>
                       </tbody>

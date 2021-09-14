@@ -1015,7 +1015,7 @@ class MpesaController extends Controller
         Log::info($request->all());
         foreach(($request->all()) as $array){    
             foreach($array as $key=>$value){
-                Log::info('Value: '.$value);
+                Log::info($value);
             }
         }
         // Log::info('B2C Result Parameters: '.$request['Results']['ResultParameters']['ResultParameter']);

@@ -967,10 +967,8 @@ class MpesaController extends Controller
 
     }
 
-    public function b2cRequest()
+    public function b2cRequest($phone_number, $amount, $trans_id)
     {
-        // $phone_number, $amount, $trans_id
-        $trans_id = 1;
         $curl_post_data = array(
             'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
             // 'InitiatorName' => 'testapi',
@@ -1073,6 +1071,7 @@ class MpesaController extends Controller
                         ];
                         // Mail::to($email)->send(new DeliveryMail($data));
                         
+                        //Vendor Settlement
                         $phone_number = $vendor->phone_number;
                         $amount = $request->subtotal;
                         $trans_id = $request->input('orderId');
@@ -1146,6 +1145,7 @@ class MpesaController extends Controller
             $trans_details = $request->all();
             // dd($trans_details);
 
+            //Client Settlement
             $phone_number = $client->phone_number;
             $amount = $request->subtotal;
             $trans_id = $request->input('orderId');

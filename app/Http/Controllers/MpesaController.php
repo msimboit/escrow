@@ -12,6 +12,7 @@ use DateTime;
 
 use Log;
 use DB;
+use Auth;
 
 use App\Clients;
 use App\User;

@@ -1031,17 +1031,17 @@ class MpesaController extends Controller
         }
         Log::info('B2C Result Parameters: '.implode(",",$dets));
 
-        // $receipt_number = $request['TransactionID'];
-        // $transaction_date = $request['TransactionCompletedDateTime'];
-        // $receiver_name = $request['ReceiverPartyPublicName'];
-        // $amount = $request['TransactionAmount'];
+        $receipt_number = $dets[3];
+        $transaction_date = $dets[7];
+        $receiver_details = $dets[5];
+        $amount = $dets[1];
 
-        // $store_settlement = DB::table('settlements')
-        //                                     ->insert([
-        //                                         'amount' => $amount,
-        //                                         'phoneno' => $receiver_name,
-        //                                         'mpesacode' => $receipt_number
-        //                                     ]);
+        $store_settlement = DB::table('settlements')
+                                            ->insert([
+                                                'amount' => $amount,
+                                                'receiver_details' => $receiver_details,
+                                                'mpesacode' => $receipt_number
+                                            ]);
         return [
             'ResultCode' => 0,
             'ResultDesc' => 'Accept Service',

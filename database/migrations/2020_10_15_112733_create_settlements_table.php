@@ -15,8 +15,8 @@ class CreatesettlementsTable extends Migration
     {
         Schema::create('settlements', function (Blueprint $table) {
             $table->id();
-            $table->string('transactioncode');
-            $table->string('phoneno')->unique();
+            $table->string('amount');
+            $table->string('receiver_details')->unique();
             $table->string('mpesacode')->nullable();
             $table->timestamps();
         });

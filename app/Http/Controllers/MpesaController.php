@@ -1029,7 +1029,7 @@ class MpesaController extends Controller
                 }
             }
         }
-        Log::info('B2C Result Parameters: '.implode(",",$dets));
+        // Log::info('B2C Result Parameters: '.implode(",",$dets));
 
         $receipt_number = $dets[3];
         $transaction_date = $dets[7];

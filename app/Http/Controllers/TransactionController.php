@@ -194,13 +194,22 @@ class TransactionController extends Controller
 
     public function edit($id)
     {
-        $items = Vendors::pluck('firstname', 'id');
-        $clients = Clients::pluck('firstname', 'id');
-        $prds = Product::all();
-        $selectedID = 2;
+        // $items = Vendors::pluck('firstname', 'id');
+        // $clients = Clients::pluck('firstname', 'id');
+        // $prds = Product::all();
+        // $selectedID = 2;
+
+        // $trans = Tdetails::where('id', $id)->first();
+        // return view('transactions.edit', compact('trans','items','clients','prds'))->with($id);
 
         $trans = Tdetails::where('id', $id)->first();
-        return view('transactions.edit', compact('trans','items','clients','prds'))->with($id);
+        $vendors = User::where('id', $trans->vendor_id)->get();
+        $clients = User::where('role' ,'!=', 'admin')
+                        ->orderBy('first_name', 'asc')
+                        ->get();
+        $client = User::where('id' , $trans->client_id)->get();
+
+        return view('transactions.edit1', compact('vendors','clients', 'client', 'trans'));
     }
 
 
@@ -335,38 +344,119 @@ class TransactionController extends Controller
 
     public function update(Request $request)
     {
-        $id = $request->id;
-        Log::info($id);
-        $trns = Tdetails::find($id);
+        // $id = $request->id;
+        // $trns = Tdetails::find($id);
+
+        // $user = Auth::user();
+        // $trnscode = '';
+
+        // $trns->vendor_id=$request->vendor_id;
+        // $trns->client_id = $request->client_id;
+        // $trns->transactioncode = $trnscode;
+        // $trns->users_id = $user->id;
+        // $trns->validated = 0;
+        // $trns->deposited = $request->quantities;
+        // $trns->delivered = 0;
+        // $trns->paid = 0;
+        // $trns->closed=0;
+        // $trns->deliveryamount=0;
+        // $trns->transamount=$request->amount;
+        // $trns->deliverylocation='delivery details detemined';
+        // $trns->transdetail=$request->itemdesc;
+        // $trns->suspended=0;
+        // $trns->expired=0;
+        // $trns->void=0;
+        // $trns->delivered=0;
+        // $trns->suspensionremarks='none';
+        // //  $vend->acceptedtnc = $request->acceptedtnc;
+        // $trns->trans_long=0;
+        // $trns->trans_lat=0;
+
+        // $trns->save();
+
+        // return redirect()->route('transactions')->with('success', 'Transaction Updated!');
+
+        // dd($request->all());
+        $request->validate([
+            'client_id' => 'required',
+            'itemdesc' => 'required',
+            'quantities' => 'required',
+            'prices' => 'required',
+            'location' => 'required',
+            'deliveryfee' => 'required'
+        ]);
+
+        // dd($request->all());
+        $itemdesc = implode (". ", $request->input('itemdesc',[]));
+        $quantities = implode (" ", $request->input('quantities',[]));
+        $prices = implode (" ", $request->input('prices',[])); 
+
+        $prices_sum = array_sum ($request->input('prices',[]));
+        $quantities_sum = array_sum ($request->input('quantities',[]));
+
+        if($prices_sum  >250000)
+        {
+            return redirect()->back()->with('alert', 'Transaction cannot be greater than Ksh.300,000');
+        }
+
+        if($prices_sum  < 10)
+        {
+            return redirect()->back()->with('alert', 'Transaction cannot be less than Ksh.10');
+        }
+
 
         $user = Auth::user();
+        // $trns = new Tdetails;
+        $id = $request->id;
+        $trns = Tdetails::find($id);
         $trnscode = '';
 
-        $trns->vendor_id=$request->vendor_id;
-        $trns->client_id = $request->client_id;
-        $trns->transactioncode = $trnscode;
+        $vendor = User::where('phone_number', $user->phone_number)->first();
+        $client = User::where('phone_number', $request->client_id)->first();
+
+        $trns->vendor_id = $vendor->id;
+        $trns->client_id = $client->id;
+        $trns->client_phone = $client->phone_number;
+        $trns->transactioncode =$trnscode;
         $trns->users_id = $user->id;
         $trns->validated = 0;
-        $trns->deposited = $request->quantities;
+        $trns->deposited = $quantities; 
         $trns->delivered = 0;
-        $trns->paid = 0;
         $trns->closed=0;
-        $trns->deliveryamount=0;
-        $trns->transamount=$request->amount;
-        $trns->deliverylocation='delivery details detemined';
-        $trns->transdetail=$request->itemdesc;
+        $trns->deliveryamount= $request->deliveryfee;
+        $trns->transamount= $prices; 
+        $trns->deliverylocation= $request->location;
+        $trns->transdetail= $itemdesc; 
         $trns->suspended=0;
         $trns->expired=0;
         $trns->void=0;
         $trns->delivered=0;
         $trns->suspensionremarks='none';
         //  $vend->acceptedtnc = $request->acceptedtnc;
-        $trns->trans_long=0;
-        $trns->trans_lat=0;
+        $trns->trans_long = $request->long;
+        $trns->trans_lat = $request->lat;
+        $trns->delivery_time = $request->deliverytime;
+        $trns->delivery_fee_handler = 'client';
+        $trns->paid = 0;
 
+
+        $imageName = [];
+        $imageArray = $request->product_image;
+            if(!empty($imageArray)){
+            for ($image=0; $image < count($imageArray); $image++) {
+                if ($imageArray[$image] != '') {
+                $newImageName = $image . '-' .time() . '-' . $request->vendor_id . '-' . $request->client_id . '.' . $imageArray[$image]->extension();
+                $imageArray[$image]->move(public_path('product_images'), $newImageName);
+                array_push($imageName, $newImageName);
+                }
+            }}
+        $product_image = implode(" & ", $imageName);
+        
+        $trns->product_image = $product_image;
         $trns->save();
-
-        return redirect()->route('transactions')->with('success', 'Transaction Updated!');
+        
+        return redirect()->route('transactions')->with('success', 'Transaction Edited Successfully!');
+        
     }
     
 

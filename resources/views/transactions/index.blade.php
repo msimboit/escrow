@@ -43,10 +43,10 @@
                     <!-- <td>{{ $tr->client_id }}</td>
                     <td>{{ $tr->vendor_id }}</td> -->
                     <td>{{ $tr->transdetail }}</td>
-                    <td>{{ $tr->transamount }}</td>
+                    <td>{{ collect(explode(' ',$tr->transamount))->sum() }}</td>
                     <td>{{ $tr->validated }}</td>
                     <td>
-                      @if(Auth::user()->role === 'admin')
+                      @if(Auth::user()->role === 'admin' || Auth::user()->role === 'vendor')
                       <a href="{{ route('edittransactions',$tr->id) }}" class="btn btn-info">Edit</a>
                       @endif
                       <!-- <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>

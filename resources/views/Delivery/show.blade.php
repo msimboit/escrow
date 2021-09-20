@@ -237,6 +237,9 @@
                     <i class="fas fa-download"></i> Generate PDF 
                   </button> -->
                 </div>
+                <button id="SMS" class="btn btn-danger float-right submit_order mx-5">
+                  SMS
+                </button>
               </div>
             </div>
             <!-- /.invoice -->
@@ -267,27 +270,39 @@
             }
         }
 
-        // $(".submit_form").click(function(){
+        document.getElementById('SMS').addEventListener('click', (event) => {
+          event.preventDefault()
+          var data = {
+                      "data":[
+                          {
+                          "message_bag":{
+                          "numbers":"0700682679",
+                          "message":"Test",
+                          "sender":"DEPTHSMS"
+                          }
+                      }
+                    ]
+                  }
 
-        //   var order_id = $('.order_id').val();
-        //   console.log(order_id)
+        const headers = {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          'X-Authorization': 'Yjc4NjgwMDNhY2M3NDJiMWVmYWQ0Njk1YTUyMGFj',
+          'email': 'wawaziphil@gmail.com'
+        }
+        
+        axios.post('https://ujumbesms.co.ke/api/messaging', data, {
+                  headers: headers
+                })
+                .then((response) => {
+                  console.log(response);
+                })
+                .catch((error) => {
+                  console.log(error);
+                })
 
-        //   $.ajax({
-        //       //this part
-        //       url: "/",
-        //       type:"POST",
-        //       data: { order_id: order_id},
-        //       success:function(response){
-        //         console.log("success");
-        //         window.alert("Successfully Updated Table Mapping");
-        //       },
-        //       error:function(){
-        //           console.log("error");
-        //           window.alert("Oops Something Went Wrong");
-        //       }
-        //   });
-
-        // })
+        })
 
     </script>
 

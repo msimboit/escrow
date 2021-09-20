@@ -184,6 +184,7 @@ class DeliveryController extends Controller
     public function acceptDelivery(Request $request) 
     {
         // dd($request->all());
+
         if($request->has('acceptDelivery'))
         {
             

@@ -1063,6 +1063,7 @@ class MpesaController extends Controller
             return redirect()->route('deliveries')->with('success', 'Delivery Has Been Confirmed and Payment Delivered');   
         }
 
+
         if($request->has('acceptDelivery'))
         {
             
@@ -1194,6 +1195,18 @@ class MpesaController extends Controller
         if($request->has('rejectDelivery')) 
         {   
             //Entire Delivery was rejected
+            
+            $transaction = Tdetails::where('id', $request->input('orderId'))
+                                        ->first();
+            $dtime = new DateTime($transaction->deliverytime,);
+            $now = new DateTime();
+            $diff = now()->diffInHours($transaction->created_at);
+
+            if($diff < intval($transaction->delivery_time))
+            {
+                return redirect()->back()->with('success', "There's still time, be patient!");
+            }
+
             $tdetails_check = DB::table('tdetails')
                                     ->where('id', $request->input('orderId'))
                                     ->first();

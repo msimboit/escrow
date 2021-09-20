@@ -285,14 +285,11 @@
                   }
 
         const headers = {
-          'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
           'X-Authorization': 'Yjc4NjgwMDNhY2M3NDJiMWVmYWQ0Njk1YTUyMGFj',
-          'email': 'wawaziphil@gmail.com'
         }
         
-        axios.post('https://ujumbesms.co.ke/api/messaging', data, {
+        axios.post('https://ujumbesms.co.ke/api/messaging', params: {'email': 'wawaziphil@gmail.com'}, data, {
                   headers: headers
                 })
                 .then((response) => {

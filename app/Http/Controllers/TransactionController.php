@@ -542,6 +542,8 @@ class TransactionController extends Controller
                 'body' => 'Escrow sent this message for testing'
             )
         );
+
+        return redirect()->route('deliveries')->with('success', 'Message sent Successfully!');
     }
 
 

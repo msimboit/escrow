@@ -15,6 +15,8 @@ use Auth;
 use Log;
 use DB;
 
+use Twilio\Rest\Client;
+
 
 
 class TransactionController extends Controller
@@ -518,6 +520,29 @@ class TransactionController extends Controller
 
          return response()->json($buyers);
      }
+
+     public function send_sms()
+    {
+
+        // Your Account SID and Auth Token from twilio.com/console
+        $account_sid = 'AC2af25992c5d864b538204bf25188678e';
+        $auth_token = '8073b161334e57e4115dc24af0108ec1';
+        // In production, these should be environment variables. E.g.:
+        // $auth_token = $_ENV["TWILIO_AUTH_TOKEN"]
+
+        // A Twilio number you own with SMS capabilities
+        $twilio_number = "+19362414349";
+
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create(
+            // Where to send a text message (your cell phone?)
+            '+254700682679',
+            array(
+                'from' => $twilio_number,
+                'body' => 'Escrow sent this message for testing'
+            )
+        );
+    }
 
 
 }

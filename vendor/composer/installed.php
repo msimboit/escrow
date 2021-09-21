@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a978113dd390f2576a81c5b10570a3d03b8eab1b',
+    'reference' => '43151990f7953bf013a1a7526f7ff2177562f52f',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -454,7 +454,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a978113dd390f2576a81c5b10570a3d03b8eab1b',
+      'reference' => '43151990f7953bf013a1a7526f7ff2177562f52f',
     ),
     'laravel/socialite' => 
     array (
@@ -821,8 +821,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0|2.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0|2.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -1268,6 +1268,15 @@
       array (
       ),
       'reference' => 'b43b05cf43c1b6d849478965062b6ef73e223bb5',
+    ),
+    'twilio/sdk' => 
+    array (
+      'pretty_version' => '6.28.2',
+      'version' => '6.28.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '530be7f621fc8fb1d2af5ba5a70e278f262e048f',
     ),
     'vlucas/phpdotenv' => 
     array (

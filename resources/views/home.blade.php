@@ -66,6 +66,10 @@
           <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
         </div>
       </div>
+
+      <!-- <div>
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div> -->
       <!-- ./col -->
     <!-- /.row -->
     <!-- Main row -->

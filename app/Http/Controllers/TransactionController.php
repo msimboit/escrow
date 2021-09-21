@@ -547,7 +547,7 @@ class TransactionController extends Controller
         //     )
         // );
 
-        return redirect()->route('deliveries')->with('success', 'Message Successfully!');
+        // return redirect()->route('deliveries')->with('success', 'Message Successfully!');
     }
 
 

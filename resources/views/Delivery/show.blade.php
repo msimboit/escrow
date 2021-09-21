@@ -238,7 +238,7 @@
                   </button> -->
                 </div>
                 <button class="btn btn-danger float-right submit_order mx-5">
-                <a class="d-block" href="/api/v1/transaction/sms">
+                <a class="d-block" href="/api/v1/transactions/sms">
                                             {{ __('sms') }}
                 </a>
                 </button>

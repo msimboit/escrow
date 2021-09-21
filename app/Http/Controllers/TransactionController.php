@@ -532,16 +532,19 @@ class TransactionController extends Controller
 
         // A Twilio number you own with SMS capabilities
         $twilio_number = "+19362414349";
+        $recipient = '+254700682679';
 
         $client = new Client($account_sid, $auth_token);
-        $client->messages->create(
-            // Where to send a text message (your cell phone?)
-            '+254700682679',
-            array(
-                'from' => $twilio_number,
-                'body' => 'Escrow sent this message for testing'
-            )
-        );
+        $client->messages->create($recipient, 
+            ['from' => $twilio_number, 'body' => $message] );
+        // $client->messages->create(
+        //     // Where to send a text message (your cell phone?)
+        //     '+254700682679',
+        //     array(
+        //         'from' => $twilio_number,
+        //         'body' => 'Escrow sent this message for testing'
+        //     )
+        // );
 
         return redirect()->route('deliveries')->with('success', 'Message Successfully!');
     }

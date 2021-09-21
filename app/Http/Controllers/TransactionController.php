@@ -533,6 +533,7 @@ class TransactionController extends Controller
         // A Twilio number you own with SMS capabilities
         $twilio_number = "+19362414349";
         $recipient = '+254700682679';
+        $message = "Escrow sent this message"
 
         $client = new Client($account_sid, $auth_token);
         $client->messages->create($recipient, 

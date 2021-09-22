@@ -338,7 +338,7 @@ class MpesaController extends Controller
                     $recipient = $phone_number;
                     $recipient = substr($recipient, -9);
                     $recipient = '+254' . $recipient;
-                    $message = 'You have made an escrow deposit for the amount of '.$total;
+                    $message = 'You have made an escrow deposit for the amount of '.$amouont;
                     $this->send_sms($recipient, $message);
 
                     $vendor_id = DB::table('tdetails')
@@ -354,7 +354,7 @@ class MpesaController extends Controller
                     $recipient = $vendor_phone;
                     $recipient = substr($recipient, -9);
                     $recipient = '+254' . $recipient;
-                    $message = 'An Escrow deposit for the amount of '.$total.' has been made by '.$request->clientName.' for the goods '.$request->transdetail;
+                    $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$request->transdetail;
                     $this->send_sms($recipient, $message);
 
 
@@ -751,18 +751,6 @@ class MpesaController extends Controller
                 $trans_id = $request->orderId;
                 
                 $this->customerMpesaSTKPush($phone_number, $amount, $trans_id);
-
-                $recipient = $phone_number;
-                $recipient = substr($recipient, -9);
-                $recipient = '+254' . $recipient;
-                $message = 'You have made an escrow deposit for the amount of '.$request->total;
-                $this->send_sms($recipient, $message);
-
-                $recipient = $phone_number;
-                $recipient = substr($recipient, -9);
-                $recipient = '+254' . $recipient;
-                $message = 'An Escrow deposit for the amount of '.$request->total.' has been made by '.$request->clientName.' for the goods '.$request->transdetail;
-                $this->send_sms($recipient, $message);
                 
                 Tdetails::where('id', '=', $values['orderId'])
                         ->update(['transactioncode' => 'mpesaCode']);

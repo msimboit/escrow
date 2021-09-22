@@ -237,11 +237,11 @@
                     <i class="fas fa-download"></i> Generate PDF 
                   </button> -->
                 </div>
-                <button class="btn btn-danger float-right submit_order mx-5">
+                <!-- <button class="btn btn-danger float-right submit_order mx-5">
                 <a class="d-block" href="{{ route('sms') }}">
                                             {{ __('sms') }}
                 </a>
-                </button>
+                </button> -->
               </div>
             </div>
             <!-- /.invoice -->

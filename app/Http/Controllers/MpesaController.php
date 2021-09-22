@@ -874,6 +874,19 @@ class MpesaController extends Controller
                 $pay->mpesacode = '';
                 $pay->save();
 
+                $recipient = $phone_number;
+                $recipient = substr($recipient, -9);
+                $recipient = '+254' . $recipient;
+                $message = 'You have made an escrow deposit for the amount of '.$total;
+                $this->send_sms($recipient, $message);
+
+                $recipient = $phone_number;
+                $recipient = substr($recipient, -9);
+                $recipient = '+254' . $recipient;
+                $message = 'An Escrow deposit for the amount of '.$total.' has been made by '.$request->clientName.' for the goods '.$request->transdetail;
+                $this->send_sms($recipient, $message);
+
+
                 return redirect('/home');
 
             }
@@ -1253,15 +1266,16 @@ class MpesaController extends Controller
     public function send_sms($recipient, $message)
     {
 
-        // Your Account SID and Auth Token from twilio.com/console
-        $account_sid = 'AC906dc524ed8a5bd8242c3ed1e9c5b622';
-        $auth_token = '000a0805027ecae3ec7d6ea57e031dbc';
+        // // Your Account SID and Auth Token from twilio.com/console
+        // $account_sid = 'AC3261703f9f12fe402d7c164af1e0834b';
+        // $auth_token = '016ca55f0efd7b4494d5f2fb6467788a';
         // In production, these should be environment variables. E.g.:
-        // $auth_token = $_ENV["TWILIO_AUTH_TOKEN"]
+        $account_sid = $_ENV["TWILIO_AUTH_SID"];
+        $auth_token = $_ENV["TWILIO_AUTH_TOKEN"];
 
         // A Twilio number you own with SMS capabilities
         $twilio_number = "+19362460202";
-        // $recipient = '+254700682679';
+        // $recipient = '+254704618977';
         // $message = "Escrow sent this message";
 
         $client = new Client($account_sid, $auth_token);

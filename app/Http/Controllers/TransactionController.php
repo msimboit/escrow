@@ -513,7 +513,7 @@ class TransactionController extends Controller
         // $account_sid = 'AC3261703f9f12fe402d7c164af1e0834b';
         // $auth_token = '016ca55f0efd7b4494d5f2fb6467788a';
         // In production, these should be environment variables. E.g.:
-        $auth_sid = $_ENV["TWILIO_AUTH_SID"];
+        $account_sid = $_ENV["TWILIO_AUTH_SID"];
         $auth_token = $_ENV["TWILIO_AUTH_TOKEN"];
 
         // A Twilio number you own with SMS capabilities

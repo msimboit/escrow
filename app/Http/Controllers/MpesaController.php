@@ -22,6 +22,8 @@ use App\Vendors;
 use App\Payments;
 use App\mpesa_token;
 
+use Twilio\Rest\Client;
+
 class MpesaController extends Controller
 {
     /**

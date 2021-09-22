@@ -318,8 +318,8 @@ class TransactionController extends Controller
         $trns->product_image = $product_image;
         $trns->save();
         $recipient = $client->phone_number;
-        $recipient = substr($phone_number, -9);
-        $recipient = +254 . $phone_number;
+        $recipient = substr($recipient, -9);
+        $recipient = +254 . $recipient;
         $this->send_sms($recipient, $message);
         return redirect()->route('transactions')->with('success', 'Transaction Added!');
     //}

@@ -10,6 +10,8 @@ use App\RejectDelivery;
 use DB;
 use Auth;
 
+use Twilio\Rest\Client;
+
 class RejectDeliveryController extends Controller
 {
     public function index()
@@ -69,5 +71,31 @@ class RejectDeliveryController extends Controller
 
         return redirect()->route('deliveries')->with('success', 'Report Has Been Sent');
 
+    }
+
+    public function send_sms($recipient, $message)
+    {
+
+        // // Your Account SID and Auth Token from twilio.com/console
+        // $account_sid = 'AC3261703f9f12fe402d7c164af1e0834b';
+        // $auth_token = '016ca55f0efd7b4494d5f2fb6467788a';
+        // In production, these should be environment variables. E.g.:
+        $account_sid = $_ENV["TWILIO_AUTH_SID"];
+        $auth_token = $_ENV["TWILIO_AUTH_TOKEN"];
+
+        // A Twilio number you own with SMS capabilities
+        $twilio_number = "+19362460202";
+        // $recipient = '+254704618977';
+        // $message = "Escrow sent this message";
+
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create(
+            // Where to send a text message (your cell phone?)
+            $recipient,
+            array(
+                'from' => $twilio_number,
+                'body' => $message
+            )
+        );
     }
 }

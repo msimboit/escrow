@@ -333,6 +333,31 @@ class MpesaController extends Controller
                         'paid' => 1,
                         'transactioncode' => $receipt_number,
                     ]);
+
+
+                    $recipient = $phone_number;
+                    $recipient = substr($recipient, -9);
+                    $recipient = '+254' . $recipient;
+                    $message = 'You have made an escrow deposit for the amount of '.$total;
+                    $this->send_sms($recipient, $message);
+
+                    $vendor_id = DB::table('tdetails')
+                            ->where('id', $trans_id)
+                            ->select('vendor_id')
+                            ->first();
+
+                    $vendor_phone = DB::table('users')
+                    ->where('id', $vendor_id)
+                    ->select('phone_number')
+                    ->first();
+
+                    $recipient = $vendor_phone;
+                    $recipient = substr($recipient, -9);
+                    $recipient = '+254' . $recipient;
+                    $message = 'An Escrow deposit for the amount of '.$total.' has been made by '.$request->clientName.' for the goods '.$request->transdetail;
+                    $this->send_sms($recipient, $message);
+
+
                 }
                 else{
                     //Paybill  Details
@@ -887,19 +912,6 @@ class MpesaController extends Controller
                 $pay->phoneno = $phone_number;
                 $pay->mpesacode = '';
                 $pay->save();
-
-                $recipient = $phone_number;
-                $recipient = substr($recipient, -9);
-                $recipient = '+254' . $recipient;
-                $message = 'You have made an escrow deposit for the amount of '.$total;
-                $this->send_sms($recipient, $message);
-
-                $recipient = $phone_number;
-                $recipient = substr($recipient, -9);
-                $recipient = '+254' . $recipient;
-                $message = 'An Escrow deposit for the amount of '.$total.' has been made by '.$request->clientName.' for the goods '.$request->transdetail;
-                $this->send_sms($recipient, $message);
-
 
                 return redirect('/home');
 

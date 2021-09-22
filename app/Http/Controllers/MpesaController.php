@@ -338,20 +338,18 @@ class MpesaController extends Controller
                     $recipient = $phone_number;
                     $recipient = substr($recipient, -9);
                     $recipient = '+254' . $recipient;
-                    $message = 'You have made an escrow deposit for the amount of '.$amount;
+                    $message = 'You have made a deposit to SupamallEscrow for the amount of '.$amount;
                     $this->send_sms($recipient, $message);
 
-                    $vendor_id = DB::table('tdetails')
+                    $t = DB::table('tdetails')
                             ->where('id', $trans_id)
-                            ->select('vendor_id')
                             ->first();
 
                     $vendor_phone = DB::table('users')
-                    ->where('id', $vendor_id)
-                    ->select('phone_number')
+                    ->where('id', $t->vendor_id)
                     ->first();
 
-                    $recipient = $vendor_phone;
+                    $recipient = $vendor_phone->phone_number;
                     $recipient = substr($recipient, -9);
                     $recipient = '+254' . $recipient;
                     $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$request->transdetail;

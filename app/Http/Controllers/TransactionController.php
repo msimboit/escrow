@@ -15,6 +15,7 @@ use Auth;
 use Log;
 use DB;
 
+
 use Twilio\Rest\Client;
 
 
@@ -509,13 +510,13 @@ class TransactionController extends Controller
     {
 
         // Your Account SID and Auth Token from twilio.com/console
-        $account_sid = 'AC906dc524ed8a5bd8242c3ed1e9c5b622';
-        $auth_token = '000a0805027ecae3ec7d6ea57e031dbc';
+        $account_sid = 'AC2af25992c5d864b538204bf25188678e';
+        $auth_token = '33e6873989ea9c3ca9399d1076f13507';
         // In production, these should be environment variables. E.g.:
         // $auth_token = $_ENV["TWILIO_AUTH_TOKEN"]
 
         // A Twilio number you own with SMS capabilities
-        $twilio_number = "+19362460202";
+        $twilio_number = "+19362414349";
         // $recipient = '+254700682679';
         // $message = "Escrow sent this message";
 

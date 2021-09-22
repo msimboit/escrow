@@ -317,27 +317,10 @@ class TransactionController extends Controller
         
         $trns->product_image = $product_image;
         $trns->save();
-        
-        //Save the product details
-        // $products = $request->input('products', []);
-        // $quantities = $request->input('quantities', []);
-        // $prices = $request->input('prices',[]);
-        // $itemdesc = $request->input('itemdesc',[]);
-        // $pics = $request->input('pics',[]);
-        
-
-        /**
-         * Was not sure what the below for loop was doing, so i commented it out.
-         * 
-         */
-        
-        // for ($product=0; $product < count($products); $product++) {
-        //     if ($products[$product] != '') {
-        //         $trns->products()->attach($products[$product], ['itemdetail' => $itemdesc[$product]], ['quantity' => $quantities[$product]], ['price' => $prices[$product]]);
-        //         //, ['quantity' => $quantities[$product]], ['price' => $prices[$product]]
-              
-        //     }
-        // }
+        $recipient = $client->phone_number;
+        $recipient = substr($phone_number, -9);
+        $recipient = +254 . $phone_number;
+        $this->send_sms($recipient, $message);
         return redirect()->route('transactions')->with('success', 'Transaction Added!');
     //}
     }
@@ -521,7 +504,7 @@ class TransactionController extends Controller
          return response()->json($buyers);
      }
 
-     public function send_sms()
+     public function send_sms($recipient, $message)
     {
 
         // Your Account SID and Auth Token from twilio.com/console
@@ -532,20 +515,18 @@ class TransactionController extends Controller
 
         // A Twilio number you own with SMS capabilities
         $twilio_number = "+19362460202";
-        $recipient = '+254700682679';
-        $message = "Escrow sent this message";
+        // $recipient = '+254700682679';
+        // $message = "Escrow sent this message";
 
         $client = new Client($account_sid, $auth_token);
         $client->messages->create(
             // Where to send a text message (your cell phone?)
-            '+254700682679',
+            $recipient,
             array(
                 'from' => $twilio_number,
-                'body' => 'Escrow sent this message for testing'
+                'body' => $message
             )
         );
-
-         return redirect()->route('deliveries')->with('success', 'Message Successfully!');
     }
 
 

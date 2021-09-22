@@ -1246,4 +1246,33 @@ class MpesaController extends Controller
         
     }
 
+    /**
+     * Sending SMS via Twilio
+     * 
+     */
+    public function send_sms($recipient, $message)
+    {
+
+        // Your Account SID and Auth Token from twilio.com/console
+        $account_sid = 'AC906dc524ed8a5bd8242c3ed1e9c5b622';
+        $auth_token = '000a0805027ecae3ec7d6ea57e031dbc';
+        // In production, these should be environment variables. E.g.:
+        // $auth_token = $_ENV["TWILIO_AUTH_TOKEN"]
+
+        // A Twilio number you own with SMS capabilities
+        $twilio_number = "+19362460202";
+        // $recipient = '+254700682679';
+        // $message = "Escrow sent this message";
+
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create(
+            // Where to send a text message (your cell phone?)
+            $recipient,
+            array(
+                'from' => $twilio_number,
+                'body' => $message
+            )
+        );
+    }
+
 }

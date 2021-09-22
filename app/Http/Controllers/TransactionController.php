@@ -320,7 +320,7 @@ class TransactionController extends Controller
         $trns->save();
         $recipient = $client->phone_number;
         $recipient = substr($recipient, -9);
-        $recipient = +254 . $recipient;
+        $recipient = '+254' . $recipient;
         $message = 'Transaction has been initiated by  the vendor:'.$vendor->business_name. ' for the item '. $itemdesc;
         $this->send_sms($recipient, $message);
         return redirect()->route('transactions')->with('success', 'Transaction Added!');

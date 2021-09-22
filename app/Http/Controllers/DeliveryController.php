@@ -12,6 +12,9 @@ use App\Clients;
 use DB;
 use Auth;
 
+use Twilio\Rest\Client;
+
+
 
 class DeliveryController extends Controller
 {
@@ -321,5 +324,35 @@ class DeliveryController extends Controller
             ->get();
         // dd($search[0]->client_phone);
         return view('Delivery.search', ['search' => $search]);
+    }
+
+    /**
+     * Sending SMS via Twilio
+     * 
+     */
+    public function send_sms($recipient, $message)
+    {
+
+        // // Your Account SID and Auth Token from twilio.com/console
+        // $account_sid = 'AC3261703f9f12fe402d7c164af1e0834b';
+        // $auth_token = '016ca55f0efd7b4494d5f2fb6467788a';
+        // In production, these should be environment variables. E.g.:
+        $account_sid = $_ENV["TWILIO_AUTH_SID"];
+        $auth_token = $_ENV["TWILIO_AUTH_TOKEN"];
+
+        // A Twilio number you own with SMS capabilities
+        $twilio_number = "+19362460202";
+        // $recipient = '+254704618977';
+        // $message = "Escrow sent this message";
+
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create(
+            // Where to send a text message (your cell phone?)
+            $recipient,
+            array(
+                'from' => $twilio_number,
+                'body' => $message
+            )
+        );
     }
 }

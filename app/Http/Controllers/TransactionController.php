@@ -321,7 +321,7 @@ class TransactionController extends Controller
         $recipient = $client->phone_number;
         $recipient = substr($recipient, -9);
         $recipient = '+254' . $recipient;
-        $message = 'Transaction has been initiated by  the vendor: '.$vendor->business_name. ' for the item: '. $itemdesc;
+        $message = 'Transaction has been initiated by  the vendor: '.$vendor->business_name. ' for the item: '. $itemdesc.'. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
         $this->send_sms($recipient, $message);
         return redirect()->route('transactions')->with('success', 'Transaction Added!');
     //}

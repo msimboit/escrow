@@ -349,10 +349,11 @@ class MpesaController extends Controller
                     ->where('id', $t->vendor_id)
                     ->first();
 
+
                     $recipient = $vendor_phone->phone_number;
                     $recipient = substr($recipient, -9);
                     $recipient = '+254' . $recipient;
-                    $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$request->transdetail;
+                    $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
                     $this->send_sms($recipient, $message);
 
 

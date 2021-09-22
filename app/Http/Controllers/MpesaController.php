@@ -338,7 +338,7 @@ class MpesaController extends Controller
                     $recipient = $phone_number;
                     $recipient = substr($recipient, -9);
                     $recipient = '+254' . $recipient;
-                    $message = 'You have made an escrow deposit for the amount of '.$amouont;
+                    $message = 'You have made an escrow deposit for the amount of '.$amount;
                     $this->send_sms($recipient, $message);
 
                     $vendor_id = DB::table('tdetails')

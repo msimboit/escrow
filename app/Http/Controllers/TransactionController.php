@@ -333,7 +333,7 @@ class TransactionController extends Controller
         $message = 'Transaction has been initiated by  the vendor: '.$vendor->business_name. ' for the item: '. $itemdesc.'. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
         $this->send($number, $message, "DEPTHSMS");
 
-        
+
         return redirect()->route('transactions')->with('success', 'Transaction Added!');
     //}
     }
@@ -566,7 +566,7 @@ class TransactionController extends Controller
         Log::info($data);
 
         $sms_data = json_encode($data);
-        $url = 'https://ujumbesms.co.ke/api/messaging';\
+        $url = 'https://ujumbesms.co.ke/api/messaging';
 
         Log::info($sms_data);
 

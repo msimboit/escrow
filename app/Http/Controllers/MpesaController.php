@@ -1335,7 +1335,7 @@ class MpesaController extends Controller
         Log::info($data);
 
         $sms_data = json_encode($data);
-        $url = 'https://ujumbesms.co.ke/api/messaging';\
+        $url = 'https://ujumbesms.co.ke/api/messaging';
 
         Log::info($sms_data);
 

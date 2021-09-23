@@ -63,11 +63,11 @@ class RejectDeliveryController extends Controller
         Tdetails::where('id', $request->orderId)
                         ->update(['suspended' => 1]);
 
-        $recipient = $request->vendorNumber;
-        $recipient = substr($recipient, -9);
-        $recipient = '+254' . $recipient;
-        $message = 'A rejection of goods has occured for the order of: "'.$request->transdetail.'" by '.$request->clientName.'. The complaint was: '.$request->details;
-        $this->send_sms($recipient, $message);    
+        // $recipient = $request->vendorNumber;
+        // $recipient = substr($recipient, -9);
+        // $recipient = '+254' . $recipient;
+        // $message = 'A rejection of goods has occured for the order of: "'.$request->transdetail.'" by '.$request->clientName.'. The complaint was: '.$request->details;
+        // $this->send_sms($recipient, $message);    
 
         return redirect()->route('deliveries')->with('success', 'Report Has Been Sent');
 

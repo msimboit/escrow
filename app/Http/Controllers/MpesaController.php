@@ -335,11 +335,11 @@ class MpesaController extends Controller
                     ]);
 
 
-                    $recipient = $phone_number;
-                    $recipient = substr($recipient, -9);
-                    $recipient = '+254' . $recipient;
-                    $message = 'You have made a deposit to SupamallEscrow for the amount of '.$amount;
-                    $this->send_sms($recipient, $message);
+                    // $recipient = $phone_number;
+                    // $recipient = substr($recipient, -9);
+                    // $recipient = '+254' . $recipient;
+                    // $message = 'You have made a deposit to SupamallEscrow for the amount of '.$amount;
+                    // $this->send_sms($recipient, $message);
 
                     $t = DB::table('tdetails')
                             ->where('id', $trans_id)
@@ -350,11 +350,11 @@ class MpesaController extends Controller
                     ->first();
 
 
-                    $recipient = $vendor_phone->phone_number;
-                    $recipient = substr($recipient, -9);
-                    $recipient = '+254' . $recipient;
-                    $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
-                    $this->send_sms($recipient, $message);
+                    // $recipient = $vendor_phone->phone_number;
+                    // $recipient = substr($recipient, -9);
+                    // $recipient = '+254' . $recipient;
+                    // $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
+                    // $this->send_sms($recipient, $message);
 
 
                 }

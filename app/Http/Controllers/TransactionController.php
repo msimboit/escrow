@@ -223,6 +223,7 @@ class TransactionController extends Controller
             'client_id' => 'required',
             'itemdesc' => 'required',
             'quantities' => 'required',
+            'product_image' => 'image|max1024',
             'prices' => 'required',
             'location' => 'required',
             'deliveryfee' => 'required'

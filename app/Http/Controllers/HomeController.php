@@ -65,15 +65,23 @@ class HomeController extends Controller
             ->first();
         $highest_vendor = User::where('id', $highest_vendor->vendor_id)->first();
 
-        $highest_buyer = Tdetails::where('vendor_id',$id)
-            ->select('client_id')
-            ->selectRaw('COUNT(*) AS count')
-            ->groupBy('client_id')
-            ->orderByDesc('count')
-            ->limit(1)
-            ->first();
+        if(Auth::user()->role == 'vendor')
+        {
+            $highest_buyer = Tdetails::where('vendor_id',$id)
+                            ->select('client_id')
+                            ->selectRaw('COUNT(*) AS count')
+                            ->groupBy('client_id')
+                            ->orderByDesc('count')
+                            ->limit(1)
+                            ->first();
 
-        $highest_buyer = User::where('id', $highest_buyer->client_id)->first();
+            $highest_buyer = User::where('id', $highest_buyer->client_id)->first();
+        }
+        else {
+            $id = Auth::user()->id;
+            $highest_buyer = User::where('id', $id)->first();
+        }
+        
 
         return view('home', compact('users',
                                     'vendors',

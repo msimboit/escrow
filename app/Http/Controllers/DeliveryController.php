@@ -35,7 +35,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $deliveries = Tdetails::where('paid', '1')->paginate(100)->where('closed', '0');
+        $deliveries = Tdetails::where('paid', '1')->orderBy('created_at', 'desc')->paginate(100)->where('closed', '0');
         //dd($deliveries[0]);
 
         $vendors = User::where('role','vendor')->get();

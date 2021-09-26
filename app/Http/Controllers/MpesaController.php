@@ -21,6 +21,7 @@ use App\Tdetails;
 use App\Vendors;
 use App\Payments;
 use App\mpesa_token;
+use App\Jobs\Sms;
 
 use Twilio\Rest\Client;
 
@@ -362,11 +363,18 @@ class MpesaController extends Controller
                     // $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
                     // $this->send_sms($recipient, $message);
 
-                    $number = $vendor_phone->phone_number;
-                    $number = substr($number, -9);
-                    $number = '0'.$number;
+                    // $number = $vendor_phone->phone_number;
+                    // $number = substr($number, -9);
+                    // $number = '0'.$number;
+                    // $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
+                    // $this->send($number, $message, "DEPTHSMS");
+
+                    $phone_number = $vendor_phone->phone_number;
+                    $phone_number = substr($phone_number, -9);
+                    $phone_number = '0'.$phone_number;
                     $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
-                    $this->send($number, $message, "DEPTHSMS");
+                    $SID = 'DEPTHSMS';
+                    Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
 
 
                 }

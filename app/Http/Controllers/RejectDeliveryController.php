@@ -7,6 +7,7 @@ use App\User;
 use App\Deliveries;
 use App\Tdetails;
 use App\RejectDelivery;
+use App\Jobs\Sms;
 use DB;
 use Auth;
 use Log;
@@ -70,11 +71,18 @@ class RejectDeliveryController extends Controller
         // $message = 'A rejection of goods has occured for the order of: "'.$request->transdetail.'" by '.$request->clientName.'. The complaint was: '.$request->details;
         // $this->send_sms($recipient, $message);   
         
-        $number = $request->vendorNumber;
-        $number = substr($number, -9);
-        $number = '0'.$number;
+        // $number = $request->vendorNumber;
+        // $number = substr($number, -9);
+        // $number = '0'.$number;
+        // $message = 'A rejection of goods has occured for the order of: "'.$request->transdetail.'" by '.$request->clientName.'. The complaint was: '.$request->details;
+        // $this->send($number, $message, "DEPTHSMS");
+
+        $phone_number = $request->vendorNumber;
+        $phone_number = substr($phone_number, -9);
+        $phone_number = '0'.$phone_number;
         $message = 'A rejection of goods has occured for the order of: "'.$request->transdetail.'" by '.$request->clientName.'. The complaint was: '.$request->details;
-        $this->send($number, $message, "DEPTHSMS");
+        $SID = 'DEPTHSMS';
+        Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
 
         return redirect()->route('deliveries')->with('success', 'Report Has Been Sent');
 

@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('tests', 'HomeController@tests')->name('tests');
+Route::get('/search','SearchController@index');
+Route::get('/search','SearchController@search');
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

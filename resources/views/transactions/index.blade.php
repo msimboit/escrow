@@ -33,7 +33,7 @@
                 <th>Seller Escrow Id</th> -->
                 <th>Product </th>
                 <th>Amount </th>
-                <th>Validated </th>
+                <th>Paid For</th>
                 <th>Action</th>
             </tr>
             @foreach($transactions as $tr)
@@ -44,10 +44,10 @@
                     <td>{{ $tr->vendor_id }}</td> -->
                     <td>{{ $tr->transdetail }}</td>
                     <td>{{ collect(explode(' ',$tr->transamount))->sum() }}</td>
-                    <td>{{ $tr->validated }}</td>
+                    <td><span class="badge badge-pill badge-primary p-2">PENDING</span></td>
                     <td>
                       @if(Auth::user()->role === 'admin' || Auth::user()->role === 'vendor')
-                      <a href="{{ route('edittransactions',$tr->id) }}" class="btn btn-info">Edit</a>
+                      <a href="{{ route('edittransactions',$tr->id) }}" class="btn btn-info m-2">Edit</a>
                       @endif
                       <!-- <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
                       <form action="{{ route('deletetransaction',$tr->id) }}" method="post">
@@ -63,4 +63,5 @@
     </div>
     
   </section>	
+  
 @endsection

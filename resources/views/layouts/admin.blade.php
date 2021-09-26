@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="_token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -68,11 +69,11 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav ml-4">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <li class="nav-item d-sm-inline-block ml-4">
         <a href=" {{ route('home') }}" class="nav-link">Home</a>
       </li>
       <!-- <li class="nav-item d-none d-sm-inline-block">
@@ -121,17 +122,18 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               @if(Auth::user()->role === 'admin')
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              @if(Auth::user()->role === 'vendor' || Auth::user()->role === 'admin')
+              @if(Auth::user()->role === 'admin')
               <p>
                 Buyers
                 <i class="right fas fa-angle-left pt-2"></i>
               </p>
               @endif
 
-              @if(Auth::user()->role === 'client' || Auth::user()->role === 'admin')
+              @if(Auth::user()->role === 'admin')
               <p>
                 Vendors
                 <i class="right fas fa-angle-left pt-2"></i>
@@ -140,7 +142,7 @@
 
             </a>
             <ul class="nav nav-treeview">
-              @if(Auth::user()->role === 'vendor' || Auth::user()->role === 'admin')
+              @if(Auth::user()->role === 'admin')
               <li class="nav-item">
                 <a href="{{ route('clients') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
@@ -149,7 +151,7 @@
               </li>
               @endif
 
-              @if(Auth::user()->role === 'client' || Auth::user()->role === 'admin')
+              @if(Auth::user()->role === 'admin')
               <li class="nav-item">
                 <a href="{{ route('vendors') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -159,6 +161,7 @@
               @endif
             </ul>
           </li>
+          @endif
 
           @if(Auth::user()->role === 'admin')
           <li class="nav-item">
@@ -166,16 +169,6 @@
               <i class="far fa-circle nav-icon"></i>
               <p>
                 Acquiring Banks
-              </p>
-            </a>
-          </li>
-          @endif
-          @if(Auth::user()->role === 'admin')
-          <li class="nav-item">
-            <a href="{{ route('products') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>
-                Products
               </p>
             </a>
           </li>
@@ -204,18 +197,7 @@
             <a href="{{ route('payments') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>
-                Payments
-              </p>
-            </a>
-          </li>
-          @endif
-          @if(Auth::user()->role === 'admin')
-          <li class="nav-item">
-            <a href="{{ route('settlements') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>
-                Settlements
-   
+                Settlements By Escrow
               </p>
             </a>
           </li>
@@ -249,44 +231,6 @@
            
               </p>
             </a>
-          </li>
-          @endif
-
-          @if(Auth::user()->role === 'admin')        
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Reports
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('clients') }}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Transactions</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('vendors') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Payments</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('vendors') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Products Movements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('vendors') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Movement By Location</p>
-                </a>
-              </li>
-            </ul>
           </li>
           @endif
         

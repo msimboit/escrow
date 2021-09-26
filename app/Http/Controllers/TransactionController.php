@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\ThankyouMail;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\Sms;
 use App\User;
 use App\Tdetails;
 use App\Vendors;
@@ -64,7 +65,9 @@ class TransactionController extends Controller
             $prds = DB::table('ad_supamallproduct') ->select('id','user_id', 'product_name', 'price', 'phone')
             ->get();
             $selectedID = 2;
-            //dd($vendors);
+            // dd($vendors);
+            // phpinfo();
+            // dd('i');
             return view('transactions.create', compact('vendors','clients','prds'));
 
             //return ($vendors);
@@ -223,7 +226,6 @@ class TransactionController extends Controller
             'client_id' => 'required',
             'itemdesc' => 'required',
             'quantities' => 'required',
-            'product_image' => 'image|max1024',
             'prices' => 'required',
             'location' => 'required',
             'deliveryfee' => 'required'
@@ -328,11 +330,18 @@ class TransactionController extends Controller
         // $this->send_sms($recipient, $message);
 
 
-        $number = $client->phone_number;
-        $number = substr($number, -9);
-        $number = '0'.$number;
+        $phone_number = $client->phone_number;
+        $phone_number = substr($phone_number, -9);
+        $phone_number = '0'.$phone_number;
         $message = 'Transaction has been initiated by  the vendor: '.$vendor->business_name. ' for the item: '. $itemdesc.'. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
-        $this->send($number, $message, "DEPTHSMS");
+        $SID = 'DEPTHSMS';
+        Sms::dispatch($phone_number, $message, $SID );
+
+        // $number = $client->phone_number;
+        // $number = substr($number, -9);
+        // $number = '0'.$number;
+        // $message = 'Transaction has been initiated by  the vendor: '.$vendor->business_name. ' for the item: '. $itemdesc.'. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
+        // $this->send($number, $message, "DEPTHSMS");
 
 
         return redirect()->route('transactions')->with('success', 'Transaction Added!');

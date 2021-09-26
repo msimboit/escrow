@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Deposits;
+use App\Tdetails;
 
 class DepositController extends Controller
 {
@@ -24,7 +25,7 @@ class DepositController extends Controller
      */
     public function index()
     {
-        $arr['deposits'] = Deposits::paginate(10);
+        $arr['deposits'] = Tdetails::where('paid', 1)->get();
         return view('deposits.index')->with($arr);
     }
 

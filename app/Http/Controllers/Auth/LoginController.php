@@ -22,6 +22,9 @@ class LoginController extends Controller
     |
     */
 
+    protected $maxAttempts = 3;
+    protected $decayMinutes = 5;
+
     /**
      * Redirect the user to the GitHub authentication page.
      *

@@ -22,6 +22,7 @@
 </div> --}}
 
 <div class="container-fluid">
+  <h3>SupamallEscrow</h3>
     <!-- Small boxes (Stat box) -->
     <div class="row">
       <div class="col-lg-3 col-6">
@@ -30,7 +31,7 @@
           <div class="inner">
             <h3>{{count($transactions)}}</h3>
 
-            <p>New Transactions</p>
+            <p>Total Escrow Transactions</p>
           </div>
           <div class="icon">
             <i class="ion ion-bag"></i>
@@ -53,7 +54,7 @@
         </div>
       </div>
       <!-- ./col -->
-      <div class="col-lg-3 col-12">
+      <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
@@ -67,9 +68,99 @@
         </div>
       </div>
 
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>{{count($vendors)}}</h3>
+            <p>Vendors Available</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+        </div>
+      </div>
+
+
       <!-- <div>
         <canvas id="myChart" width="400" height="400"></canvas>
       </div> -->
+      <div class="container-fluid">
+        <h3>Personal Statistics</h3>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+          <div >
+            <div class="info-box shadow-lg">
+              <span class="info-box-icon bg-danger"><i class="fa fa-shopping-cart"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Transactions Created</span>
+                <span class="info-box-number">{{ $transactions_count }}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div >
+            <div class="info-box shadow-lg">
+              <span class="info-box-icon bg-danger"><i class="fa fa-money-check"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Transactions Amount</span>
+                <span class="info-box-number">Kshs. {{ $total_spent }}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div >
+            <div class="info-box shadow-lg">
+              <span class="info-box-icon bg-danger"><i class="fas fa-shopping-cart"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Transactions Completed</span>
+                <span class="info-box-number">{{ $successful_deliveries }}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div >
+            <div class="info-box shadow-lg">
+              <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Most Frequent Vendor</span>
+                <span class="info-box-number">{{ $highest_vendor->business_name }}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          @if(Auth::user()->role == 'vendor')
+          <div >
+            <div class="info-box shadow-lg">
+              <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Most Frequent Buyer</span>
+                <span class="info-box-number">{{ $highest_buyer->first_name }} {{ $highest_buyer->last_name }}</span>
+                <span class="info-box-number">{{ $highest_buyer->phone_number }}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          @endif
+        </div>
+      </div>
+      
+
+
       <!-- ./col -->
     <!-- /.row -->
     <!-- Main row -->
@@ -556,6 +647,49 @@
     <!-- </div> -->
     <!-- /.row (main row) -->
   <!-- </div>/.container-fluid -->
+
+
+
+  <script>
+    var transactions = @json($transactions_count);
+    console.log(transactions);
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Transactions', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: 'Personal totals',
+                data: [transactions, 100, 3, 5, 2, 3],
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
+                },
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+    });
+  </script>
+
   @yield('scripts')
 </section>
 @endsection

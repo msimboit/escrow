@@ -24,28 +24,15 @@
         </p>
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
-                <th>Bank </th>
-                <th>Branch </th>
-                <th>A/C No </th>
-                <th>Paybill </th>
-                <th>Action</th>
+                <th>Receiver Details</th>
+                <th>Mpesa Code</th>
+                <th>Amount</th>
             </tr>
-            @foreach($payments as $c)
+            @foreach($payments as $payment)
                 <tr>
-                    <td>{{ $c->id }}</td>
-                    <td>{{ $c->bankname }}</td>
-                    <td>{{ $c->bankbranch }}</td>
-                    <td>{{ $c->accoutnp }}</td>
-                    <td>{{ $c->paybill }}</td>
-                    <td>
-              <a href="{{ route('editpayment',$c->id) }}" class="btn btn-info">Edit</a> 
-              <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
-              <form action="{{ route('deletepayment',$c->id) }}" method="post">
-                @method('DELETE')
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              </form>
-            </td>
+                    <td>{{ $payment->receiver_details }}</td>
+                    <td>{{ $payment->mpesacode }}</td>
+                    <td>{{ $payment->amount }}</td>
                 </tr>
             @endforeach
         </table>

@@ -52,16 +52,45 @@
         <!-- <input type="text" id='clientfirstname' readonly class="p-1 mr-2"> -->
 
         <!-- <select class="livesearch form-control col-sm-4" name="client_id" id="livesearch2"></select> -->
-    <select class="form-control col-sm-4" name="client_id" required>
+    <!-- <select class="form-control col-sm-4" name="client_id" required>
       <option>Select Buyer</option>
       @foreach ($clients as $client )
           <option value="{{ $client->phone_number }}" > 
               {{ $client->first_name }} {{ $client->last_name }} - {{ $client->phone_number }}
           </option>
       @endforeach    
-  </select>
+  </select> -->
+
+
   <!-- Works -->
-  <!-- <input type="text" name="client_id" id="buyers" class="bsearch form-control col-sm-4 font-weight-bold" placeholder="Key in the Buyer number"> -->
+  <input type="text" name="client_id" id="buyers" class="bsearch form-control col-sm-4 font-weight-bold" placeholder="Key in the Buyer number">
+  
+
+
+      <!-- <div class="form-group">
+            <input type="text" class="form-controller" id="search" name="search"></input>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-controller" id="client" name="client" readonly></input>
+          </div>
+
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table> -->
+
+
+
+
+
 
   <div class="row mt-4 ml-3">
     <label >Set Your Delivery Location Below: <small>(Please enter a valid location as possible, e.g "example,city,country")</small></label>
@@ -506,6 +535,31 @@ $( "#buyers" ).autocomplete({
     document.body.appendChild(img);
   }
 
+</script>
+
+<script type="text/javascript">
+  $('#search').on('keyup',function(){
+      $value=$(this).val();
+      $.ajax({
+        type : 'get',
+        url : '{{URL::to('search')}}',
+        data:{'search':$value},
+              success:function(data){
+              $('tbody').html(data);
+              console.log()
+            }
+      });
+  })
+</script>
+<script type="text/javascript">
+$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+$("#client").click(function(e){
+      e.preventDefault();
+      // $('#client').val();
+      var value = $('#client').val();
+      console.log(value);
+    });
 </script>
 
 @endsection

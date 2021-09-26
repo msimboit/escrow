@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Payments;
+use DB;
 
 
 class PaymentController extends Controller
@@ -25,7 +26,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $arr['payments'] = Payments::paginate(10);
+        $arr['payments'] = DB::table('settlements')->get();
         return view('payments.index')->with($arr);
     }
 

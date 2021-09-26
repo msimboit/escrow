@@ -35,7 +35,6 @@
         @endif
         <table class="table table-bordered table-striped">
             <tr>
-                <!-- <th>ID</th> -->
                 <th>Buyer Name </th>
                 <th>Buyer Number </th>
                 <th>Transaction Detail</th>
@@ -46,7 +45,6 @@
                 <tr>
                     <td>{{ \App\User::where('id', $d->client_id)->pluck('first_name')->first() }}</td>
                     <td>{{ \App\User::where('id', $d->client_id)->pluck('phone_number')->first() }}</td>
-                    <td>{{ \App\User::where('id', $d->client_id)->pluck('email')->first() }}</td>
                     <td>{{ $d->transdetail }}</td>
                     <td>
                       <a href="{{ route('showdelivery',$d->id) }}" class="btn btn-info">Sale Order</a> 

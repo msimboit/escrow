@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '43151990f7953bf013a1a7526f7ff2177562f52f',
+    'reference' => 'fd962be77350a7ffb1773535db188cfd638feb70',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -471,6 +471,15 @@ private static $installed = array (
       ),
       'reference' => '8fe9877d52e25f8aed36c51734e5a8510be967e6',
     ),
+    'laravel/horizon' => 
+    array (
+      'pretty_version' => 'v5.7.13',
+      'version' => '5.7.13.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '367c48b57af776a3e195a16989655fa89fa052e3',
+    ),
     'laravel/laravel' => 
     array (
       'pretty_version' => 'dev-main',
@@ -478,7 +487,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '43151990f7953bf013a1a7526f7ff2177562f52f',
+      'reference' => 'fd962be77350a7ffb1773535db188cfd638feb70',
     ),
     'laravel/socialite' => 
     array (
@@ -751,6 +760,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'bd5fc77c869e8dd65040dacbad170f074c13796c',
+    ),
+    'predis/predis' => 
+    array (
+      'pretty_version' => 'v1.1.7',
+      'version' => '1.1.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b240daa106d4e02f0c5b7079b41e31ddf66fddf8',
     ),
     'psr/container' => 
     array (

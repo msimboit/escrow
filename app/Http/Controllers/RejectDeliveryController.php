@@ -9,7 +9,6 @@ use App\Tdetails;
 use App\RejectDelivery;
 use DB;
 use Auth;
-
 use Log;
 
 use Twilio\Rest\Client;

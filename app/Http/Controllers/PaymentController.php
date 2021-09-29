@@ -27,7 +27,7 @@ class PaymentController extends Controller
     public function index()
     {
         $arr['payments'] = DB::table('settlements')->get();
-        return view('payments.index')->with($arr);
+        return view('Payments.index')->with($arr);
     }
 
     public function create()

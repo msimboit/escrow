@@ -19,9 +19,17 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
-        @if(Auth::user()->role == 'vendor')
+        @if(Auth::user()->role == 'vendor' && Auth::user()->validated == 1)
         <p>
             <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>
+        </p>
+        @endif
+
+        @if(Auth::user()->role == 'vendor' && Auth::user()->validated == 0)
+        <p>
+            Your Account is Pending Verification.
+            <span><i>contact customer care for more info</i></span>
+            <a href="#" class="btn btn-primary" disabled>Add New Transaction</a>
         </p>
         @endif
        

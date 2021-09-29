@@ -60,6 +60,23 @@
       height: 100vh;
       margin: 0;
     }
+    #flagged {
+      position: relative;
+      height: 100%;
+    }
+    #flagged:before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      bottom:0;
+      left: 0;
+      background: url("../images/favicon.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      z-index: -1;
+      opacity: 0.2;
+    }
   </style>
 
 </head>
@@ -220,19 +237,6 @@
               </p>
             </a>
           </li>
-
-          
-          @if(Auth::user()->role === 'admin')   
-          <li class="nav-item">
-            <a href="{{ route('mediations') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>
-                Mediation
-           
-              </p>
-            </a>
-          </li>
-          @endif
         
         </ul>
       </nav>

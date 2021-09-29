@@ -36,12 +36,21 @@
                 <th>Names </th>
                 <th>Phone No </th>
                 <th>Email </th>
+                <th></th>
             </tr>
             @foreach($vendors as $v)
                 <tr>
                     <td>{{ $v->first_name }}</td>
                     <td>{{ $v->phone_number }}</td>
                     <td>{{ $v->email }}</td>
+
+                    <td>
+                      @if(Auth::user()->role === 'admin')
+                      <a href="{{ route('vendorValidate',$v->id) }}" class="btn btn-success m-2">Validate</a>
+                      <a href="{{ route('vendorDevalidate',$v->id) }}" class="btn btn-danger m-2">Devalidate</a>
+                      @endif
+                    </td>
+
                 </tr>
             @endforeach
         </table>

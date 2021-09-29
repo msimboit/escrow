@@ -10,6 +10,7 @@ return array(
     'AddAmountPaidToPaymentsTable' => $baseDir . '/database/migrations/2021_08_23_163833_add_amount_paid_to_payments_table.php',
     'AddDeliveryTimeToTdetailsTable' => $baseDir . '/database/migrations/2021_06_10_061109_add_delivery_time_to_tdetails_table.php',
     'AddProductImageToTdetailsTable' => $baseDir . '/database/migrations/2021_06_09_130752_add_product_image_to_tdetails_table.php',
+    'AddValidatedToUsersTable' => $baseDir . '/database/migrations/2021_09_27_120635_add_validated_to_users_table.php',
     'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
     'Anhskohbo\\NoCaptcha\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/NoCaptcha.php',
     'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider' => $vendorDir . '/anhskohbo/no-captcha/src/NoCaptchaServiceProvider.php',

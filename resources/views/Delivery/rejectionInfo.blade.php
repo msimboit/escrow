@@ -23,6 +23,13 @@
                         <p>Transaction detail in question:   {{ $rejection->transdetail }}</p>
                     </div>
 
+                    <div class="mb-2">
+                        <p>View Order Summary</p>
+                        <button class="btn btn-info sm">
+                            <a href=" {{ route('rejectionOrder', $rejection->id) }} " style="text-decoration:none; color:#fff">Show</a>
+                        </button>
+                    </div>
+
                     @if(Auth::user()->role == 'admin')
                     <button class="btn btn-success sm">
                         <a href=" {{ route('clearRejection', $rejection->id) }} " style="text-decoration:none; color:#fff">Clear The Issue</a>

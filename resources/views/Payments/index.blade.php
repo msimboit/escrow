@@ -5,12 +5,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Payments</h1>
+          <h1 class="m-0 text-dark">Settlements</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href=" {{ route('home') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Payments</li>
+            <li class="breadcrumb-item active">Settlements</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -19,9 +19,6 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
-        <p>
-            <a href="{{ route('addpayment') }}" class="btn btn-primary">Payments</a>
-        </p>
         <table class="table table-bordered table-striped">
             <tr>
                 <th>Receiver Details</th>

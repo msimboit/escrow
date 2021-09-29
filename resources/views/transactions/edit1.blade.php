@@ -52,16 +52,16 @@
         <!-- <input type="text" id='clientfirstname' readonly class="p-1 mr-2"> -->
 
         <!-- <select class="livesearch form-control col-sm-4" name="client_id" id="livesearch2"></select> -->
-    <select class="form-control col-sm-4" name="client_id" required>
+    <!-- <select class="form-control col-sm-4" name="client_id" required>
       <option>Select Buyer</option>
       @foreach ($clients as $client )
           <option value="{{ $client->phone_number }}" >
               {{ $client->first_name }} {{ $client->last_name }} - {{ $client->phone_number }}
           </option>
       @endforeach    
-  </select>
+  </select> -->
   <!-- Works -->
-  <!-- <input type="text" name="client_id" id="buyers" class="bsearch form-control col-sm-4 font-weight-bold" placeholder="Key in the Buyer number"> -->
+  <input type="text" name="client_id" id="buyers" class="bsearch form-control col-sm-4 font-weight-bold" placeholder="Key in the Buyer number">
 
   <div class="row mt-4 ml-3">
     <label >Set Your Delivery Location Below: <small>(Please enter a valid location as possible, e.g "example,city,country")</small></label>

@@ -18,7 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('tests', 'HomeController@tests')->name('tests');
 Route::get('/search','SearchController@index');
 Route::get('/search','SearchController@search');
 
@@ -81,6 +80,8 @@ Route::post('/vendors/update/{id}', 'VendorController@update')->name('updatevend
 Route::post('/vendors/delete/{id}', 'VendorController@delete')->name('deletevendor');
 Route::get('/vendors/show/{id}', 'VendorController@show')->name('showvendor');
 Route::get('/vendors/search', 'VendorController@search')->name('vendorsearch');
+Route::get('/vendors/validate/{id}', 'VendorController@validateVendor')->name('vendorValidate');
+Route::get('/vendors/devalidate/{id}', 'VendorController@devalidateVendor')->name('vendorDevalidate');
 
 
 Route::get('/disputes', 'DisputeController@index')->name('disputes');
@@ -118,6 +119,7 @@ Route::post('/deliveries/acceptdelivery', 'MpesaController@acceptDelivery')->nam
 Route::post('/deliveries/rejectDelivery', 'RejectDeliveryController@rejectDelivery')->name('rejectDelivery');
 Route::get('/deliveries/rejections', 'RejectDeliveryController@index')->name('rejections');
 Route::get('/deliveries/rejectionInfo/{id}', 'RejectDeliveryController@show')->name('rejectionInfo');
+Route::get('/deliveries/rejectionOrder/{id}', 'RejectDeliveryController@getOrder')->name('rejectionOrder');
 Route::get('/deliveries/clearRejection/{id}', 'RejectDeliveryController@clearRejection')->name('clearRejection');
 Route::get('/deliveries/search', 'DeliveryController@search')->name('deliverysearch');
 Route::post('/deliveries/update', 'DeliveryController@update')->name('updatedelivery');
@@ -131,7 +133,6 @@ Route::post('/mediations/store', 'MediationController@store')->name('storemediat
 Route::post('/mediations/update', 'MediationController@update')->name('updatemediation');
 Route::post('/mediations/delete', 'MediationController@delete')->name('deletemediation');
 Route::get('/mediations/show', 'MediationController@show')->name('showmediation');
-
 
 /**
  * Mpesa Web Route For B2c

@@ -330,12 +330,12 @@ class TransactionController extends Controller
         // $this->send_sms($recipient, $message);
 
 
-        $phone_number = $client->phone_number;
-        $phone_number = substr($phone_number, -9);
-        $phone_number = '0'.$phone_number;
-        $message = 'Transaction has been initiated by  the vendor: '.$vendor->business_name. ' for the item: '. $itemdesc.'. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
-        $SID = 'DEPTHSMS';
-        Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
+        // $phone_number = $client->phone_number;
+        // $phone_number = substr($phone_number, -9);
+        // $phone_number = '0'.$phone_number;
+        // $message = 'Hello '.$client->first_name.', a transaction has been initiated on SupamallEscrow by the vendor ' .$vendor->business_name. ' for the order ID ' .$trns->id . '. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
+        // $SID = 'DEPTHSMS';
+        // Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
 
         // $number = $client->phone_number;
         // $number = substr($number, -9);

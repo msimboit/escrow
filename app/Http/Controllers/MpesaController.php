@@ -352,27 +352,25 @@ class MpesaController extends Controller
                             ->where('id', $trans_id)
                             ->first();
 
-                    $vendor_phone = DB::table('users')
+                    $vendor = DB::table('users')
                     ->where('id', $t->vendor_id)
                     ->first();
 
+                    $client = DB::table('users')
+                    ->where('id', $t->client_id)
+                    ->first();
 
-                    // $recipient = $vendor_phone->phone_number;
-                    // $recipient = substr($recipient, -9);
-                    // $recipient = '+254' . $recipient;
-                    // $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
-                    // $this->send_sms($recipient, $message);
-
-                    // $number = $vendor_phone->phone_number;
-                    // $number = substr($number, -9);
-                    // $number = '0'.$number;
-                    // $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
-                    // $this->send($number, $message, "DEPTHSMS");
-
-                    $phone_number = $vendor_phone->phone_number;
+                    $phone_number = $vendor->phone_number;
                     $phone_number = substr($phone_number, -9);
                     $phone_number = '0'.$phone_number;
-                    $message = 'An Escrow deposit for the amount of '.$amount.' has been made by '.$request->clientName.' for the goods '.$t->transdetail;
+                    $message = 'Hello '.$vendor->business_name.'.SupamallEscrow has received the payment in the amount of '.$amount.' made by '.$client->first_name.' for the Order ID '.$t->id.'. Please Initiate the delivery by the stipulated terms.';
+                    $SID = 'DEPTHSMS';
+                    Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
+
+                    $phone_number = $client->phone_number;
+                    $phone_number = substr($phone_number, -9);
+                    $phone_number = '0'.$phone_number;
+                    $message = 'Hello '.$client->first_name.'. SupamallEscrow has received the payment in the amount of '.$amount.' made from the number '.$phone_number.' for the Order ID '.$t->id.'. We have notified the vendor to initiate the delivery.';
                     $SID = 'DEPTHSMS';
                     Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
 

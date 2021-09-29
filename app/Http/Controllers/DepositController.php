@@ -25,8 +25,8 @@ class DepositController extends Controller
      */
     public function index()
     {
-        $arr['deposits'] = Tdetails::where('paid', 1)->get();
-        return view('deposits.index')->with($arr);
+        $arr['deposits'] = Tdetails::where('paid', 1)->orderBy('created_at', 'desc')->get();
+        return view('Deposits.index')->with($arr);
     }
 
     public function create()

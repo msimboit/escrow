@@ -37,8 +37,7 @@
         <table class="table table-bordered table-striped">
             <tr>
                 <!-- <th>ID</th> -->
-                <!-- <th>Buyer Escrow Id</th>
-                <th>Seller Escrow Id</th> -->
+                <th>Order Id</th>
                 <th>Product </th>
                 <th>Amount </th>
                 <th>Paid For</th>
@@ -47,9 +46,7 @@
             @foreach($transactions as $tr)
                 @if(Auth::user()->phone_number == $tr->client_phone || Auth::user()->id == $tr->vendor_id || Auth::user()->role == 'admin' )
                 <tr>
-                    <!-- <td>{{ $tr->id }}</td> -->
-                    <!-- <td>{{ $tr->client_id }}</td>
-                    <td>{{ $tr->vendor_id }}</td> -->
+                    <td>{{ $tr->id }}</td>
                     <td>{{ $tr->transdetail }}</td>
                     <td>{{ collect(explode(' ',$tr->transamount))->sum() }}</td>
                     <td><span class="badge badge-pill badge-primary p-2">PENDING</span></td>

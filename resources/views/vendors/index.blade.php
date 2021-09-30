@@ -48,6 +48,7 @@
                       @if(Auth::user()->role === 'admin')
                       <a href="{{ route('vendorValidate',$v->id) }}" class="btn btn-success m-2">Validate</a>
                       <a href="{{ route('vendorDevalidate',$v->id) }}" class="btn btn-danger m-2">Devalidate</a>
+                      <a href="{{ route('editvendor',$v->id) }}" class="btn btn-info m-2">Edit</a>
                       @endif
                     </td>
 

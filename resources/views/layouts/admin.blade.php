@@ -139,7 +139,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
           @if(Auth::user()->role === 'admin')
           <li class="nav-item">
             <strong><a href="{{ route('vendors') }}" class="nav-link">

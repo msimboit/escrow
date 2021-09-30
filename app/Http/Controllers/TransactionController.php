@@ -96,7 +96,7 @@ class TransactionController extends Controller
 
         if($total_amount >= 1 && $total_amount < 50)
         {
-            $tariff = 3;
+            $tariff = 4;
         }
 
         if($total_amount >= 50 && $total_amount <= 100)

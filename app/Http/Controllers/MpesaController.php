@@ -796,7 +796,7 @@ class MpesaController extends Controller
 
                 if($t >= 1 && $t < 50)
                 {
-                    $tariff = 3;
+                    $tariff = 4;
                 }
 
                 if($t >= 50 && $t <= 100)

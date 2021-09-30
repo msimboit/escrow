@@ -23,6 +23,7 @@ Route::get('/test', function () {
 })->name('test');
 
 Route::get('/editUser/{id}','HomeController@editUser')->name('editUser');
+Route::post('/editUser','HomeController@updateUser')->name('updateUser');
 
 Route::get('/search','SearchController@index');
 Route::get('/search','SearchController@search');

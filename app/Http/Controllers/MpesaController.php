@@ -342,11 +342,11 @@ class MpesaController extends Controller
                     // $message = 'You have made a deposit to SupamallEscrow for the amount of '.$amount;
                     // $this->send_sms($recipient, $message);
 
-                    $number = $phone_number;
-                    $number = substr($number, -9);
-                    $number = '0'.$number;
-                    $message = 'You have made a deposit to SupamallEscrow for the amount of '.$amount;
-                    $this->send($number, $message, "DEPTHSMS");
+                    // $number = $phone_number;
+                    // $number = substr($number, -9);
+                    // $number = '0'.$number;
+                    // $message = 'You have made a deposit to SupamallEscrow for the amount of '.$amount;
+                    // $this->send($number, $message, "DEPTHSMS");
 
                     $t = DB::table('tdetails')
                             ->where('id', $trans_id)
@@ -355,6 +355,8 @@ class MpesaController extends Controller
                     $vendor = DB::table('users')
                     ->where('id', $t->vendor_id)
                     ->first();
+
+                    Log::info($vendor->phone_number);
 
                     $client = DB::table('users')
                     ->where('id', $t->client_id)

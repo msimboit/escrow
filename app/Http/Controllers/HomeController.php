@@ -125,4 +125,14 @@ class HomeController extends Controller
         $user = User::where('id', $id)->first();
         return view('test', compact('user'));
     }
+
+    /**
+     * Update the users information
+     */
+    public function updateUser(Request $request)
+    {
+        dd($request->all());
+        $user = User::where('id', $id)->first();
+        return view('test', compact('user'));
+    }
 }

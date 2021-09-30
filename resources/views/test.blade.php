@@ -48,39 +48,39 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="settings">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="{{ route('updateUser') }}" method="POST">
 						@csrf
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" value="{{ $user->first_name}}">
+                          <input type="text" class="form-control" name="first_name" id="inputName" value="{{ $user->first_name}}">
                         </div>
                       </div>
 
 					  <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Middle Name</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" value="{{ $user->middle_name}}">
+                          <input type="text" class="form-control" name="middle_name" id="inputName" value="{{ $user->middle_name}}">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Last Name</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" value="{{ $user->last_name}}">
+                          <input type="text" class="form-control" name="last_name" id="inputName" value="{{ $user->last_name}}">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" value="{{ $user->email}}">
+                          <input type="email" class="form-control" name="email" id="inputEmail" value="{{ $user->email}}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Phone</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" value="{{ $user->phone_number}}">
+                          <input type="text" class="form-control" name="phone_number" id="inputName2" value="{{ $user->phone_number}}">
                         </div>
                       </div>
 
@@ -94,12 +94,14 @@
 						</select>
 						</div>
 					  </div>
+					  @if($user->business_name != null)
                       <div class="form-group row">
                         <label for="inputExperience" class="col-sm-2 col-form-label">Business Name</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName2" placeholder="{{Auth::user()->business_name}}">
+                        <input type="text" class="form-control" id="inputName2" name="business_name" value="{{ $user->business_name}}">
                         </div>
                       </div>
+					  @endif
             
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">

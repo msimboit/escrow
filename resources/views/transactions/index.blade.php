@@ -27,8 +27,8 @@
 
         @if(Auth::user()->role == 'vendor' && Auth::user()->validated == 0)
         <p>
-            Your Account is Pending Verification.
-            <span><i>contact customer care for more info</i></span>
+            <span>Your Account is Pending Verification.
+            <i>Contact customer care for more info</i></span>
             <a href="#" class="btn btn-primary" disabled>Add New Transaction</a>
         </p>
         @endif

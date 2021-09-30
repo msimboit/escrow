@@ -22,6 +22,8 @@ Route::get('/test', function () {
     return view('test');
 })->name('test');
 
+Route::get('/editUser/{id}','HomeController@editUser')->name('editUser');
+
 Route::get('/search','SearchController@index');
 Route::get('/search','SearchController@search');
 

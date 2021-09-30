@@ -115,4 +115,14 @@ class HomeController extends Controller
                                     'highest_vendor')
                     )->with($arr);
     }
+
+
+    /**
+     * Edit the users information
+     */
+    public function editUser($id)
+    {
+        $user = User::where('id', $id)->first();
+        return view('test', compact('user'));
+    }
 }

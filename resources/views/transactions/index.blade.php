@@ -19,7 +19,7 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
-        @if(Auth::user()->role == 'vendor' && Auth::user()->validated == 1)
+        <!-- @if(Auth::user()->role == 'vendor' && Auth::user()->validated == 1)
         <p>
             <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>
         </p>
@@ -31,7 +31,9 @@
             <i>Contact customer care for more info</i></span>
             <a href="#" class="btn btn-primary" disabled>Add New Transaction</a>
         </p>
-        @endif
+        @endif -->
+
+        <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>
        
         <!-- <a id="myID" href="#nada" class="button button-primary">Print container</a> -->
         <table class="table table-bordered table-striped">

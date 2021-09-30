@@ -15,8 +15,12 @@ use App\Http\Controllers\MpesaController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('home');
 });
+
+Route::get('/test', function () {
+    return view('test');
+})->name('test');
 
 Route::get('/search','SearchController@index');
 Route::get('/search','SearchController@search');

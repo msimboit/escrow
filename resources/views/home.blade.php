@@ -135,7 +135,11 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Most Frequent Vendor</span>
+                @if($highest_vendor != null)
                 <span class="info-box-number">{{ $highest_vendor->business_name }}</span>
+                @else
+                <span class="info-box-number">None</span>
+                @endif
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -148,8 +152,12 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Most Frequent Buyer</span>
+                @if($highest_buyer != null)
                 <span class="info-box-number">{{ $highest_buyer->first_name }} {{ $highest_buyer->last_name }}</span>
                 <span class="info-box-number">{{ $highest_buyer->phone_number }}</span>
+                @else
+                <span class="info-box-number">None</span>
+                @endif
               </div>
               <!-- /.info-box-content -->
             </div>

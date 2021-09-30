@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css') }}">
 
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="icon" href="{{ asset('images/favicon.png') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('login_assets/img/favicon.png') }}">
 
   <!-- Google Font: Source Sans Pro -->
   <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
@@ -101,13 +101,15 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <!-- <a href="index3.html" class="brand-link">
-      <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">Escrow</span>
-    </a> -->
+  <aside class="main-sidebar elevation-5" style="background-color: #0D103E; !important">
+    <div class="p-2">
+      <a href="{{ route('home') }}" class="brand-link">
+        <!-- <img src="{{ asset('login_assets/img/logo-13e.png') }}" alt="SupamallEscrow Logo" class="brand-image img-circle elevation-5"
+            style="opacity: 1"> -->
+        <span class="brand-text font-weight-light" style="color: #ee0e6c; font-size:2rem;"><strong>SUPAMALLESCROW <hr style="height: 1px; background-color: #ccc; border: none;"></strong></span>
+      </a>
+    </div>
+  
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -117,19 +119,20 @@
           <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div> -->
         <div class="info mx-2">
-          <a href="#" class="d-block">Hello {{ Auth::user()->first_name }}</a>
+          <a href="{{ route('profile') }}" class="d-block" style="color: #ee0e6c; text-decoration:none;"><strong>Hello {{ Auth::user()->first_name }}</strong></a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-between">
         <div class="info mx-2">
-            <a class="d-block" href="{{ route('profile') }}">
-                                        {{ __('Profile') }}
+            <a class="d-block" href="{{ route('profile') }}" style="color: #ee0e6c; !important">
+                                        <strong>{{ __('Profile') }}</strong>
             </a>
+           
         </div>
         <div class="info mx-2">
-            <a class="d-block" href="{{ route('logout') }}">
-                                        {{ __('Logout') }}
+            <a class="d-block" href="{{ route('logout') }}" style="color: #ee0e6c; !important">
+                                        <strong>{{ __('Logout') }}</strong>
             </a>
         </div>
       </div>
@@ -137,105 +140,80 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-               @if(Auth::user()->role === 'admin')
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              @if(Auth::user()->role === 'admin')
-              <p>
-                Buyers
-                <i class="right fas fa-angle-left pt-2"></i>
-              </p>
-              @endif
+          @if(Auth::user()->role === 'admin')
+          <li class="nav-item">
+            <strong><a href="{{ route('vendors') }}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p style="color: #ee0e6c; !important">Vendors</p>
+            </a></strong>
+          </li>
 
-              @if(Auth::user()->role === 'admin')
-              <p>
-                Vendors
-                <i class="right fas fa-angle-left pt-2"></i>
-              </p>
-              @endif
-
-            </a>
-            <ul class="nav nav-treeview">
-              @if(Auth::user()->role === 'admin')
-              <li class="nav-item">
-                <a href="{{ route('clients') }}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Buyers</p>
-                </a>
-              </li>
-              @endif
-
-              @if(Auth::user()->role === 'admin')
-              <li class="nav-item">
-                <a href="{{ route('vendors') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Vendors</p>
-                </a>
-              </li>
-              @endif
-            </ul>
+          <li class="nav-item">
+            <strong><a href="{{ route('clients') }}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p style="color: #ee0e6c; !important">Buyers</p>
+            </a></strong>
           </li>
           @endif
 
           @if(Auth::user()->role === 'admin')
           <li class="nav-item">
-            <a href="{{ route('abanks') }}" class="nav-link">
+            <strong><a href="{{ route('abanks') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>
+              <p style="color: #ee0e6c; !important">
                 Acquiring Banks
               </p>
-            </a>
+            </a></strong>
           </li>
           @endif
           <li class="nav-item">
-            <a href="{{ route('transactions') }}" class="nav-link">
+            <strong><a href="{{ route('transactions') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>
+              <p style="color: #ee0e6c; !important">
                 Transactions
               </p>
-            </a>
+            </a></strong>
           </li>
           @if(Auth::user()->role === 'admin')        
           <li class="nav-item">
-            <a href="{{ route('deposits') }}" class="nav-link">
+            <strong><a href="{{ route('deposits') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>
+              <p style="color: #ee0e6c; !important">
                 Deposits
               </p>
-            </a>
+            </a></strong>
+            
           </li>
           @endif
 
           @if(Auth::user()->role === 'admin')
           <li class="nav-item">
-            <a href="{{ route('payments') }}" class="nav-link">
+            <strong><a href="{{ route('payments') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>
+              <p style="color: #ee0e6c; !important">
                 Settlements By Escrow
               </p>
-            </a>
+            </a></strong>
           </li>
           @endif
 
           <li class="nav-item">
-            <a href="{{ route('deliveries') }}" class="nav-link">
+            <strong><a href="{{ route('deliveries') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>
+              <p style="color: #ee0e6c; !important">
                 Deliveries    
               </p>
-            </a>
+            </a></strong>
+            
           </li>
           
           <li class="nav-item">
-            <a href="{{ route('rejections') }}" class="nav-link">
+            <strong><a href="{{ route('rejections') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>
+              <p style="color: #ee0e6c; !important">
                 Disputes
               </p>
-            </a>
+            </a></strong>
           </li>
         
         </ul>

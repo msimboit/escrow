@@ -25,7 +25,7 @@ class SettlementController extends Controller
      */
     public function index()
     {
-        $arr['settlements'] = Settlements::paginate(10);
+        $arr['settlements'] = Settlements::get();
         return view('settlements.index')->with($arr);
     }
 

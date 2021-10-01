@@ -19,9 +19,6 @@
       <!-- /.content-header -->
   <section class="content">
     <div class="container-fluid">
-        <p>
-            <a href="{{ route('adddeposit') }}" class="btn btn-primary">Deposits</a>
-        </p>
         <table class="table table-bordered table-striped">
             <tr>
                 <th>Buyer Phone Number</th>

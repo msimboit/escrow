@@ -199,13 +199,6 @@
 }
   </style>
 
-  <script>
-    window.addEventListener('load',function(){
-  document.querySelector('body').classList.add("loaded")  
-});
-
-  </script>
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="loader-wrapper">
@@ -233,7 +226,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar elevation-5" style="background-color: #ee0e6c; !important">
+  <aside class="main-sidebar elevation-5" style="overflow:hidden;background-color: #ee0e6c; !important">
     <div class="p-2">
       <a href="{{ route('home') }}" class="brand-link">
         <!-- <img src="{{ asset('login_assets/img/logo-13e.png') }}" alt="SupamallEscrow Logo" class="brand-image img-circle elevation-5"
@@ -365,13 +358,13 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" style="background-color:#fff;">
     <!-- Content Header (Page header) -->
    
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="background-color:#fff;">
     @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -404,6 +397,12 @@
 </div>
 <!-- ./wrapper -->
 
+<script>
+    window.addEventListener('load',function(){
+  document.querySelector('body').classList.add("loaded")  
+});
+
+  </script>
 <!-- jQuery -->
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->

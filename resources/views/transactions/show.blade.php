@@ -200,12 +200,16 @@
                     <input type="text" name="tariff" value="{{ $tariff }}" hidden>
                     <!-- <input type="text" name="shipping" value="1050" hidden> -->
                     <input type="text" name="total" value="{{ (array_sum($prices)) + $tariff }}" hidden>
-                    @if(Auth::user()->role == 'client' || Auth::user()->role == 'admin')
+                    @if(Auth::user()->role == 'client' || Auth::user()->role == 'admin' && $complete_check != 1)
                     <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Accept
                     Purchase
                     </button>
                     @endif
                   </form>
+
+                  @if(Auth::user()->role == 'admin' && $complete_check == 1)
+                    <a href="{{ route('completed') }}" class="btn btn-info float-right">Back</a> 
+                  @endif
                   <!-- <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF 
                   </button> -->

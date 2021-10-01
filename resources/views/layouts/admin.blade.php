@@ -215,6 +215,15 @@
               </p>
             </a></strong>
           </li>
+
+          <li class="nav-item mb-2">
+            <strong><a href="{{ route('completed') }}" class="nav-link" style="background-color: #0D103E; !important">
+              <i class="far fa-circle nav-icon"></i>
+              <p style="color: #ee0e6c; !important">
+                Completed Transactions
+              </p>
+            </a></strong>
+          </li>
         
         </ul>
       </nav>

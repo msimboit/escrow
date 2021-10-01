@@ -88,7 +88,7 @@
 						<label for="role" class="col-sm-2 col-form-label">{{ __('Role') }}</label>
 
 						<div class="col-md-6">
-						<select class="form-control" name="role" id="role" value="{{ $user->first_name}}" required>
+						<select class="form-control" name="role" id="role" value="{{ $user->role}}" required>
 							<option value="vendor">Vendor</option>
 							<option value="client">Buyer</option>
 						</select>
@@ -99,6 +99,13 @@
                         <label for="inputExperience" class="col-sm-2 col-form-label">Business Name</label>
                         <div class="col-sm-10">
                         <input type="text" class="form-control" id="inputName2" name="business_name" value="{{ $user->business_name}}">
+                        </div>
+                      </div>
+					  @else
+					  <div class="form-group row">
+                        <label for="inputExperience" class="col-sm-2 col-form-label">Business Name</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputName2" name="business_name" value="">
                         </div>
                       </div>
 					  @endif

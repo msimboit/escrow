@@ -22,9 +22,6 @@ Route::get('/test', function () {
     return view('test');
 })->name('test');
 
-Route::get('/editUser/{id}','HomeController@editUser')->name('editUser');
-Route::post('/editUser','HomeController@updateUser')->name('updateUser');
-
 Route::get('/search','SearchController@index');
 Route::get('/search','SearchController@search');
 
@@ -61,6 +58,9 @@ Route::get('/transactions/show/{id}', 'TransactionController@show')->name('showt
 Route::get('/transactions/receipt', 'TransactionController@generatereceipt')->name('generatereceipt');
 Route::get('/transactions/sms', 'TransactionController@send_sms')->name('sms');
 Route::post('/transactions/payment', 'MpesaController@transactionpayment')->name('transactionpayment');
+Route::get('/transactions/completed', 'TransactionController@completed')->name('completed');
+Route::get('/transactions/statements/{id}', 'TransactionController@statements')->name('statements');
+Route::get('/transactions/statementInfo/{id}', 'TransactionController@statementInfo')->name('statementInfo');
 
 Route::get('/abanks', 'BankController@index')->name('abanks');
 Route::get('/abanks/create', 'BankController@create')->name('addabank');
@@ -140,6 +140,11 @@ Route::post('/mediations/store', 'MediationController@store')->name('storemediat
 Route::post('/mediations/update', 'MediationController@update')->name('updatemediation');
 Route::post('/mediations/delete', 'MediationController@delete')->name('deletemediation');
 Route::get('/mediations/show', 'MediationController@show')->name('showmediation');
+
+Route::get('/editUser/{id}','HomeController@editUser')->name('editUser');
+Route::post('/updateUser','HomeController@updateUser')->name('updateUser');
+Route::get('/deleteUser/{id}','HomeController@deleteUser')->name('deleteUser');
+
 
 /**
  * Mpesa Web Route For B2c

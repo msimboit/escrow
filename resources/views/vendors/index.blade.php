@@ -49,6 +49,8 @@
                       <a href="{{ route('vendorValidate',$v->id) }}" class="btn btn-success m-2">Validate</a>
                       <a href="{{ route('vendorDevalidate',$v->id) }}" class="btn btn-danger m-2">Devalidate</a>
                       <a href="{{ route('editUser',$v->id) }}" class="btn btn-info m-2">Edit</a>
+                      <a href="{{ route('statements',$v->id) }}" class="btn btn-info m-2">Statements</a>
+                    <a href="{{ route('deleteUser',$v->id) }}" class="btn btn-danger m-2">Delete</a>
                       @endif
                     </td>
 

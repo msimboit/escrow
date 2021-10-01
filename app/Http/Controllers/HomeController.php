@@ -131,8 +131,28 @@ class HomeController extends Controller
      */
     public function updateUser(Request $request)
     {
-        dd($request->all());
-        $user = User::where('id', $id)->first();
-        return view('test', compact('user'));
+        User::where('phone_number', $request->phone_number)
+            ->update([
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'last_name' => $request->last_name,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'role' => $request->role,
+            'business_name' => $request->business_name
+        ]);
+
+        return redirect()->route('vendors')->with('status', 'User profile updated successfully!');
+    }
+
+    /**
+     * Soft Delete the users information
+     */
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->back()->with('', 'User profile deleted successfully!');
     }
 }

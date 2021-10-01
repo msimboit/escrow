@@ -194,8 +194,16 @@ class TransactionController extends Controller
             $tariff = 628;
         }
 
-        // dd($tariff);
-        return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff',  'combined'))->with($id);
+        //Check if they came from the clockin route and whether they are scanning clockin codes
+        $url = url()->previous();
+        if (str_contains($url, 'transactions/completed')) {
+            $complete_check = 1;
+        }
+        else{
+            $complete_check = 0;
+        }
+
+        return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff',  'combined', 'complete_check'))->with($id);
     }
 
     public function edit($id)
@@ -526,6 +534,132 @@ class TransactionController extends Controller
 
          return response()->json($buyers);
      }
+
+     public function completed()
+    {
+    	$transactions = Tdetails::where('closed', 1)->get();
+
+        return view('transactions.completed', compact('transactions'));
+    }
+
+    public function statements($id)
+    {
+    	$transactions = Tdetails::where('vendor_id', $id)
+                                    ->orWhere('client_id', $id)
+                                    ->orderBy('created_at', 'desc')
+                                    ->paginate(10);
+
+        return view('transactions.statements', compact('transactions'));
+    }
+
+    public function statementInfo($id)
+    {
+    	$transaction = Tdetails::where('id', $id)->first();
+        $total_amount = collect(explode(' ',$transaction->transamount))->sum();
+        $tariff = 0;
+
+        if($total_amount >= 1 && $total_amount < 50)
+        {
+            $tariff = 4;
+        }
+
+        if($total_amount >= 50 && $total_amount <= 100)
+        {
+            $tariff = 13;
+        }
+
+        if($total_amount >= 101 && $total_amount <= 499)
+        {
+            $tariff = 83;
+        }
+
+        if($total_amount >= 500 && $total_amount <= 999)
+        {
+            $tariff = 89;
+        }
+
+        if($total_amount >= 1000 && $total_amount <= 1499)
+        {
+            $tariff = 105;
+        }
+
+        if($total_amount >= 1500 && $total_amount <= 2499)
+        {
+            $tariff = 110;
+        }
+
+        if($total_amount >= 2500 && $total_amount <= 3499)
+        {
+            $tariff = 159;
+        }
+
+        if($total_amount >= 3500 && $total_amount <= 4999)
+        {
+            $tariff = 181;
+        }
+
+        if($total_amount >= 5000 && $total_amount <= 7499)
+        {
+            $tariff = 232;
+        }
+
+        if($total_amount >= 7500 && $total_amount <= 9999)
+        {
+            $tariff = 265;
+        }
+
+        if($total_amount >= 10000 && $total_amount <= 14999)
+        {
+            $tariff = 347;
+        }
+
+        if($total_amount >= 15000 && $total_amount <= 19999)
+        {
+            $tariff = 370;
+        }
+
+        if($total_amount >= 20000 && $total_amount <= 24999)
+        {
+            $tariff = 386;
+        }
+
+        if($total_amount >= 25000 && $total_amount <= 29999)
+        {
+            $tariff = 391;
+        }
+
+        if($total_amount >= 30000 && $total_amount <= 34999)
+        {
+            $tariff = 396;
+        }
+
+        if($total_amount >= 35000 && $total_amount <= 39999)
+        {
+            $tariff = 570;
+        }
+
+        if($total_amount >= 40000 && $total_amount <= 44999)
+        {
+            $tariff = 575;
+        }
+
+        if($total_amount >= 45000 && $total_amount <= 49999)
+        {
+            $tariff = 580;
+        }
+
+        if($total_amount >= 50000 && $total_amount <= 69999)
+        {
+            $tariff = 623;
+        }
+
+        if($total_amount >= 70000 && $total_amount <= 150000)
+        {
+            $tariff = 628;
+        }
+
+        return view('transactions.statementInfo', compact('transaction', 'tariff'));
+    }
 
      /**
       * Twilio send SMS

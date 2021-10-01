@@ -36,12 +36,9 @@
                     <td>{{ $c->phone_number }}</td>
                     @if(Auth::user()->role === 'admin')
                     <td>
-                      <a href="{{ route('editclient',$c->id) }}" class="btn btn-info">Edit</a> 
-                      <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>
-                      <form action="{{ route('deleteclient',$c->id) }}" method="post">
-                        @method('DELETE')
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      </form>
+                    <a href="{{ route('editUser',$c->id) }}" class="btn btn-success m-2">Edit</a>
+                    <a href="{{ route('deleteUser',$c->id) }}" class="btn btn-danger m-2">Delete</a>
+                    <a href="{{ route('statements',$c->id) }}" class="btn btn-info m-2">Statements</a>
                     </td>
                     @endif
                 </tr>

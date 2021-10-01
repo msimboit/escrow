@@ -537,7 +537,7 @@ class TransactionController extends Controller
 
      public function completed()
     {
-    	$transactions = Tdetails::where('closed', 1)->get();
+    	$transactions = Tdetails::where('closed', 1)->orderBy('created_at', 'desc')->get();
 
         return view('transactions.completed', compact('transactions'));
     }

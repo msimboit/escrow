@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="content-header">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1 class="m-0 text-dark">Transactions</h1>
@@ -18,7 +18,7 @@
   </div>
       <!-- /.content-header -->
   <section class="content">
-    <div class="container-fluid">
+    <div class="container">
         <!-- @if(Auth::user()->role == 'vendor' && Auth::user()->validated == 1)
         <p>
             <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>

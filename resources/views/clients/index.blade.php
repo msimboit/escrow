@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="content-header">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1 class="m-0 text-dark">Buyers</h1>
@@ -18,7 +18,7 @@
   </div>
       <!-- /.content-header -->
   <section class="content">
-    <div class="container-fluid">
+    <div class="container">
         <!-- <p>
             <a href="{{ route('addclient') }}" class="btn btn-primary">Add New Buyer</a>
         </p> -->

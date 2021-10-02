@@ -34,10 +34,10 @@
   <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
   <!-- For Searches -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -341,6 +341,7 @@
             </a></strong>
           </li>
 
+          @if(Auth::user()role === 'admin')
           <li class="nav-item mb-2">
             <strong><a href="{{ route('completed') }}" class="nav-link" style="background-color: #0D103E; !important">
               <i class="far fa-circle nav-icon"></i>
@@ -349,6 +350,7 @@
               </p>
             </a></strong>
           </li>
+          @endif
         
         </ul>
       </nav>

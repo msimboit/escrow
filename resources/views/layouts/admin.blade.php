@@ -341,7 +341,7 @@
             </a></strong>
           </li>
 
-          @if(Auth::user()role === 'admin')
+          @if(Auth::user()->role === 'admin')
           <li class="nav-item mb-2">
             <strong><a href="{{ route('completed') }}" class="nav-link" style="background-color: #0D103E; !important">
               <i class="far fa-circle nav-icon"></i>

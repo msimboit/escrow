@@ -33,7 +33,9 @@
         </p>
         @endif -->
 
+        @if(Auth::user()->role == 'vendor' || Auth::user()->role == 'admin')
         <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>
+        @endif
        
         <!-- <a id="myID" href="#nada" class="button button-primary">Print container</a> -->
         <table class="table table-bordered table-striped">

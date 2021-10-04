@@ -133,13 +133,13 @@
                   <p class="lead">Payment Methods:</p>
                   <h5 style="margin: 5px; font-weight: bold;">MPESA:</h5>
                   <p class="text-muted well well-sm shadow-none" style="margin: 5px;">
-                    PayBill Number: 174955
+                    PayBill Number: 4051259
                   </p>
 
-                  <h5 style="margin: 5px; font-weight: bold;">Additional Payment Options:</h5>
+                  <!-- <h5 style="margin: 5px; font-weight: bold;">Additional Payment Options:</h5>
                   <p class="text-muted well well-sm shadow-none" style="margin: 5px;">
                     Till Number: 174955
-                  </p>
+                  </p> -->
                 </div>
                 <!-- /.col -->
                 <div class="col-6 p-2">
@@ -155,24 +155,12 @@
                         <th>Handling Fee(Tariff Charges)</th>
                         <td>Kshs.{{ $tariff }}.00</td>
                       </tr>
-                      <!-- <tr>
-                        <th>Delivery Fee:</th>
-                        <td>{{ $arr->deliveryamount }}</td>
-                      </tr> -->
-                      <!-- <tr>
-                        <th>Delivery Fee <br /> Handled By:</th>
-                          @if($arr->delivery_fee_handler == 'client')
-                          <td>Buyer</td>
-                          @endif
-                          @if($arr->delivery_fee_handler == 'vendor')
-                          <td>Vendor</td>
-                          @endif
-                      </tr> -->
                       <tr>
                         <th>Total:</th>
                         <td>Kshs.{{ (array_sum($prices)) + $tariff }}</td>
                       </tr>
                     </table>
+                    <span style="color:#7393B3; !important"><i class="fa fa-info-circle fa-1" aria-hidden="true">Disclaimer:All delivery arrangements shall be handled outside of the platform</i></span>
                   </div>
                 </div>
                 <!-- /.col -->

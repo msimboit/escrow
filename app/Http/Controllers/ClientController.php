@@ -25,6 +25,10 @@ class ClientController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role == 'client')
+        {
+            return redirect()->route('home');
+        }
         $arr['clients'] = User::where('role', 'client')->paginate(10);
         return view('clients.index')->with($arr);
     }

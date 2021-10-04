@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Clients;
 use App\User;
+use Auth;
 
 class ClientController extends Controller
 {

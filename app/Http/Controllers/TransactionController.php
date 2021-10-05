@@ -94,7 +94,7 @@ class TransactionController extends Controller
 
         $tariff = 0;
 
-        if($t >= 1 && $t <= 100)
+        if($total_amount >= 1 && $total_amount <= 100)
         {
             $tariff = 28;
         }
@@ -189,7 +189,6 @@ class TransactionController extends Controller
             $tariff = 628;
         }
 
-        //Check if they came from the clockin route and whether they are scanning clockin codes
         $url = url()->previous();
         if (str_contains($url, 'transactions/completed')) {
             $complete_check = 1;
@@ -198,25 +197,28 @@ class TransactionController extends Controller
             $complete_check = 0;
         }
 
+        if (str_contains($url, 'transactions/show')) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
+
         return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff',  'combined', 'complete_check'))->with($id);
     }
 
     public function edit($id)
     {
-        // $items = Vendors::pluck('firstname', 'id');
-        // $clients = Clients::pluck('firstname', 'id');
-        // $prds = Product::all();
-        // $selectedID = 2;
-
-        // $trans = Tdetails::where('id', $id)->first();
-        // return view('transactions.edit', compact('trans','items','clients','prds'))->with($id);
-
         $trans = Tdetails::where('id', $id)->first();
         $vendors = User::where('id', $trans->vendor_id)->get();
         $clients = User::where('role' ,'!=', 'admin')
                         ->orderBy('first_name', 'asc')
                         ->get();
         $client = User::where('id' , $trans->client_id)->get();
+
+        $url = url()->previous();
+        if (str_contains($url, 'transactions/edit')) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
 
         return view('transactions.edit1', compact('vendors','clients', 'client', 'trans'));
     }
@@ -646,6 +648,12 @@ class TransactionController extends Controller
         if($total_amount >= 70000 && $total_amount <= 150000)
         {
             $tariff = 628;
+        }
+
+        $url = url()->previous();
+        if (str_contains($url, 'transactions/statementInfo')) {
+            Auth::logout();
+            return redirect()->route('login');
         }
 
         return view('transactions.statementInfo', compact('transaction', 'tariff'));

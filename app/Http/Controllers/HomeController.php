@@ -113,6 +113,17 @@ class HomeController extends Controller
             }
     
             $sales_amount = array_sum($sales_amount);
+
+            return view('home', compact('users',
+                                    'vendors',
+                                    'deliveries', 
+                                    'transactions_count', 
+                                    'total_spent',
+                                    'successful_deliveries',
+                                    'highest_buyer',
+                                    'highest_vendor',
+                                    'sales_amount')
+                    )->with($arr);
         }
         else {
             $id = Auth::user()->id;
@@ -127,8 +138,7 @@ class HomeController extends Controller
                                     'total_spent',
                                     'successful_deliveries',
                                     'highest_buyer',
-                                    'highest_vendor',
-                                    'sales_amount')
+                                    'highest_vendor')
                     )->with($arr);
     }
 

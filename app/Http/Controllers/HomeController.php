@@ -60,32 +60,39 @@ class HomeController extends Controller
         $vendor_successful_deliveries = Tdetails::where('vendor_id',$id)->where('closed', 1)->get();
         $successful_deliveries = (collect($vendor_successful_deliveries)->count())+(collect($buyer_successful_deliveries)->count());
 
-        $highest_vendor = Tdetails::where('client_id',$id)
-            ->select('vendor_id')
-            ->selectRaw('COUNT(*) AS count')
-            ->groupBy('vendor_id')
-            ->orderByDesc('count')
-            ->limit(1)
-            ->first();
-
-        if($highest_vendor == null || $highest_vendor == '')
+        if(Auth::user()->role == 'buyer')
         {
-            $transactions_count = 0;
-            $total_spent = 0;
-            $successful_deliveries = 0;
-            $highest_buyer = null;
-            $highest_vendor = null;
-            return view('home', compact('users',
-                                    'vendors',
-                                    'deliveries', 
-                                    'transactions_count', 
-                                    'total_spent',
-                                    'successful_deliveries',
-                                    'highest_buyer',
-                                    'highest_vendor')
-                    )->with($arr);
+            $highest_vendor = Tdetails::where('client_id',$id)
+                        ->select('vendor_id')
+                        ->selectRaw('COUNT(*) AS count')
+                        ->groupBy('vendor_id')
+                        ->orderByDesc('count')
+                        ->limit(1)
+                        ->first();
         }
-        $highest_vendor = User::where('id', $highest_vendor->vendor_id)->first();
+        else{
+            $highest_vendor = null;
+        }
+        
+
+        // if($highest_vendor == null || $highest_vendor == '')
+        // {
+        //     $transactions_count = 0;
+        //     $total_spent = 0;
+        //     $successful_deliveries = 0;
+        //     $highest_buyer = null;
+        //     $highest_vendor = null;
+        //     return view('home', compact('users',
+        //                             'vendors',
+        //                             'deliveries', 
+        //                             'transactions_count', 
+        //                             'total_spent',
+        //                             'successful_deliveries',
+        //                             'highest_buyer',
+        //                             'highest_vendor')
+        //             )->with($arr);
+        // }
+        // $highest_vendor = User::where('id', $highest_vendor->vendor_id)->first();
 
         if(Auth::user()->role == 'vendor')
         {

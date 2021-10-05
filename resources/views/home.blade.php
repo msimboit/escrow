@@ -125,7 +125,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Sales Amount</span>
-                <span class="info-box-number">Kshs. {{ $total_spent }}</span>
+                <span class="info-box-number">Kshs. {{ $sales_amount }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>

@@ -109,10 +109,10 @@ class HomeController extends Controller
             foreach($vendor_transactions as $vt)
             {
                 $selling_amount = collect(explode(' ',$vt->transamount))->sum();
-                array_push($sales_spent, $selling_amount);
+                array_push($sales_amount, $selling_amount);
             }
     
-            $total_spent = array_sum($total_spent);
+            $sales_amount = array_sum($sales_amount);
         }
         else {
             $id = Auth::user()->id;

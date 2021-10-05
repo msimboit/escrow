@@ -72,14 +72,9 @@ class DeliveryController extends Controller
 
         $tariff = 0;
 
-        if($total_amount >= 1 && $total_amount < 50)
+        if($t >= 1 && $t <= 100)
         {
-            $tariff = 4;
-        }
-
-        if($total_amount >= 50 && $total_amount <= 100)
-        {
-            $tariff = 13;
+            $tariff = 28;
         }
 
         if($total_amount >= 101 && $total_amount <= 499)

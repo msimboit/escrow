@@ -796,14 +796,9 @@ class MpesaController extends Controller
                 // $t = (intval($total) - ( intval($total) - intval($sum)));
                 $t = $sum;
 
-                if($t >= 1 && $t < 50)
+                if($t >= 1 && $t <= 100)
                 {
-                    $tariff = 4;
-                }
-
-                if($t >= 50 && $t <= 100)
-                {
-                    $tariff = 13;
+                    $tariff = 28;
                 }
 
                 if($t >= 101 && $t <= 499)

@@ -105,6 +105,14 @@ class HomeController extends Controller
                             ->first();
 
             $highest_buyer = User::where('id', $highest_buyer->client_id)->first();
+            $sales_amount = [];
+            foreach($vendor_transactions as $vt)
+            {
+                $selling_amount = collect(explode(' ',$vt->transamount))->sum();
+                array_push($sales_spent, $selling_amount);
+            }
+    
+            $total_spent = array_sum($total_spent);
         }
         else {
             $id = Auth::user()->id;
@@ -119,7 +127,8 @@ class HomeController extends Controller
                                     'total_spent',
                                     'successful_deliveries',
                                     'highest_buyer',
-                                    'highest_vendor')
+                                    'highest_vendor',
+                                    'sales_amount')
                     )->with($arr);
     }
 

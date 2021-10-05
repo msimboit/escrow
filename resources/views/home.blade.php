@@ -103,7 +103,8 @@
             <!-- /.info-box -->
           </div>
 
-          <div >
+          @if(Auth::user()->role == 'client')
+          <div>
             <div class="info-box shadow-lg">
               <span class="info-box-icon bg-danger"><i class="fa fa-money-check"></i></span>
 
@@ -115,6 +116,23 @@
             </div>
             <!-- /.info-box -->
           </div>
+          @endif
+
+          @if(Auth::user()->role == 'vendor')
+          <div>
+            <div class="info-box shadow-lg">
+              <span class="info-box-icon bg-danger"><i class="fa fa-money-check"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Sales Amount</span>
+                <span class="info-box-number">Kshs. {{ $total_spent }}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          @endif
+
 
           <div >
             <div class="info-box shadow-lg">

@@ -365,7 +365,7 @@ class MpesaController extends Controller
                     $phone_number = $vendor->phone_number;
                     $phone_number = substr($phone_number, -9);
                     $phone_number = '0'.$phone_number;
-                    $message = 'Hello '.$vendor->business_name.'.SupamallEscrow has received the payment in the amount of '.$amount.' made by '.$client->first_name.' for the Order ID '.$t->id.'. Please Initiate the delivery by the stipulated terms.';
+                    $message = 'Hello '.$vendor->business_name.'.SupamallEscrow has received the payment made by '.$client->first_name.' for the Order ID '.$t->id.'. Please Initiate the delivery by the stipulated terms.';
                     $SID = 'DEPTHSMS';
                     Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
 

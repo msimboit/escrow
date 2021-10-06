@@ -4,11 +4,17 @@
 <div class="row">
         <div class="col-md-8">
 
-            @if($search == null || $search == '')
-            <h2>No Deliveries Found</h2>
+            @if($search != null || $search != '')
+            <h2 class="my-6 mx-4">Search Result For:
+                <small>{{$phone}}</small>
+            </h2>
+            <div class="container-fluid">
+                <h4>No Deliveries Found</h4>
+            </div>
+            
             @else
             <h2 class="my-6 mx-4">Search Result For:
-                <small>{{$search[0]->client_phone}}</small>
+                <small>{{$phone}}</small>
             </h2>
 
             <table class="table table-bordered table-striped">

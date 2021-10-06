@@ -313,13 +313,12 @@ class DeliveryController extends Controller
     public function search(Request $request)
     {
         //dd($request->q);
-        $search = Tdetails::query()
-            ->where('client_phone', 'like', "%{$request->q}%")
+        $search = Tdetails::where('client_phone', 'like', "%{$request->q}%")
             ->where('vendor_id', Auth::user()->id)
             ->orderBy('created_at', 'desc')
             ->get();
-        // dd($search[0]->client_phone);
-        return view('Delivery.search', ['search' => $search]);
+        $phone = $request->q;
+        return view('Delivery.search', ['search' => $search, 'phone' => $phone]);
     }
 
     /**

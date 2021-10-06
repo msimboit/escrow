@@ -8,6 +8,9 @@
                 <small>{{$search[0]->client_phone}}</small>
             </h2>
 
+            @if($search == null || $search == '')
+            <h2>No Deliveries Found</h2>
+            @else
             <table class="table table-bordered table-striped">
             <tr>
                 <!-- <th>ID</th> -->
@@ -30,6 +33,7 @@
                 </tr>
             @endforeach
         </table>
+        @endif
         </div>
 </div>
 

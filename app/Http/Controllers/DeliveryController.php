@@ -315,6 +315,7 @@ class DeliveryController extends Controller
         //dd($request->q);
         $search = Tdetails::query()
             ->where('client_phone', 'like', "%{$request->q}%")
+            ->where('vendor_id', Auth::user()->id)
             ->orderBy('created_at', 'desc')
             ->get();
         // dd($search[0]->client_phone);

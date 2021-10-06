@@ -15,6 +15,7 @@ class SearchController extends Controller
     {
         if($request->ajax())
         {
+            
             $output="";
             $users=DB::table('users')->where('first_name','LIKE','%'.$request->search."%")->get();
             if($users)

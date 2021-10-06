@@ -4,13 +4,13 @@
 <div class="row">
         <div class="col-md-8">
 
+            @if($search == null || $search == '')
+            <h2>No Deliveries Found</h2>
+            @else
             <h2 class="my-6 mx-4">Search Result For:
                 <small>{{$search[0]->client_phone}}</small>
             </h2>
 
-            @if($search == null || $search == '')
-            <h2>No Deliveries Found</h2>
-            @else
             <table class="table table-bordered table-striped">
             <tr>
                 <!-- <th>ID</th> -->

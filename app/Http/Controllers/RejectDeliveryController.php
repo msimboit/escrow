@@ -195,7 +195,7 @@ class RejectDeliveryController extends Controller
         $SID = 'DEPTHSMS';
         Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
 
-        $phone_number = $request->vendorNumber;
+        $phone_number = $request->clientNumber;
         $phone_number = substr($phone_number, -9);
         $phone_number = '0'.$phone_number;
         $message = 'Dear'.$request->clientName.', you have rejected a delivery from the vendor '.$vendor->business_name.' on the Order ID'.$request->orderId.'. We will refund you for the transaction amount withholding the handling fee. Please contact the vendor on the number '. $vendor->phone_number .' if you wish to resolve the issue.';

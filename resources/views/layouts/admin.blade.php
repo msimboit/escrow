@@ -226,12 +226,12 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar elevation-5" style="overflow:hidden;background-color: #ee0e6c; !important">
+  <aside class="main-sidebar elevation-5" style="overflow:hidden;background-color: #0D103E; !important">
     <div class="p-2">
       <a href="{{ route('home') }}" class="brand-link">
         <!-- <img src="{{ asset('login_assets/img/logo-13e.png') }}" alt="SupamallEscrow Logo" class="brand-image img-circle elevation-5"
             style="opacity: 1"> -->
-        <span class="brand-text font-weight-light" style="color: #0D103E; font-size:2rem;"><strong>SUPAMALLESCROW <hr style="height: 1px; background-color: #ccc; border: none;"></strong></span>
+        <span class="brand-text font-weight-light" style="color: #ee0e6c; font-size:2rem;"><strong>SUPAMALLESCROW <hr style="height: 1px; background-color: #ccc; border: none; padding-right:5px;"></strong></span>
       </a>
     </div>
   
@@ -244,19 +244,19 @@
           <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div> -->
         <div class="info mx-2">
-          <a href="{{ route('profile') }}" class="d-block" style="color: #0D103E; text-decoration:none;"><strong>Hello {{ Auth::user()->first_name }}</strong></a>
+          <a href="{{ route('profile') }}" class="d-block" style="color: #ee0e6c; text-decoration:none;"><strong>Hello {{ Auth::user()->first_name }}</strong></a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-between">
         <div class="info mx-2">
-            <a class="d-block" href="{{ route('profile') }}" style="color: #0D103E; !important">
+            <a class="d-block" href="{{ route('profile') }}" style="color: #ee0e6c; !important">
                                         <strong>{{ __('Profile') }}</strong>
             </a>
            
         </div>
         <div class="info mx-2">
-            <a class="d-block" href="{{ route('logout') }}" style="color: #0D103E; !important">
+            <a class="d-block" href="{{ route('logout') }}" style="color: #ee0e6c; !important">
                                         <strong>{{ __('Logout') }}</strong>
             </a>
         </div>
@@ -267,9 +267,9 @@
         <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
           @if(Auth::user()->role === 'admin')
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('vendors') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('vendors') }}" class="nav-link" style="background-color:#ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">Vendors</p>
+              <p style="color: #fff; !important">Vendors</p>
             </a></strong>
           </li>
 
@@ -292,18 +292,18 @@
           </li>
           @endif
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('transactions') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('transactions') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">
+              <p style="color: #fff; !important">
                 Transactions
               </p>
             </a></strong>
           </li>
           @if(Auth::user()->role === 'admin')        
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('deposits') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('deposits') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">
+              <p style="color: #fff; !important">
                 Deposits
               </p>
             </a></strong>
@@ -313,9 +313,9 @@
 
           @if(Auth::user()->role === 'admin')
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('payments') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('payments') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">
+              <p style="color: #fff; !important">
                 Settlements By Escrow
               </p>
             </a></strong>
@@ -323,9 +323,9 @@
           @endif
 
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('deliveries') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('deliveries') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">
+              <p style="color: #fff; !important">
                 Deliveries    
               </p>
             </a></strong>
@@ -333,9 +333,9 @@
           </li>
           
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('rejections') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('rejections') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">
+              <p style="color: #fff; !important">
                 Disputes
               </p>
             </a></strong>
@@ -343,9 +343,9 @@
 
           @if(Auth::user()->role === 'admin')
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('completed') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('completed') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">
+              <p style="color: #fff; !important">
                 Completed Transactions
               </p>
             </a></strong>

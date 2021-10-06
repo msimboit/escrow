@@ -1244,10 +1244,11 @@ class MpesaController extends Controller
             $now = new DateTime();
             $diff = now()->diffInHours($transaction->created_at);
 
-            if($diff < intval($transaction->delivery_time))
-            {
-                return redirect()->back()->with('success', "There's still time, be patient!");
-            }
+            //Remember to activate
+            // if($diff < intval($transaction->delivery_time))
+            // {
+            //     return redirect()->back()->with('success', "There's still time, be patient!");
+            // }
 
             $tdetails_check = DB::table('tdetails')
                                     ->where('id', $request->input('orderId'))

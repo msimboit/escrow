@@ -231,7 +231,7 @@
       <a href="{{ route('home') }}" class="brand-link">
         <!-- <img src="{{ asset('login_assets/img/logo-13e.png') }}" alt="SupamallEscrow Logo" class="brand-image img-circle elevation-5"
             style="opacity: 1"> -->
-        <span class="brand-text font-weight-light" style="color: #ee0e6c; font-size:2rem;"><strong>SUPAMALLESCROW <hr style="height: 1px; background-color: #ccc; border: none; padding-right:5px;"></strong></span>
+        <span class="brand-text font-weight-light" style="color: #fff; font-size:2rem;"><strong>SUPAMALLESCROW <hr style="height: 1px; background-color: #ccc; border: none; padding-right:5px;"></strong></span>
       </a>
     </div>
   
@@ -244,19 +244,19 @@
           <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div> -->
         <div class="info mx-2">
-          <a href="{{ route('profile') }}" class="d-block" style="color: #ee0e6c; text-decoration:none;"><strong>Hello {{ Auth::user()->first_name }}</strong></a>
+          <a href="{{ route('profile') }}" class="d-block" style="color: #fff; text-decoration:none;"><strong>Hello {{ Auth::user()->first_name }}</strong></a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-between">
         <div class="info mx-2">
-            <a class="d-block" href="{{ route('profile') }}" style="color: #ee0e6c; !important">
+            <a class="d-block" href="{{ route('profile') }}" style="color: #fff; !important">
                                         <strong>{{ __('Profile') }}</strong>
             </a>
            
         </div>
         <div class="info mx-2">
-            <a class="d-block" href="{{ route('logout') }}" style="color: #ee0e6c; !important">
+            <a class="d-block" href="{{ route('logout') }}" style="color: #fff; !important">
                                         <strong>{{ __('Logout') }}</strong>
             </a>
         </div>
@@ -274,18 +274,18 @@
           </li>
 
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('clients') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('clients') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">Buyers</p>
+              <p style="color: #fff; !important">Buyers</p>
             </a></strong>
           </li>
           @endif
 
           @if(Auth::user()->role === 'admin')
           <li class="nav-item mb-2">
-            <strong><a href="{{ route('abanks') }}" class="nav-link" style="background-color: #0D103E; !important">
+            <strong><a href="{{ route('abanks') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
-              <p style="color: #ee0e6c; !important">
+              <p style="color: #fff; !important">
                 Acquiring Banks
               </p>
             </a></strong>

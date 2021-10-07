@@ -806,12 +806,12 @@ class MpesaController extends Controller
                     $tariff = 83;
                 }
 
-                if($t >= 500 && $t <= 999)
+                if($t >= 500 && $t <= 1000)
                 {
                     $tariff = 89;
                 }
 
-                if($t >= 1000 && $t <= 1499)
+                if($t >= 1001 && $t <= 1499)
                 {
                     $tariff = 105;
                 }

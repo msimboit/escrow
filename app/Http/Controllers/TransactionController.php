@@ -104,12 +104,12 @@ class TransactionController extends Controller
             $tariff = 83;
         }
 
-        if($total_amount >= 500 && $total_amount <= 999)
+        if($total_amount >= 500 && $total_amount <= 1000)
         {
             $tariff = 89;
         }
 
-        if($total_amount >= 1000 && $total_amount <= 1499)
+        if($total_amount >= 1001 && $total_amount <= 1499)
         {
             $tariff = 105;
         }
@@ -565,12 +565,12 @@ class TransactionController extends Controller
             $tariff = 83;
         }
 
-        if($total_amount >= 500 && $total_amount <= 999)
+        if($total_amount >= 500 && $total_amount <=1000)
         {
             $tariff = 89;
         }
 
-        if($total_amount >= 1000 && $total_amount <= 1499)
+        if($total_amount >= 1001 && $total_amount <= 1499)
         {
             $tariff = 105;
         }

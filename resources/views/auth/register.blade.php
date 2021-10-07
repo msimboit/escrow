@@ -168,7 +168,7 @@
 										<div class="fxt-checkbox-area">
 											<div class="checkbox">
 												<input id="checkbox1" type="checkbox" class="number" value="One" required>
-												<label for="checkbox1">I agree with the terms and condition</label>
+												<label for="checkbox1"><a href="/terms and faqs/terms.html">I agree with the terms and condition</a></label>
 											</div>
 										</div>
 									</div>

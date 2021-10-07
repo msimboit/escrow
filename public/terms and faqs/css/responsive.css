@@ -1,0 +1,629 @@
+@media (min-width: 1919px) {
+.intro-content {
+    margin-top: -200px;
+}
+	
+	
+}
+
+/* Normal desktop :992px. */
+@media (min-width: 992px) and (max-width: 1269px) {	  
+.intro-area{
+    float: none;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+}
+.bg-wrapper,
+.bg-wrapper img {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    object-fit: cover;
+}    
+.intro-content {
+    margin-top: -70px;
+}
+.layer-1 h2 {
+    font-size: 34px;
+    line-height: 42px;
+    max-width: 500px;
+}
+.layer-2 p {
+    font-size: 15px;
+    max-width: 500px;
+}
+.header-area-2 .header-right-link, .header-right-link {
+    margin-left: 10px;
+    width: 120px;
+}    
+.main-menu ul.navbar-nav li a {
+    font-size: 15px;
+    padding: 40px 12px;
+}
+.header-area.stick .main-menu ul.navbar-nav li a {
+    padding: 30px 12px;
+} 
+.about-text {
+    padding-left: 20px;
+    font-size: 15px;
+}
+.blog-content {
+    padding: 30px 15px;
+}    
+.inner-payment {
+    padding: 80px 15px;
+}    
+.footer-list li a {
+    font-size: 15px;
+}     
+.right-side {
+    padding: 30px 15px;
+}   
+.support-services {
+    padding: 30px 15px;
+}
+.about-content {
+    margin-top: 20px;
+}
+.support-content h4 {
+    font-size: 22px;
+}
+.winner-content h4 {
+    text-transform: capitalize;
+    font-size: 22px;
+}
+.footer-head h4 {
+    color: #29446e;
+    font-size: 17px;
+    line-height: 26px;
+}
+.intro-area-2 .intro-content {
+    margin-top: -100px;
+}
+.intro-area-2 .layer-2 p {
+    font-size: 18px;
+}
+.overview-text h3 {
+    font-size: 34px;
+    line-height: 42px;
+}    
+.sign-icon ul li a {
+    padding: 1px 6px;
+}    
+.blog-search-option input {
+    width: 77%;
+}
+.contact-page .contact-form {
+    margin-top: 0px;
+}    
+    
+    
+    
+    
+    
+    
+}
+
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+.logo a {
+    padding: 15px 0;
+}
+.header-right-link {
+    width: 85px;
+    margin-left: 4px;
+    padding: 25px 0px;
+}
+.header-area.stick .header-right-link{
+    padding: 26px 0px;
+}
+.intro-area{
+    float: none;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+}
+.bg-wrapper,
+.bg-wrapper img {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+}
+.layer-1 h2 {
+    font-size: 28px;
+    line-height: 38px;
+    max-width: 380px;
+    margin-bottom: 10px;
+}
+.layer-2 p {
+    font-size: 15px;
+    line-height: 24px;
+    max-width: 400px;
+    margin-bottom: 0px;
+}
+.intro-content {
+    margin-top: -50px;
+}
+.main-menu ul.navbar-nav li a, 
+.header-area.stick .main-menu ul.navbar-nav li a {
+    font-size: 13px;
+    padding: 30px 7px;
+}
+.main-menu ul.nav li .mega-menu {
+    width: 720px;
+    left: -54%;
+}
+.main-menu > ul.navbar-nav >li >a::before,
+.header-area.stick .main-menu > ul.navbar-nav >li >a::before {
+    left: 9px;
+}      
+.section-headline h3 {
+    font-size: 34px;
+    line-height: 40px;
+} 
+.about-company {
+    display: none;
+}
+.footer-list {
+    width: 100%;
+    float: none;
+}
+.footer-list li a {
+    font-size: 15px;
+}    
+.topbar-left ul li a {
+    margin-right: 10px;
+}    
+.s-menu {
+    padding: 10px 8px;
+    font-size: 13px;
+}
+.ready-btn {
+    font-size: 16px;
+    padding: 8px 14px;
+}          
+.deposite-content th {
+    padding: 8px 10px 8px 15px;
+}    
+.deposite-content td {
+    padding: 8px 10px 8px 15px;
+}    
+.deposite-content td {
+    font-size: 15px;
+}       
+.header-area.stick .logo a {
+    padding: 15px 0;
+}               
+.about-content {
+    margin-top: 0px;
+}    
+.ticket-name {
+    font-size: 17px;
+}    
+.ticket-rate {
+    top: 0px;
+}
+.single-ticket {
+    padding: 40px 20px 30px;
+}
+.lottery-top h4 {
+    font-size: 18px;
+}    
+.lottery-top .ticket-rate {
+    top: -30px;
+}    
+.self-ticket span {
+    float: none;
+    margin-bottom: 10px;
+    display: block;
+}        
+.breadcrumb h2 {
+    font-size: 36px;
+    line-height: 44px;
+}              
+.sign-icon ul li {
+    margin: 0px 0px;
+}    
+.login-form {
+    margin: 0px;
+}    
+.right-side {
+    padding: 0px;
+    background: transparent;
+}   
+.blog-search-option input {
+    width: 75%;
+}    
+.post-img {
+    display: none;
+}    
+.pst-content {
+    padding-left: 0px;
+}    
+.single-how {
+    padding: 40px 15px;
+}   
+.how-content h4 {
+    font-size: 22px;
+}    
+.diposite-box,
+.deposite-content {
+    max-width: 100%;
+    overflow-x: auto;
+}    
+.deposite-table {
+    min-width: 1000px;
+}     
+.contact-page .contact-form {
+    margin-top: 0px;
+}   
+.contact-single {
+    padding: 30px;
+}    
+.faq-area .faq-content {
+    margin-left: 10px;
+}    
+.overview-text {
+    margin-top: 0px;
+}    
+.overview-text h3 {
+    font-size: 28px;
+    line-height: 36px;
+}
+.sign-icon ul li a {
+    padding: 1px 4px;
+}    
+.terms-list li {
+    width: 50%;
+    float: left;
+}    
+.winner-images {
+    float: none;
+    width: 60%;
+    margin: 0 auto;
+}
+.winner-content {
+    padding-left: 0px;
+    float: none;
+    width: 100%;
+    margin-top: 30px;
+}   
+.winner-results {
+    padding: 40px 30px;
+}   
+.winner-content h4 {
+    font-size: 22px;
+}    
+.intro-area-2 .layer-1 h2 {
+    font-size: 36px;
+    line-height: 44px;
+    max-width: 520px;
+}    
+.intro-area-2 .intro-content {
+    margin-top: -80px;
+}    
+    
+    
+    
+    
+	
+}
+
+/* small mobile :320px. */
+@media (max-width: 767px) {
+.container {width:300px}
+.logo {
+    height: inherit;
+    left: 10px;
+    padding: 0;
+    position: absolute;
+    top: 0px;
+    z-index: 999999;
+    max-width: 130px;
+}
+.logo a,
+.header-two .logo a{
+    padding: 0px;
+}
+.intro-bg{
+	display: none;
+}
+.intro-area{
+    float: none;
+    width: 100%;
+    height: 100%;
+    min-height: 620px;
+}
+.bg-wrapper,
+.bg-wrapper img {
+    width: 100%;
+    height: 100%;
+    min-height: 620px;
+    object-fit: cover;
+}
+.bg-wrapper img{
+   display: none;
+}
+.intro-content {
+    margin-top: -100px;
+}
+.layer-1 h2, .intro-area-2 .layer-1 h2 {
+    font-size: 24px;
+    line-height: 38px;
+    margin-bottom: 15px;
+}
+.best-title {
+    font-size: 15px;
+}
+.layer-2 p {
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 10px;
+}             
+.topbar-right {
+    float: none;
+}   
+.topbar-left ul li a {
+    margin-right: 5px;
+    padding: 11px 0 0px;
+    font-size: 14px;
+}    
+.topbar-right>ul>li>a {
+    color: #c2d4f8;
+    display: block;
+    padding: 10px 30px 10px 0px;
+    position: relative;
+}       
+.section-headline h3 {
+    font-size: 28px;
+    line-height: 38px;
+}
+.single-about {
+    width: 100%;
+    float: none;
+}
+.about-content {
+    margin-top: 30px;
+}
+.ticket-image img {
+    width: 120px !important;
+    height: 120px;
+}
+.diposite-box,
+.deposite-content {
+    max-width: 100%;
+    overflow-x: auto;
+}    
+.deposite-table {
+    min-width: 1000px;
+}    
+.deposite-content tr:nth-child(even){
+    width: 1000px; 
+}        
+.blog-content {
+    padding: 30px 15px;
+}    
+.blog-meta span {
+    padding-right: 5px;
+    margin-right: 3px;
+    font-size: 13px;
+}    
+.blog-content a h4 {
+    font-size: 19px;
+}
+.subs-form {
+    padding: 0px 0px 70px;
+}
+.subs-form input#email {
+    width: 100%;
+}
+.subs-form button#submit {
+    width: 100%;
+    margin: 20px 0px 40px;
+}
+.footer-head h4 {
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+.footer-content {
+    margin-bottom: 40px;
+}
+.last-content{
+    margin-bottom: 0px;
+}        
+.single-how.first-item, .single-how.thired-item {
+    top: 0px;
+}    
+.single-how {
+    margin-bottom: 30px;
+}    
+.how-to-area {
+    padding: 100px 0px 70px;
+}          
+.breadcrumb h2 {
+    font-size: 30px;
+    line-height: 40px;
+}    
+.page-img {
+    margin-top: 30px;
+}    
+.ticket-rate {
+    top: 0px;
+}    
+.single-ticket {
+    padding: 40px 20px;
+}    
+.lottery-top .ticket-rate {
+    top: -40px;
+}    
+.lottery-top h4 {
+    font-size: 18px;
+    margin-top: 10px;
+}
+.single-lottery {
+    padding: 30px 15px 40px;
+}
+.self-ticket span {
+    float: none;
+    margin-bottom: 10px;
+    display: block;
+}    
+.genreted-text {
+    font-size: 14px;
+}    
+.login-form {
+    padding: 30px 15px;
+    margin: 0px;
+}    
+.sign-icon ul li a {
+    font-size: 12px;
+    padding: 5px 5px;
+}    
+.high-text {
+    font-size: 120px;
+    line-height: 140px;
+}
+.error-bot {
+    font-size: 18px;
+}   
+.pst-content p a {
+    font-size: 14px;
+}
+.right-side {
+    padding: 30px 15px;
+    background: #f5f5f5;
+    margin-top: 40px;
+}
+.related-post-list .recent-single-post {
+    width: 100%;
+    float: none;
+    padding: 0px 0px 20px;
+}
+.related-post-list .recent-single-post:last-child {
+    padding: 0px;
+}
+.comments-list-img {
+    width: 60px;
+    height: 60px;
+}    
+.comments-content-wrap {
+    margin: 0 0 5px 65px;
+}    
+.threaded-comments {
+    margin-left: 20px;
+}   
+.winner-images {
+    float: none;
+    width: 60%;
+    margin: 0 auto;
+}
+.winner-content {
+    padding-left: 0px;
+    float: none;
+    width: 100%;
+    margin-top: 30px;
+}   
+.winner-results {
+    padding: 40px 20px;
+}    
+.winner-content h4 {
+    font-size: 22px;
+}    
+.clients-text {
+    padding: 30px 15px;
+}    
+.footer-content.logo-footer {
+    margin-right: 0px;
+}    
+.intro-area-2 .bg-wrapper img {
+    display: block;
+}    
+.winner-inner {
+    text-align: center;
+}    
+.faq-details h4.check-title {
+    font-size: 17px;
+    line-height: 26px;
+}    
+.faq-details h4.check-title a {
+    padding: 10px 0px 10px 60px;
+} 
+.faq-area .faq-content {
+    padding: 30px 15px;
+    margin-top: 30px;
+    margin-left: 0px;
+}    
+.faq-content h3 {
+    font-size: 26px;
+    padding-bottom: 0px;
+}    
+.overview-text h3 {
+    font-size: 25px;
+    line-height: 36px;
+}    
+.overview-text {
+    margin-top: 30px;
+}    
+.company-terms {
+    margin-right: 0px;
+}    
+.terms-right {
+    padding: 40px 15px 10px;
+}      
+.blog-left-content {
+    margin-right: 0px;
+}    
+.blog-search-option input {
+    width: 75%;
+}    
+.right-side {
+    padding: 30px 15px;
+    background: #f5f5f5;
+    margin-top: 40px;
+}    
+.contact-single {
+    padding: 30px 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}    
+.blog-post-wrapper {
+    margin-right: 0px;
+}  
+blockquote::before {
+    top: 12px;
+    left: 8px;
+    font-size: 22px;
+}    
+blockquote {
+    padding: 25px 15px 20px 40px;
+}   
+    
+    
+    
+    
+    
+    
+    
+}
+
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.container {width:450px}
+.single-icon p {
+    font-size: 14px;
+}           
+.banner-content {
+    padding: 0px 20px;
+}    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+ 

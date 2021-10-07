@@ -30,7 +30,7 @@
           <div class="col-md-8">
             <div class="card">
               <div class="card-header p-2">
-              <h3 class="profile-username text-center">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
+              <h3 class="profile-username text-center">Edit User Profile</h3>
                 
                 @if(Auth::user()->role == 'vendor')
                 <p class="text-muted text-center">Vendor</p>
@@ -109,7 +109,12 @@
                         </div>
                       </div>
 					  @endif
-            
+            <div class="form-group row">
+              <label for="inputName" class="col-sm-2 col-form-label">Password</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control" name="password" id="password" required>
+              </div>
+            </div>
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-danger">Edit Profile</button>

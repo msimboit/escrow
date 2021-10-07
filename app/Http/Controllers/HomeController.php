@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
 use App\Tdetails;
 use App\User;
 use App\Deliveries;
@@ -157,6 +158,7 @@ class HomeController extends Controller
      */
     public function updateUser(Request $request)
     {
+        // dd($request->all());
         User::where('phone_number', $request->phone_number)
             ->update([
             'first_name' => $request->first_name,
@@ -165,7 +167,8 @@ class HomeController extends Controller
             'phone_number' => $request->phone_number,
             'email' => $request->email,
             'role' => $request->role,
-            'business_name' => $request->business_name
+            'business_name' => $request->business_name,
+            'password' => Hash::make($request->password)
         ]);
 
         return redirect()->route('vendors')->with('status', 'User profile updated successfully!');

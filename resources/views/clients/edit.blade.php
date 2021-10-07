@@ -64,7 +64,12 @@
         <label class="col-md-3">Phone</label>
         <div class="col-md-4"><input type="text" name="phoneno" class="form-control"  value="{{ $client->phoneno }}" ></div>
         <div class="clearfix"></div>
-      </div>     
+      </div>  
+      <div class="row">
+        <label class="col-md-3">Password</label>
+        <div class="col-md-4"><input type="text" name="password" class="form-control"  value="{{ $client->phoneno }}" ></div>
+        <div class="clearfix"></div>
+      </div>  
 
     <div class="form-group">
       <input type="submit" class="btn btn-info" value="Update">

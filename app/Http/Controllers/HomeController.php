@@ -95,6 +95,27 @@ class HomeController extends Controller
         // }
         // $highest_vendor = User::where('id', $highest_vendor->vendor_id)->first();
 
+        if(Auth::user()->role == 'vendor' && $vendor_transactions != null)
+        {
+            $transactions_count = 0;
+            $total_spent  = 0;
+            $successful_deliveries = 0;
+            $highest_buyer = null;
+            $highest_vendor = null;
+            $sales_amount = 0;
+            return view('home', compact('users',
+                                    'vendors',
+                                    'deliveries', 
+                                    'transactions_count', 
+                                    'total_spent',
+                                    'successful_deliveries',
+                                    'highest_buyer',
+                                    'highest_vendor',
+                                    'sales_amount')
+                    )->with($arr);
+
+        }
+
         if(Auth::user()->role == 'vendor')
         {
             $highest_buyer = Tdetails::where('vendor_id',$id)

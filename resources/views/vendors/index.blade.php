@@ -58,8 +58,7 @@
             @endforeach
         </table>
 
-        <!-- {{ $vendors->links() }} -->
-        {{ $vendors->onEachSide(5)->links() }}
+        {{ $vendors->links() }}
     </div>
   </section>	
 

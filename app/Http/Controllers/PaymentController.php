@@ -26,7 +26,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $arr['payments'] = DB::table('settlements')->orderBy('created_at', 'desc')->paginate(10);
+        $arr['payments'] = DB::table('settlements')->orderBy('id', 'desc')->paginate(10);
         return view('Payments.index')->with($arr);
     }
 

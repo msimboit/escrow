@@ -15,7 +15,7 @@
                     <h3>{{ __('Report Number:') }} {{ $rejection->id }}</h3>
                     <h4>{{ __('Transaction ID:') }} {{ $rejection->orderId }}</h4>
                     <hr>
-                    <h4>Title: {{ $rejection->title }}</h3>
+                    <h4>Title: <span style="text-transform:uppercase;">{{ $rejection->title }}</span></h3>
                     <h5>Created By: {{ $rejection->clientName }}</h5>
                     <h5>Created At: {{ $rejection->created_at }}</h5>
                     <div class="my-5">

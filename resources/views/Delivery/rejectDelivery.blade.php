@@ -32,9 +32,20 @@
                         </div>
                         @endif
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="title">Rejection Title:</label>
                             <input type="text" name="title" value="{{ old('title') }}" class="form-control" placeholder="Title">
+                        </div> -->
+
+                        <div class="form-group">
+                            <label for="title">Rejection Title:</label>
+                            <select class="form-control" id="title" name="title">
+                            <option value="wrong item">Wrong Item</option>
+                            <option value="damaged goods">Damaged Goods</option>
+                            <option value="lateness">Lateness</option>
+                            <option value="poor quality">Poor Quality</option>
+                            <option value="other">Other</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

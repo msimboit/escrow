@@ -164,6 +164,7 @@ class RejectDeliveryController extends Controller
     public function rejectDelivery(Request $request)
     {
 
+        // dd($request->all());
         RejectDelivery::create([
             'title' => $request->title,
             'details' => $request->details,

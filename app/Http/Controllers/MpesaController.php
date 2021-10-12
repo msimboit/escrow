@@ -335,6 +335,13 @@ class MpesaController extends Controller
                         'transactioncode' => $receipt_number,
                     ]);
 
+                    $update_reports_table = DB::table('reports')
+                    ->where('transaction_id', $trans_id)
+                    ->update([
+                        'buyer_sent_amount' => $amount,
+                        'buyer_sent_mpesa_code' => $receipt_number,
+                    ]);
+
 
                     // $recipient = $phone_number;
                     // $recipient = substr($recipient, -9);
@@ -375,6 +382,12 @@ class MpesaController extends Controller
                     $message = 'Hello '.$client->first_name.'. SupamallEscrow has received the payment in the amount of '.$amount.' made from the number '.$phone_number.' for the Order ID '.$t->id.'. We have notified the vendor to initiate the delivery.';
                     $SID = 'DEPTHSMS';
                     Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
+
+                    $update_report_table = DB::table('reports')
+                    ->where('transaction_id', $trans_id)
+                    ->update([
+                        'sms_count' => 2
+                    ]);
 
 
                 }
@@ -1153,6 +1166,121 @@ class MpesaController extends Controller
                         $trans_id = $request->input('orderId');
                         $this->b2cRequest($phone_number, $amount, $trans_id);
 
+                        $t = $request->subtotal;
+
+                if($t >= 1 && $t <= 100)
+                {
+                    $tariff = 28;
+                }
+
+                if($t >= 101 && $t <= 499)
+                {
+                    $tariff = 83;
+                }
+
+                if($t >= 500 && $t <= 1000)
+                {
+                    $tariff = 89;
+                }
+
+                if($t >= 1001 && $t <= 1499)
+                {
+                    $tariff = 105;
+                }
+
+                if($t >= 1500 && $t <= 2499)
+                {
+                    $tariff = 110;
+                }
+
+                if($t >= 2500 && $t <= 3499)
+                {
+                    $tariff = 159;
+                }
+
+                if($t >= 3500 && $t <= 4999)
+                {
+                    $tariff = 181;
+                }
+
+                if($t >= 5000 && $t <= 7499)
+                {
+                    $tariff = 232;
+                }
+
+                if($t >= 7500 && $t <= 9999)
+                {
+                    $tariff = 265;
+                }
+
+                if($t >= 10000 && $t <= 14999)
+                {
+                    $tariff = 347;
+                }
+
+                if($t >= 15000 && $t <= 19999)
+                {
+                    $tariff = 370;
+                }
+
+                if($t >= 20000 && $t<= 24999)
+                {
+                    $tariff = 386;
+                }
+
+                if($t >= 25000 && $t <= 29999)
+                {
+                    $tariff = 391;
+                }
+
+                if($t >= 30000 && $t <= 34999)
+                {
+                    $tariff = 396;
+                }
+
+                if($t >= 35000 && $t <= 39999)
+                {
+                    $tariff = 570;
+                }
+
+                if($t >= 40000 && $t <= 44999)
+                {
+                    $tariff = 575;
+                }
+
+                if($t >= 45000 && $t <= 49999)
+                {
+                    $tariff = 580;
+                }
+
+                if($t >= 50000 && $t <= 69999)
+                {
+                    $tariff = 623;
+                }
+
+                if($t >= 70000 && $t <= 150000)
+                {
+                    $tariff = 628;
+                }
+
+                        if($request->subtotal < 1000)
+                        {
+                            $mpesa_charge = 15.27;
+                        }
+                        else{
+                            $mpesa_charge = 22.40;
+                        }
+
+                        $escrow_fee = ($tariff - $mpesa_charge - 2);
+
+                        $update_reports_table = DB::table('reports')
+                        ->where('transaction_id', $request->input('orderId'))
+                        ->update([
+                            'mpesa_charge' => $mpesa_charge,
+                            'escrow_fee' => $escrow_fee,
+                            'transaction_status' => 'completed'
+                        ]);
+
                         return redirect()->route('deliveries')->with('success', 'Delivery Confirmed');
 
                     } else{
@@ -1272,6 +1400,120 @@ class MpesaController extends Controller
             $trans_id = $request->input('orderId');
             $this->b2cRequest($phone_number, $amount, $trans_id);
 
+            $t = $request->subtotal;
+
+                if($t >= 1 && $t <= 100)
+                {
+                    $tariff = 28;
+                }
+
+                if($t >= 101 && $t <= 499)
+                {
+                    $tariff = 83;
+                }
+
+                if($t >= 500 && $t <= 1000)
+                {
+                    $tariff = 89;
+                }
+
+                if($t >= 1001 && $t <= 1499)
+                {
+                    $tariff = 105;
+                }
+
+                if($t >= 1500 && $t <= 2499)
+                {
+                    $tariff = 110;
+                }
+
+                if($t >= 2500 && $t <= 3499)
+                {
+                    $tariff = 159;
+                }
+
+                if($t >= 3500 && $t <= 4999)
+                {
+                    $tariff = 181;
+                }
+
+                if($t >= 5000 && $t <= 7499)
+                {
+                    $tariff = 232;
+                }
+
+                if($t >= 7500 && $t <= 9999)
+                {
+                    $tariff = 265;
+                }
+
+                if($t >= 10000 && $t <= 14999)
+                {
+                    $tariff = 347;
+                }
+
+                if($t >= 15000 && $t <= 19999)
+                {
+                    $tariff = 370;
+                }
+
+                if($t >= 20000 && $t<= 24999)
+                {
+                    $tariff = 386;
+                }
+
+                if($t >= 25000 && $t <= 29999)
+                {
+                    $tariff = 391;
+                }
+
+                if($t >= 30000 && $t <= 34999)
+                {
+                    $tariff = 396;
+                }
+
+                if($t >= 35000 && $t <= 39999)
+                {
+                    $tariff = 570;
+                }
+
+                if($t >= 40000 && $t <= 44999)
+                {
+                    $tariff = 575;
+                }
+
+                if($t >= 45000 && $t <= 49999)
+                {
+                    $tariff = 580;
+                }
+
+                if($t >= 50000 && $t <= 69999)
+                {
+                    $tariff = 623;
+                }
+
+                if($t >= 70000 && $t <= 150000)
+                {
+                    $tariff = 628;
+                }
+
+            if($request->subtotal < 1000)
+            {
+                $mpesa_charge = 15.27;
+            }
+            else{
+                $mpesa_charge = 22.40;
+            }
+
+            $escrow_fee = ($tariff - $mpesa_charge - 4);
+
+            $update_reports_table = DB::table('reports')
+            ->where('transaction_id', $request->input('orderId'))
+            ->update([
+                'mpesa_charge' => $mpesa_charge,
+                'escrow_fee' => $escrow_fee,
+                'transaction_status' => 'terminated'
+            ]);
 
             return view('Delivery.rejectDelivery', compact('trans_details'));
         }

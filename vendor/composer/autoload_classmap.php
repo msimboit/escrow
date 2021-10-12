@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddAmountDueToPaymentsTable' => $baseDir . '/database/migrations/2021_08_23_170148_add_amount_due_to_payments_table.php',
     'AddAmountPaidToPaymentsTable' => $baseDir . '/database/migrations/2021_08_23_163833_add_amount_paid_to_payments_table.php',
+    'AddDeletedAtToUsersTable' => $baseDir . '/database/migrations/2021_10_01_093700_add_deleted_at_to_users_table.php',
     'AddDeliveryTimeToTdetailsTable' => $baseDir . '/database/migrations/2021_06_10_061109_add_delivery_time_to_tdetails_table.php',
     'AddProductImageToTdetailsTable' => $baseDir . '/database/migrations/2021_06_09_130752_add_product_image_to_tdetails_table.php',
     'AddValidatedToUsersTable' => $baseDir . '/database/migrations/2021_09_27_120635_add_validated_to_users_table.php',
@@ -195,6 +196,7 @@ return array(
     'CreateProductTdetailsTable' => $baseDir . '/database/migrations/2020_12_08_105539_create_product_tdetails_table.php',
     'CreateProductsTable' => $baseDir . '/database/migrations/2020_12_02_083615_create_products_table.php',
     'CreateRejectDeliveriesTable' => $baseDir . '/database/migrations/2021_08_25_125229_create_reject_deliveries_table.php',
+    'CreateReportsTable' => $baseDir . '/database/migrations/2021_10_12_131843_create_reports_table.php',
     'CreateSettingsTable' => $baseDir . '/database/migrations/2020_11_26_070306_create_settings_table.php',
     'CreateTdepositsTable' => $baseDir . '/database/migrations/2020_10_15_113034_create_tdeposits_table.php',
     'CreateTdetailsProductTable' => $baseDir . '/database/migrations/2020_12_08_105013_create_tdetails_product_table.php',

@@ -12,6 +12,7 @@ use App\Vendors;
 use App\Clients;
 use App\Product;
 use App\mpesa_token;
+use App\Report;
 use Auth;
 use Log;
 use DB;
@@ -258,17 +259,9 @@ class TransactionController extends Controller
         $user = Auth::user();
         $trns = new Tdetails;
         $trnscode = '';
-        
-        //For Supamall vendors
-        // $vendor = DB::table('ad_supamalluser')
-        //      ->select('id')
-        //      ->where('name','=', $request->vendor_id)
-        //      ->first();
-        //dd($vendor);
 
         $vendor = User::where('phone_number', $user->phone_number)->first();
         $client = User::where('phone_number', $request->client_id)->first();
-        //dd($client);
 
         
         // $email = Auth::user()->email;
@@ -327,31 +320,118 @@ class TransactionController extends Controller
         $trns->product_image = $product_image;
         $trns->save();
 
+        $tariff = 0;
+        $total_amount = $prices_sum;
 
-        // $recipient = $client->phone_number;
-        // $recipient = substr($recipient, -9);
-        // $recipient = '+254' . $recipient;
-        // $message = 'Transaction has been initiated by  the vendor: '.$vendor->business_name. ' for the item: '. $itemdesc.'. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
-        // $this->send_sms($recipient, $message);
+        if($total_amount >= 1 && $total_amount <= 100)
+        {
+            $tariff = 28;
+        }
 
+        if($total_amount >= 101 && $total_amount <= 499)
+        {
+            $tariff = 83;
+        }
 
-        // $phone_number = $client->phone_number;
-        // $phone_number = substr($phone_number, -9);
-        // $phone_number = '0'.$phone_number;
-        // $message = 'Hello '.$client->first_name.', a transaction has been initiated on SupamallEscrow by the vendor ' .$vendor->business_name. ' for the order ID ' .$trns->id . '. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
-        // $SID = 'DEPTHSMS';
-        // Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
+        if($total_amount >= 500 && $total_amount <= 1000)
+        {
+            $tariff = 89;
+        }
 
-        // $number = $client->phone_number;
-        // $number = substr($number, -9);
-        // $number = '0'.$number;
-        // $message = 'Transaction has been initiated by  the vendor: '.$vendor->business_name. ' for the item: '. $itemdesc.'. Head on over to supamallescrow.com/transactions and accept the purchase if you wish so';
-        // $this->send($number, $message, "DEPTHSMS");
+        if($total_amount >= 1001 && $total_amount <= 1499)
+        {
+            $tariff = 105;
+        }
 
+        if($total_amount >= 1500 && $total_amount <= 2499)
+        {
+            $tariff = 110;
+        }
+
+        if($total_amount >= 2500 && $total_amount <= 3499)
+        {
+            $tariff = 159;
+        }
+
+        if($total_amount >= 3500 && $total_amount <= 4999)
+        {
+            $tariff = 181;
+        }
+
+        if($total_amount >= 5000 && $total_amount <= 7499)
+        {
+            $tariff = 232;
+        }
+
+        if($total_amount >= 7500 && $total_amount <= 9999)
+        {
+            $tariff = 265;
+        }
+
+        if($total_amount >= 10000 && $total_amount <= 14999)
+        {
+            $tariff = 347;
+        }
+
+        if($total_amount >= 15000 && $total_amount <= 19999)
+        {
+            $tariff = 370;
+        }
+
+        if($total_amount >= 20000 && $total_amount <= 24999)
+        {
+            $tariff = 386;
+        }
+
+        if($total_amount >= 25000 && $total_amount <= 29999)
+        {
+            $tariff = 391;
+        }
+
+        if($total_amount >= 30000 && $total_amount <= 34999)
+        {
+            $tariff = 396;
+        }
+
+        if($total_amount >= 35000 && $total_amount <= 39999)
+        {
+            $tariff = 570;
+        }
+
+        if($total_amount >= 40000 && $total_amount <= 44999)
+        {
+            $tariff = 575;
+        }
+
+        if($total_amount >= 45000 && $total_amount <= 49999)
+        {
+            $tariff = 580;
+        }
+
+        if($total_amount >= 50000 && $total_amount <= 69999)
+        {
+            $tariff = 623;
+        }
+
+        if($total_amount >= 70000 && $total_amount <= 150000)
+        {
+            $tariff = 628;
+        }
+
+        $report = new Report;
+        $report->transaction_id = $trns->id;
+        $report->transaction_initiation_time = $trns->created_at;
+        $report->tariff = $tariff;
+        $report->goods_price = $prices_sum;
+        $report->save();
 
         return redirect()->route('transactions')->with('success', 'Transaction Added!');
     //}
     }
+
+
+
+
 
 
 

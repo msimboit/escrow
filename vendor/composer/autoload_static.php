@@ -552,6 +552,7 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
     public static $classMap = array (
         'AddAmountDueToPaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2021_08_23_170148_add_amount_due_to_payments_table.php',
         'AddAmountPaidToPaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2021_08_23_163833_add_amount_paid_to_payments_table.php',
+        'AddDeletedAtToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2021_10_01_093700_add_deleted_at_to_users_table.php',
         'AddDeliveryTimeToTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2021_06_10_061109_add_delivery_time_to_tdetails_table.php',
         'AddProductImageToTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2021_06_09_130752_add_product_image_to_tdetails_table.php',
         'AddValidatedToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2021_09_27_120635_add_validated_to_users_table.php',
@@ -739,6 +740,7 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'CreateProductTdetailsTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_08_105539_create_product_tdetails_table.php',
         'CreateProductsTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_02_083615_create_products_table.php',
         'CreateRejectDeliveriesTable' => __DIR__ . '/../..' . '/database/migrations/2021_08_25_125229_create_reject_deliveries_table.php',
+        'CreateReportsTable' => __DIR__ . '/../..' . '/database/migrations/2021_10_12_131843_create_reports_table.php',
         'CreateSettingsTable' => __DIR__ . '/../..' . '/database/migrations/2020_11_26_070306_create_settings_table.php',
         'CreateTdepositsTable' => __DIR__ . '/../..' . '/database/migrations/2020_10_15_113034_create_tdeposits_table.php',
         'CreateTdetailsProductTable' => __DIR__ . '/../..' . '/database/migrations/2020_12_08_105013_create_tdetails_product_table.php',

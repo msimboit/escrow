@@ -95,7 +95,7 @@ class HomeController extends Controller
         // }
         // $highest_vendor = User::where('id', $highest_vendor->vendor_id)->first();
 
-        if(Auth::user()->role == 'vendor' && $vendor_transactions != null)
+        if(Auth::user()->role == 'vendor' && $vendor_transactions == null)
         {
             $transactions_count = 0;
             $total_spent  = 0;

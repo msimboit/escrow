@@ -33,6 +33,8 @@
                 </tr>
             @endforeach
         </table>
+
+        {{ $payments->links() }}
     </div>
   </section>	
 @endsection

@@ -993,7 +993,7 @@ class MpesaController extends Controller
         
 
         //security credentials
-        $securityCredential = "Gavin2015!";
+        $securityCredential = env('MPESA_B2C_INITIATOR_PASSWORD');
 
 
         $try = openssl_public_encrypt($securityCredential, $encrypted, $g2PublicKey, OPENSSL_PKCS1_PADDING);
@@ -1278,6 +1278,8 @@ class MpesaController extends Controller
                         ->update([
                             'mpesa_charge' => $mpesa_charge,
                             'escrow_fee' => $escrow_fee,
+                            'buyer_received_amount' => 'N/A',
+                            'transaction_completion_time' => Carbon::now(),
                             'transaction_status' => 'completed'
                         ]);
 
@@ -1512,6 +1514,7 @@ class MpesaController extends Controller
             ->update([
                 'mpesa_charge' => $mpesa_charge,
                 'escrow_fee' => $escrow_fee,
+                'transaction_completion_time' => Carbon::now(),
                 'transaction_status' => 'terminated'
             ]);
 

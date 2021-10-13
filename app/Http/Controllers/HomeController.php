@@ -126,7 +126,10 @@ class HomeController extends Controller
                             ->limit(1)
                             ->first();
 
-            $highest_buyer = User::where('id', $highest_buyer->client_id)->first();
+            if($highest_buyer != null){
+                $highest_buyer = User::where('id', $highest_buyer->client_id)->first();
+            }
+            
             $sales_amount = [];
             foreach($vendor_successful_deliveries as $vt)
             {

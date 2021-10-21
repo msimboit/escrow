@@ -425,50 +425,27 @@ class TransactionController extends Controller
         $report->goods_price = $prices_sum;
         $report->save();
 
+        $amount = $total_amount + intval($tariff);
+        $phone_number = $client->phone_number;
+        $phone_number = substr($phone_number, -9);
+        $phone_number = '0'.$phone_number;
+        $message = 'Hello '.$client->first_name.'. a transaction has been made on Supamallescrow in the amount of '.$amount.' by the vendor '.$vendor->business_name.' for the Order ID '.$trns->id.'. You can visit supamallescrow.com/transactions to view and confirm it.';
+        $SID = 'DEPTHSMS';
+        Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
+
         return redirect()->route('transactions')->with('success', 'Transaction Added!');
     //}
     }
 
 
 
-
-
-
-
+    /**
+     * Updating the transaction
+     * 
+     * 
+     */
     public function update(Request $request)
     {
-        // $id = $request->id;
-        // $trns = Tdetails::find($id);
-
-        // $user = Auth::user();
-        // $trnscode = '';
-
-        // $trns->vendor_id=$request->vendor_id;
-        // $trns->client_id = $request->client_id;
-        // $trns->transactioncode = $trnscode;
-        // $trns->users_id = $user->id;
-        // $trns->validated = 0;
-        // $trns->deposited = $request->quantities;
-        // $trns->delivered = 0;
-        // $trns->paid = 0;
-        // $trns->closed=0;
-        // $trns->deliveryamount=0;
-        // $trns->transamount=$request->amount;
-        // $trns->deliverylocation='delivery details detemined';
-        // $trns->transdetail=$request->itemdesc;
-        // $trns->suspended=0;
-        // $trns->expired=0;
-        // $trns->void=0;
-        // $trns->delivered=0;
-        // $trns->suspensionremarks='none';
-        // //  $vend->acceptedtnc = $request->acceptedtnc;
-        // $trns->trans_long=0;
-        // $trns->trans_lat=0;
-
-        // $trns->save();
-
-        // return redirect()->route('transactions')->with('success', 'Transaction Updated!');
-
         // dd($request->all());
         $request->validate([
             'client_id' => 'required',

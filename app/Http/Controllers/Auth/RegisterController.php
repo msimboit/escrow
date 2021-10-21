@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'phone_number' => ['required', 'unique:users', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'role' => ['required', 'string'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
             // 'g-recaptcha-response' => ['required', 'captcha'],
         ]);
     }
@@ -83,7 +83,7 @@ class RegisterController extends Controller
         //                 ->withErrors($validator)
         //                 ->withInput();
         // }
-        
+
         $middle_name = $data['middle_name'] ? $data['middle_name'] : ' ';
         return User::create([
             'first_name' => $data['first_name'],

@@ -148,7 +148,7 @@
                                         @enderror
                                     </div>
 									<div class="form-group">
-										<label for="password" class="input-label">Password</label>
+										<label for="password" class="input-label">Password (or PIN)</label>
 										<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="" required="required" autocomplete="new-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -157,7 +157,7 @@
                                         @enderror
 									</div>
 									<div class="form-group">
-										<label for="password-confirm" class="input-label">Confirm Password</label>
+										<label for="password-confirm" class="input-label">Confirm Password (or PIN)</label>
 										<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required="required" autocomplete="new-password">
 									</div>
 

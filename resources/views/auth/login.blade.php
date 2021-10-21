@@ -71,7 +71,7 @@
                                     @enderror
                                 </div>
 								<div class="form-group">
-									<label for="password" class="input-label">Password</label>
+									<label for="password" class="input-label">Password (or PIN)</label>
 									<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="" required="required">
 									<!-- <i toggle="#password" class="fa fa-fw fa-eye toggle-password field-icon"></i> -->
                                     @error('password')

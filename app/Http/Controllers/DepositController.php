@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Deposits;
 use App\Tdetails;
 
@@ -25,6 +26,9 @@ class DepositController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('admin', auth()->user())){
+            abort(403);
+        }
         $arr['deposits'] = Tdetails::where('paid', 1)->orderBy('created_at', 'desc')->get();
         return view('Deposits.index')->with($arr);
     }

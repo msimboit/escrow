@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Mail\ThankyouMail;
 use Illuminate\Support\Facades\Mail;
 use App\Jobs\Sms;
@@ -50,10 +51,9 @@ class TransactionController extends Controller
 
     public function create()
     {
-            //From Supamall
-            // $vendors = DB::table('ad_supamalluser')->select('name')->pluck('name');
-            // // $vendors = DB::table('ad_supamallproduct') ->select('id','user_id', 'product_name','phone')
-            // // ->get();
+        if(Gate::denies('perform_transaction', auth()->user())){
+            abort(403);
+        }
 
             $vendors = User::where('role', 'vendor')->get();
             // $clients = User::where('role', 'client')->get();
@@ -208,6 +208,10 @@ class TransactionController extends Controller
 
     public function edit($id)
     {
+        if(Gate::denies('perform_transaction', auth()->user())){
+            abort(403);
+        }
+
         $trans = Tdetails::where('id', $id)->first();
         $vendors = User::where('id', $trans->vendor_id)->get();
         $clients = User::where('role' ,'!=', 'admin')
@@ -227,7 +231,10 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        if(Gate::denies('perform_transaction', auth()->user())){
+            abort(403);
+        }
+
         $request->validate([
             'client_id' => 'required',
             'itemdesc' => 'required',
@@ -237,7 +244,6 @@ class TransactionController extends Controller
             'deliveryfee' => 'required'
         ]);
 
-        // dd($request->all());
         $itemdesc = implode (". ", $request->input('itemdesc',[]));
         $quantities = implode (" ", $request->input('quantities',[]));
         $prices = implode (" ", $request->input('prices',[])); 
@@ -446,6 +452,9 @@ class TransactionController extends Controller
      */
     public function update(Request $request)
     {
+        if(Gate::denies('perform_transaction', auth()->user())){
+            abort(403);
+        }
         // dd($request->all());
         $request->validate([
             'client_id' => 'required',
@@ -591,6 +600,10 @@ class TransactionController extends Controller
 
      public function completed()
     {
+        if(Gate::denies('admin', auth()->user())){
+            abort(403);
+        }
+
     	$transactions = Tdetails::where('closed', 1)->orderBy('created_at', 'desc')->get();
 
         return view('transactions.completed', compact('transactions'));

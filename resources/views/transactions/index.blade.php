@@ -48,7 +48,11 @@
                 <th>Action</th>
             </tr>
             @foreach($transactions as $tr)
-                @if(Auth::user()->phone_number == $tr->client_phone || Auth::user()->id == $tr->vendor_id || Auth::user()->role == 'admin' )
+                @php
+                  $phone_number = substr(Auth::user()->phone_number, -9);
+                  $phone_number = 0 . $phone_number;
+                @endphp
+                @if($phone_number == $tr->client_phone || Auth::user()->id == $tr->vendor_id || Auth::user()->role == 'admin' )
                 <tr>
                     <td>{{ $tr->id }}</td>
                     <td>{{ $tr->transdetail }}</td>

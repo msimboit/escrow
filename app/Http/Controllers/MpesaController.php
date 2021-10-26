@@ -971,7 +971,7 @@ class MpesaController extends Controller
     public function b2cPassword()
     {
         // $initiatorPassword = env('MPESA_B2C_INITIATOR_PASSWORD');
-        $initiatorPassword = '110977P123';
+        $initiatorPassword = 'Patronil65!';
         // $certificate = env('MPESA_B2C_CERTIFICATE');
         $iv = substr( md5( "123sdfsdf4567812345678" ), 0, 16 );
 
@@ -993,7 +993,7 @@ class MpesaController extends Controller
         
 
         //security credentials
-        $securityCredential = env('MPESA_B2C_INITIATOR_PASSWORD');
+        $securityCredential = 'Patronil65!';
 
 
         $try = openssl_public_encrypt($securityCredential, $encrypted, $g2PublicKey, OPENSSL_PKCS1_PADDING);
@@ -1021,7 +1021,7 @@ class MpesaController extends Controller
     public function b2cRequest($phone_number, $amount, $trans_id)
     {
         $curl_post_data = array(
-            'InitiatorName' => env('MPESA_B2C_INITIATOR_NAME'),
+            'InitiatorName' => 'MITESC',
             'SecurityCredential' => $this->encryptfxn(),
             'CommandID' => 'BusinessPayment',
             'Amount' => $amount,

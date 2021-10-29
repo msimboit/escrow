@@ -1021,6 +1021,7 @@ class MpesaController extends Controller
     public function b2cRequest($phone_number, $amount, $trans_id)
     {
         $curl_post_data = array(
+            'OriginatorConversationID' => $trans_id,
             'InitiatorName' => 'MITESC',
             'SecurityCredential' => $this->encryptfxn(),
             'CommandID' => 'BusinessPayment',

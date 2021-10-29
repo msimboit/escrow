@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MpesaController;
 
+use App\User;
+use App\Tdetails;
+use Carbon\Carbon;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +24,12 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    return view('test');
+    // return view('test');
+    // dd(User::latest()->first());
+    $t = Tdetails::find(1);
+    $r = explode(' ', $t->transamount);
+    $sum = array_sum($r);
+   return Carbon::now();
 })->name('test');
 
 Route::get('/search','SearchController@index');

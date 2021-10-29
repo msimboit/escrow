@@ -102,8 +102,8 @@
 
                                     <div class="form-group">
                             <label for="role" class="input-label">Select Role:</label>
-                            <select class="form-control" name="role" id="change">
-                                <option>Select role</option>
+                            <select class="form-control" name="role" id="change" required>
+                                <option value="">Select role</option>
                                 <option value="vendor" data-toggle="modal" data-target="#myModal"> 
                                     Vendor
                                 </option>

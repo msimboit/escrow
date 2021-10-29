@@ -1081,12 +1081,37 @@ class MpesaController extends Controller
         $receiver_details = $dets[5];
         $amount = $dets[1];
 
+        $created = Carbon::now();
         $store_settlement = DB::table('settlements')
                                             ->insert([
                                                 'amount' => $amount,
                                                 'receiver_details' => $receiver_details,
-                                                'mpesacode' => $receipt_number
+                                                'mpesacode' => $receipt_number,
+                                                'created_at' => $created
                                             ]);
+        
+        // $array = explode(' ', $receiver_details);
+        // $num = intval($array[0]);
+
+        // $vendor = User::where('phone_number', 'like', $num)->latest()->first();
+        // $orders = Tdetails::where('vendor_id', $vendor->id)
+        //                     ->where('paid', 1)
+        //                     ->where('delivered', 1)
+        //                     ->where('closed', 1)
+        //                     ->where('created_at', '>', Carbon::now()->subDay())
+        //                     ->first();
+
+        // $trans_amount = explode(' ', $t->transamount);
+
+        // $update_reports_table = DB::table('reports')
+        // ->where('transaction_id', $orderId)
+        // ->where('escrow_sent_mpesa_code', null)
+        // ->update([
+        //     'vendor_received_amount' => $amount,
+        //     'escrow_sent_mpesa_code' => $receipt_number,
+        // ]);
+
+
         return [
             'ResultCode' => 0,
             'ResultDesc' => 'Accept Service',

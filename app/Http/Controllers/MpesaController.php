@@ -1055,7 +1055,8 @@ class MpesaController extends Controller
         Log::info($res);
         Log::info('ID: ');
         $ids = explode( ',', $res );
-        Log::info($ids[1]->OriginatorConversationID);
+        $its = explode( ':', $ids[1] );
+        Log::info($its[1]);
         return $res;
     }
 

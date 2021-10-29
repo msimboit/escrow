@@ -1054,8 +1054,8 @@ class MpesaController extends Controller
         $res = $curl_response;
         Log::info($res);
         Log::info('ID: ');
-        $ids = (array)$res;
-        Log::info($ids);
+        $ids = explode( ',', $res );
+        Log::info($ids[0]);
         return $res;
     }
 

@@ -1088,8 +1088,9 @@ class MpesaController extends Controller
         }
         // Log::info('B2C Result Parameters: '.implode(",",$dets));
         Log::info('ID: ');
-        Log::info($request->Result['OriginatorConversationID']);
+        // Log::info($request->Result['OriginatorConversationID']);
         $callback_id = (string)$request->Result['OriginatorConversationID'];
+        Log::info($callback_id);
 
         $receipt_number = $dets[3];
         $transaction_date = $dets[7];
@@ -1106,7 +1107,7 @@ class MpesaController extends Controller
                                             ]);
 
         $update_reports_table = DB::table('reports')
-        ->where('OCI', $callback_id)
+        ->where('OCI', '=', $callback_id)
         ->update([
             'escrow_sent_mpesa_code' => $receipt_number,
             'vendor_received_amount' => $amount

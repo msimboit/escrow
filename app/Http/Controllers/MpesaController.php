@@ -1054,7 +1054,8 @@ class MpesaController extends Controller
         $res = $curl_response;
         Log::info($res);
         Log::info('ID: ');
-        Log::info($res->OriginatorConversationID);
+        $ids = (array)$res;
+        Log::info($ids);
         return $res;
     }
 

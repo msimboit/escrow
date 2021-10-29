@@ -1091,6 +1091,8 @@ class MpesaController extends Controller
         // Log::info($request->Result['OriginatorConversationID']);
         $callback_id = strval($request->Result['OriginatorConversationID']);
         Log::info($callback_id);
+        $rep = DB::table('reports')->where('OCI', '=', $callback_id)->first();
+        Log::info($rep);
 
         $receipt_number = $dets[3];
         $transaction_date = $dets[7];

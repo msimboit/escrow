@@ -1109,7 +1109,7 @@ class MpesaController extends Controller
         ->where('OCI', $callback_id)
         ->update([
             'escrow_sent_mpesa_code' => $receipt_number,
-            'vendor_received' => $amount
+            'vendor_received_amount' => $amount
         ]);
 
         return [

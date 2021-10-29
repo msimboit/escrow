@@ -1089,6 +1089,7 @@ class MpesaController extends Controller
         // Log::info('B2C Result Parameters: '.implode(",",$dets));
         Log::info('ID: ');
         Log::info($request->Result['OriginatorConversationID']);
+        $callback_id = (string)$request->Result['OriginatorConversationID'];
 
         $receipt_number = $dets[3];
         $transaction_date = $dets[7];
@@ -1103,28 +1104,13 @@ class MpesaController extends Controller
                                                 'mpesacode' => $receipt_number,
                                                 'created_at' => $created
                                             ]);
-        
-        // $array = explode(' ', $receiver_details);
-        // $num = intval($array[0]);
 
-        // $vendor = User::where('phone_number', 'like', $num)->latest()->first();
-        // $orders = Tdetails::where('vendor_id', $vendor->id)
-        //                     ->where('paid', 1)
-        //                     ->where('delivered', 1)
-        //                     ->where('closed', 1)
-        //                     ->where('created_at', '>', Carbon::now()->subDay())
-        //                     ->first();
-
-        // $trans_amount = explode(' ', $t->transamount);
-
-        // $update_reports_table = DB::table('reports')
-        // ->where('transaction_id', $orderId)
-        // ->where('escrow_sent_mpesa_code', null)
-        // ->update([
-        //     'vendor_received_amount' => $amount,
-        //     'escrow_sent_mpesa_code' => $receipt_number,
-        // ]);
-
+        $update_reports_table = DB::table('reports')
+        ->where('OCI', $callback_id)
+        ->update([
+            'escrow_sent_mpesa_code' => $receipt_number,
+            'vendor_received' => $amount
+        ]);
 
         return [
             'ResultCode' => 0,

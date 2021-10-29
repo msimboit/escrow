@@ -1089,7 +1089,7 @@ class MpesaController extends Controller
         // Log::info('B2C Result Parameters: '.implode(",",$dets));
         Log::info('ID: ');
         // Log::info($request->Result['OriginatorConversationID']);
-        $callback_id = (string)$request->Result['OriginatorConversationID'];
+        $callback_id = stringval($request->Result['OriginatorConversationID']);
         Log::info($callback_id);
 
         $receipt_number = $dets[3];

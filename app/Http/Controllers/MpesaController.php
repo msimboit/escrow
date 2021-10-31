@@ -1055,7 +1055,7 @@ class MpesaController extends Controller
         Log::info($res);
         Log::info('ID: ');
         $ids = explode( ',', $res );
-        $its = explode( ':', $ids[1] );
+        $its = explode( ': ', $ids[1] );
         Log::info($its[1]);
 
         $update_reports_table = DB::table('reports')

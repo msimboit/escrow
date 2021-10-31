@@ -1056,12 +1056,13 @@ class MpesaController extends Controller
         Log::info('ID: ');
         $ids = explode( ',', $res );
         $its = explode( ': ', $ids[1] );
-        Log::info($its[1]);
+        $it = str_replace('"', "", $its[1]);
+        Log::info($it[1]);
 
         $update_reports_table = DB::table('reports')
                     ->where('transaction_id', $trans_id)
                     ->update([
-                        'OCI' => $its[1],
+                        'OCI' => $it,
                     ]);
 
         return $res;

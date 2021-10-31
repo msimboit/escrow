@@ -1090,10 +1090,10 @@ class MpesaController extends Controller
         // Log::info('B2C Result Parameters: '.implode(",",$dets));
         Log::info('ID: ');
         // Log::info($request->Result['OriginatorConversationID']);
-        $callback_id = strval($request->Result['OriginatorConversationID']);
+        $callback_id = $request->Result['OriginatorConversationID'];
         Log::info($callback_id);
         $rep = DB::table('reports')->where('OCI', $callback_id)->first();
-        Log::info($rep);
+        Log::info($rep->transaction_id);
 
         $receipt_number = $dets[3];
         $transaction_date = $dets[7];

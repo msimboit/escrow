@@ -300,19 +300,6 @@ class MpesaController extends Controller
         // $dateFormat = date('Y-m-d H:i:s',$date);
 
         $trans_date = new DateTime($transaction_date);
-
-        // $user_latest_payment = DB::table('payments')
-        //                         ->where('phoneno', $phone_number)
-        //                         ->orderBy('id', 'DESC')
-        //                         ->first();
-
-        // $user_latest_payment = Payments::where('transactioncode','=', $trans_id)
-        //                                 ->first();
-
-        // Log::info('User Payment Details: '.$user_latest_payment);
-
-        // $user_payment_time = new DateTime($user_latest_payment->created_at);
-
         
         //Check if customer paid successfully
         if($receipt_number == ''|| $receipt_number == null ) {
@@ -321,6 +308,113 @@ class MpesaController extends Controller
 
             //Check whether it's paybill or stk push
             if($phone_number){
+                    $tdetails = DB::table('tdetails')->where('id', $trans_id)->first();
+                    Log::info("Details amount: ");
+                    $t = $tdetails->transamount;
+                    Log::info($t);
+
+                    if($t >= 1 && $t <= 100)
+                    {
+                        $tariff = 28;
+                    }
+
+                    if($t >= 101 && $t <= 499)
+                    {
+                        $tariff = 83;
+                    }
+
+                    if($t >= 500 && $t <= 1000)
+                    {
+                        $tariff = 89;
+                    }
+
+                    if($t >= 1001 && $t <= 1499)
+                    {
+                        $tariff = 105;
+                    }
+
+                    if($t >= 1500 && $t <= 2499)
+                    {
+                        $tariff = 110;
+                    }
+
+                    if($t >= 2500 && $t <= 3499)
+                    {
+                        $tariff = 159;
+                    }
+
+                    if($t >= 3500 && $t <= 4999)
+                    {
+                        $tariff = 181;
+                    }
+
+                    if($t >= 5000 && $t <= 7499)
+                    {
+                        $tariff = 232;
+                    }
+
+                    if($t >= 7500 && $t <= 9999)
+                    {
+                        $tariff = 265;
+                    }
+
+                    if($t >= 10000 && $t <= 14999)
+                    {
+                        $tariff = 347;
+                    }
+
+                    if($t >= 15000 && $t <= 19999)
+                    {
+                        $tariff = 370;
+                    }
+
+                    if($t >= 20000 && $t<= 24999)
+                    {
+                        $tariff = 386;
+                    }
+
+                    if($t >= 25000 && $t <= 29999)
+                    {
+                        $tariff = 391;
+                    }
+
+                    if($t >= 30000 && $t <= 34999)
+                    {
+                        $tariff = 396;
+                    }
+
+                    if($t >= 35000 && $t <= 39999)
+                    {
+                        $tariff = 570;
+                    }
+
+                    if($t >= 40000 && $t <= 44999)
+                    {
+                        $tariff = 575;
+                    }
+
+                    if($t >= 45000 && $t <= 49999)
+                    {
+                        $tariff = 580;
+                    }
+
+                    if($t >= 50000 && $t <= 69999)
+                    {
+                        $tariff = 623;
+                    }
+
+                    if($t >= 70000 && $t <= 150000)
+                    {
+                        $tariff = 628;
+                    }
+
+                    $amount_to_be_paid = $t + $tariff;
+                    if($amount != $amount_to_be_paid){
+                        $balance = $amount - $amount_to_be_paid;
+                        Log::info("Balance Remaining: ");
+                        Log::info($balance);
+                    }
+                    
                     $update_mpesa_code = DB::table('payments')
                                         ->where('transactioncode', $trans_id)
                                         ->update([

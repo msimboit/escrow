@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>SupamallEscrow | Login and Register </title>
+	<title>SupamallEscrow | Forgot Password </title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -56,54 +56,22 @@
 				</div>
 				<div class="col-md-6 col-12 order-md-1 fxt-bg-color">
 					<div class="fxt-content">
-						<h2>Login</h2>
-							@if (session('success'))
-								<div class="alert alert-success" role="alert">
-									{{ session('success') }}
-								</div>
-							@endif
-
-							@if (session('alert'))
-								<div class="alert alert-danger" role="alert">
-									{{ session('alert') }}
-								</div>
-							@endif
+						<h2>Forgot Password</h2>
 						<div class="fxt-form">
-							<form method="POST" action="{{ route('login') }}">
+							<form method="POST" action="{{ route('otpSend') }}">
                                 @csrf
 
 								<div class="form-group">
-									<label for="email" class="input-label">Email Address</label>
-									<input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Your Email" required="required" autofocus>
-                                    @error('email')
+									<label for="phone_number" class="input-label">Phone Number</label>
+									<input type="text" id="phone_number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" placeholder="Your Phone Number" required="required" autofocus>
+                                    @error('phone_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
 								<div class="form-group">
-									<label for="password" class="input-label">Password (or PIN)</label>
-									<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="" required="required">
-									<!-- <i toggle="#password" class="fa fa-fw fa-eye toggle-password field-icon"></i> -->
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-								<div class="form-group">
-									<div class="fxt-checkbox-area">
-										<div class="checkbox">
-											<input id="checkbox1" type="checkbox" name="remember" id="remember" value="{{ old('remember') ? 'checked' : ''}}" >
-											<label for="checkbox1">Keep me logged in</label>
-										</div>
-                                        @if (Route::has('password.request'))
-										<a href="{{ route('otpRequest') }}" class="switcher-text">Forgot Password</a>
-                                        @endif 
-									</div>
-								</div>
-								<div class="form-group">
-									<button type="submit" class="fxt-btn-fill">Log in</button>
+									<button type="submit" class="fxt-btn-fill">Get Password</button>
 								</div>
 							</form>
 						</div>

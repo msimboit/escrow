@@ -279,6 +279,7 @@ class MpesaController extends Controller
         // Log::info(implode( ",", $request->all() ));
         Log::info('Next Confirmation Log: ');
         Log::info($request->all());
+        $transaction_type = $request['TransactionType'];
         $receipt_number = $request['TransID'];
         $transaction_date = $request['TransTime'];
         $firstName = $request['FirstName'];
@@ -409,12 +410,13 @@ class MpesaController extends Controller
                     }
 
                     $amount_to_be_paid = $t + $tariff;
+
                     if($amount != $amount_to_be_paid){
                         $balance = $amount - $amount_to_be_paid;
                         Log::info("Balance Remaining: ");
                         Log::info($balance);
                     }
-                    
+
                     $update_mpesa_code = DB::table('payments')
                                         ->where('transactioncode', $trans_id)
                                         ->update([
@@ -480,7 +482,7 @@ class MpesaController extends Controller
                     $update_report_table = DB::table('reports')
                     ->where('transaction_id', $trans_id)
                     ->update([
-                        'sms_count' => 2
+                        'sms_count' => 3
                     ]);
 
 

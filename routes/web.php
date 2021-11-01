@@ -23,6 +23,10 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
+Route::view('otp', 'auth.passwords.otp')->name('otpRequest');
+Route::post('otpSend', 'Auth\LoginController@otpSend')->name('otpSend');
+Route::post('changePassword', 'HomeController@changePassword')->name('changePassword');
+
 Route::get('/test', function () {
     // return view('test');
     // dd(User::latest()->first());

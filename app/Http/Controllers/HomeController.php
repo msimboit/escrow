@@ -208,4 +208,24 @@ class HomeController extends Controller
 
         return redirect()->back()->with('', 'User profile deleted successfully!');
     }
+
+    /**
+     * Change User Password from Client side
+     */
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        if(!Hash::check($request->old_password, $user->password))
+        {
+            return redirect('profile')->with('alert', 'Old Password did not match!');
+        }
+
+        $password = $request->new_password;
+        $user->password = Hash::make($password);
+        $user->save();
+
+        return redirect('profile')->with('success', 'Password Changed Successfully!');
+    }
+
 }

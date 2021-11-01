@@ -48,7 +48,6 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="settings">
-                    <form class="form-horizontal">
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-sm-10">
@@ -89,7 +88,39 @@
                           <button type="submit" class="btn btn-danger">Edit Profile</button>
                         </div>
                       </div> -->
-                    </form>
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                        <button type="button" class="btn btn-info btn" data-toggle="modal" data-target="#password-modal">Change Password</button>
+                        </div>
+                      </div>
+
+                      <div id="password-modal" class="modal hide fade in" data-backdrop="false" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h3>Change Your Password</h3>
+                            </div>
+                            <form method="POST" action="{{ route('changePassword') }}" id="contactForm" name="contact" role="form">
+                              @csrf
+                              <div class="modal-body">				
+                                <div class="form-group">
+                                  <label for="old_password">Old Password(Or One-Time-Password)</label>
+                                  <input type="text" name="old_password" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                  <label for="new_password">New Password</label>
+                                  <input type="password" name="new_password" class="form-control" required>
+                                </div>			
+                              </div>
+                              <div class="modal-footer">					
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-success" id="submit">
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    
                   </div>
                   <!-- /.tab-pane -->
                 </div>

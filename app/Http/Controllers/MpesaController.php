@@ -393,11 +393,12 @@ class MpesaController extends Controller
                 }
                 else{
                     //Paybill  Details
+                    if(stripos($trans_id, '-')){
+                                    $trans_id = str_replace("-", " ", $trans_id);
+                                    Log::info("Paybill Trans ID: ");
+                                    Log::info($trans_id);
+                                }
                 }
-
-                // $message = "Mpesa Payment Succesfully Received.";              
-                // $this->sendBulkSMS( $phone_number, $message );                        
-
                 return response()->json([
                         'ResultCode' => 0,
                         'ResultDesc' => "Accepted",

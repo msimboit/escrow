@@ -26,14 +26,14 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('perform_transaction', function($user) {
-            if($user->role == 'admin' || $user->role == 'vendor'){
+            if($user->role == 'admin' || $user->role == 'vendor' || $user->role == 'customer_care'){
                 return true;
             }
             return false;
         });
 
         Gate::define('admin', function($user) {
-            if($user->role == 'admin'){
+            if($user->role == 'admin' || $user->role == 'customer_care'){
                 return true;
             }
             return false;

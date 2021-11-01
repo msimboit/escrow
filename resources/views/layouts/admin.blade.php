@@ -265,7 +265,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
-          @if(Auth::user()->role === 'admin')
+          @if(Auth::user()->role === 'admin' || Auth::user()->role === 'customer_care')
           <li class="nav-item mb-2">
             <strong><a href="{{ route('vendors') }}" class="nav-link" style="background-color:#ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
@@ -299,7 +299,7 @@
               </p>
             </a></strong>
           </li>
-          @if(Auth::user()->role === 'admin')        
+          @if(Auth::user()->role === 'admin' || Auth::user()->role === 'customer_care')        
           <li class="nav-item mb-2">
             <strong><a href="{{ route('deposits') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
@@ -311,7 +311,7 @@
           </li>
           @endif
 
-          @if(Auth::user()->role === 'admin')
+          @if(Auth::user()->role === 'admin' || Auth::user()->role === 'customer_care')
           <li class="nav-item mb-2">
             <strong><a href="{{ route('payments') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>
@@ -341,7 +341,7 @@
             </a></strong>
           </li>
 
-          @if(Auth::user()->role === 'admin')
+          @if(Auth::user()->role === 'admin' || Auth::user()->role === 'customer_care')
           <li class="nav-item mb-2">
             <strong><a href="{{ route('completed') }}" class="nav-link" style="background-color: #ee0e6c; !important">
               <i class="far fa-circle nav-icon"></i>

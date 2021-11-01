@@ -33,7 +33,7 @@
         </p>
         @endif -->
 
-        @if(Auth::user()->role == 'vendor' || Auth::user()->role == 'admin')
+        @if(Auth::user()->role == 'vendor' || Auth::user()->role == 'admin' || Auth::user()->role == 'customer_care')
         <a href="{{ route('addtransactions') }}" class="btn btn-primary">Add New Transaction</a>
         @endif
        
@@ -52,7 +52,7 @@
                   $phone_number = substr(Auth::user()->phone_number, -9);
                   $phone_number = 0 . $phone_number;
                 @endphp
-                @if($phone_number == $tr->client_phone || Auth::user()->id == $tr->vendor_id || Auth::user()->role == 'admin' )
+                @if($phone_number == $tr->client_phone || Auth::user()->id == $tr->vendor_id || Auth::user()->role == 'admin' || Auth::user()->role == 'customer_care' )
                 <tr>
                     <td>{{ $tr->id }}</td>
                     <td>{{ $tr->transdetail }}</td>

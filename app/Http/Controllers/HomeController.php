@@ -37,6 +37,12 @@ class HomeController extends Controller
         {
             return redirect()->route('transactions');
         }
+
+        if(Auth::user()->role == 'customer_care')
+        {
+            return redirect()->route('transactions');
+        }
+
         $arr['transactions'] = Tdetails::where('void','=',0) 
                                         ->get();
         $users = User::all();

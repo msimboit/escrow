@@ -28,7 +28,7 @@
                 <th>Action</th>
             </tr>
             @foreach($rejections as $r)
-                @if(Auth::user()->phone_number == $r->clientNumber || Auth::user()->phone_number == $r->vendorNumber || Auth::user()->role == 'admin' )
+                @if(Auth::user()->phone_number == $r->clientNumber || Auth::user()->phone_number == $r->vendorNumber || Auth::user()->role == 'admin' || Auth::user()->role === 'customer_care' )
                 <tr>
                     <td>{{ $r->clientName }}</td>
                     <td>{{ $r->clientNumber }}</td>

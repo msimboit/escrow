@@ -41,7 +41,7 @@
                 <th>Action</th>
             </tr>
             @foreach($deliveries as $d)
-                @if(Auth::user()->id == $d->client_id || Auth::user()->id == $d->vendor_id || Auth::user()->role == 'admin' )
+                @if(Auth::user()->id == $d->client_id || Auth::user()->id == $d->vendor_id || Auth::user()->role == 'admin' || Auth::user()->role === 'customer_care' )
                 <tr>
                     <td>{{ \App\User::where('id', $d->client_id)->pluck('first_name')->first() }}</td>
                     <td>{{ \App\User::where('id', $d->client_id)->pluck('phone_number')->first() }}</td>

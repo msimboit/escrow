@@ -88,7 +88,7 @@
                           <button type="submit" class="btn btn-danger">Edit Profile</button>
                         </div>
                       </div> -->
-                      @if (!Auth::user->role =='admin' || !Auth::user()->role === 'customer_care')
+                      @if (Auth::user->role =='client' || Auth::user()->role == 'vendor')
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                         <button type="button" class="btn btn-info btn" data-toggle="modal" data-target="#password-modal">Change Password</button>

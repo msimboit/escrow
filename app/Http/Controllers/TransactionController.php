@@ -75,19 +75,16 @@ class TransactionController extends Controller
     
     }
 
-    public function show($id)
+    public function show(Tdetails $transaction)
     {
-        $arr = Tdetails::where('id', $id)->first();
-    
-        $vdetails = User::where('id', $arr->vendor_id)->first();
-        
-        $cdetails = User::where('phone_number', $arr->client_phone)->first();
+        $vdetails = User::where('id', $transaction->vendor_id)->first();
+        $cdetails = User::where('phone_number', $transaction->client_phone)->first();
 
-        $itemdesc = explode(". ", $arr->transdetail);
-        $quantities = explode(" ", $arr->deposited);
-        $prices = explode(" ", $arr->transamount);
-        $product_image = explode(" & ", $arr->product_image);
-        $total_amount = (array_sum($prices)) + ($arr->deliveryamount);
+        $itemdesc = explode(". ", $transaction->transdetail);
+        $quantities = explode(" ", $transaction->deposited);
+        $prices = explode(" ", $transaction->transamount);
+        $product_image = explode(" & ", $transaction->product_image);
+        $total_amount = (array_sum($prices)) + ($transaction->deliveryamount);
         
         $collection = collect($itemdesc);
 
@@ -108,7 +105,9 @@ class TransactionController extends Controller
             return redirect()->route('login');
         }
 
-        return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff',  'combined', 'complete_check'))->with($id);
+        $arr = $transaction;
+        
+        return view('transactions.show', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff',  'combined', 'complete_check'));
     }
 
     public function edit($id)

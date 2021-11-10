@@ -26,7 +26,7 @@ Route::post('v1/escrow/transaction/validation', 'MpesaController@mpesaValidation
 Route::post('v1/escrow/transaction/confirmation', 'MpesaController@confirmationMpesa')->name("mpesaConfirmation");
 Route::post('v1/escrow/register/url', 'MpesaController@mpesaRegisterUrls');
 
-//Routes for B2C transactions
+//Routes for B2C callbacks
 Route::post('v1/escrow/b2c/queue');
 Route::post('v1/escrow/b2c/result', 'MpesaController@b2cCallback');
 

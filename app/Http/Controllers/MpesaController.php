@@ -98,7 +98,7 @@ class MpesaController extends Controller
 
 
 
-    public function customerMpesaSTKPush($phone_number, $amount, $trans_id){
+    private function customerMpesaSTKPush($phone_number, $amount, $trans_id){
         // $phone_number = 254700682679;
         // $amount = 1;
         // $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
@@ -135,10 +135,6 @@ class MpesaController extends Controller
         Log::info($curl_response);
         return $curl_response;
         }
-
-
-
-
 
     /**
      * Generate an access token for every stk push
@@ -599,10 +595,6 @@ class MpesaController extends Controller
                    
     }
 
-    public function validationMpesa( Request $request ){
-        Log::info( "validation mpesa" . $request );
-    }
-
     public function registerMpesaUrls(){
 
         $curl = curl_init();
@@ -755,12 +747,7 @@ class MpesaController extends Controller
         } 
 
         return $number;
-
     }
-
-
-
-
 
     public function transactionpayment( Request $request ){
         if($request->itemCheckbox == null || $request->itemCheckbox == '')

@@ -69,10 +69,10 @@ Route::middleware('auth:sanctum', 'throttle:3,1')->group(function (){
     Route::middleware('throttle:10,1')->post('/transactions/store', 'TransactionController@store')->name('storetransactions');
     Route::middleware('throttle:5,1')->post('/transactions/update/{id}', 'TransactionController@update')->name('updatetransactions');
     Route::middleware('throttle:3,1')->post('/transactions/delete/{id}', 'TransactionController@delete')->name('deletetransaction');
-    Route::get('/transactions/show/{id}', 'TransactionController@show')->name('showtransactions');
+    Route::get('/transactions/show/{transaction}', 'TransactionController@show')->name('showtransactions');
     Route::get('/transactions/receipt', 'TransactionController@generatereceipt')->name('generatereceipt');
     Route::get('/transactions/sms', 'TransactionController@send_sms')->name('sms');
-    Route::middleware('throttle:10,1')->post('/transactions/payment', 'MpesaController@transactionpayment')->name('transactionpayment');
+    Route::middleware('throttle:5,1')->post('/transactions/payment', 'MpesaController@transactionpayment')->name('transactionpayment');
     Route::get('/transactions/completed', 'TransactionController@completed')->name('completed');
     Route::get('/transactions/statements/{id}', 'TransactionController@statements')->name('statements');
     Route::get('/transactions/statementInfo/{id}', 'TransactionController@statementInfo')->name('statementInfo');

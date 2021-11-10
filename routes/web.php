@@ -36,7 +36,7 @@ Auth::routes();
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::middleware('auth:sanctum', 'throttle:3,1')->group(function (){
+Route::middleware('auth:sanctum')->group(function (){
 
     Route::get('/', function () {
         return redirect()->route('home');

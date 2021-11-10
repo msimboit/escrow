@@ -127,6 +127,7 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
             'Laravel\\Ui\\' => 11,
             'Laravel\\Tinker\\' => 15,
             'Laravel\\Socialite\\' => 18,
+            'Laravel\\Sanctum\\' => 16,
             'Laravel\\Horizon\\' => 16,
         ),
         'I' => 
@@ -415,6 +416,10 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'Laravel\\Socialite\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/socialite/src',
+        ),
+        'Laravel\\Sanctum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/sanctum/src',
         ),
         'Laravel\\Horizon\\' => 
         array (
@@ -1409,6 +1414,7 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'Faker\\Provider\\nl_BE\\Payment' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/nl_BE/Payment.php',
         'Faker\\Provider\\nl_BE\\Person' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/nl_BE/Person.php',
         'Faker\\Provider\\nl_BE\\PhoneNumber' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/nl_BE/PhoneNumber.php',
+        'Faker\\Provider\\nl_BE\\Text' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/nl_BE/Text.php',
         'Faker\\Provider\\nl_NL\\Address' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/nl_NL/Address.php',
         'Faker\\Provider\\nl_NL\\Color' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/nl_NL/Color.php',
         'Faker\\Provider\\nl_NL\\Company' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/nl_NL/Company.php',
@@ -2965,6 +2971,23 @@ class ComposerStaticInitcef02955e6e6b840c580b6584231addb
         'Laravel\\Horizon\\WaitTimeCalculator' => __DIR__ . '/..' . '/laravel/horizon/src/WaitTimeCalculator.php',
         'Laravel\\Horizon\\WorkerCommandString' => __DIR__ . '/..' . '/laravel/horizon/src/WorkerCommandString.php',
         'Laravel\\Horizon\\WorkerProcess' => __DIR__ . '/..' . '/laravel/horizon/src/WorkerProcess.php',
+        'Laravel\\Sanctum\\Contracts\\HasAbilities' => __DIR__ . '/..' . '/laravel/sanctum/src/Contracts/HasAbilities.php',
+        'Laravel\\Sanctum\\Contracts\\HasApiTokens' => __DIR__ . '/..' . '/laravel/sanctum/src/Contracts/HasApiTokens.php',
+        'Laravel\\Sanctum\\Exceptions\\MissingAbilityException' => __DIR__ . '/..' . '/laravel/sanctum/src/Exceptions/MissingAbilityException.php',
+        'Laravel\\Sanctum\\Exceptions\\MissingScopeException' => __DIR__ . '/..' . '/laravel/sanctum/src/Exceptions/MissingScopeException.php',
+        'Laravel\\Sanctum\\Guard' => __DIR__ . '/..' . '/laravel/sanctum/src/Guard.php',
+        'Laravel\\Sanctum\\HasApiTokens' => __DIR__ . '/..' . '/laravel/sanctum/src/HasApiTokens.php',
+        'Laravel\\Sanctum\\Http\\Controllers\\CsrfCookieController' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Controllers/CsrfCookieController.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\CheckAbilities' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckAbilities.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\CheckForAnyAbility' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckForAnyAbility.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\CheckForAnyScope' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckForAnyScope.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\CheckScopes' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckScopes.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php',
+        'Laravel\\Sanctum\\NewAccessToken' => __DIR__ . '/..' . '/laravel/sanctum/src/NewAccessToken.php',
+        'Laravel\\Sanctum\\PersonalAccessToken' => __DIR__ . '/..' . '/laravel/sanctum/src/PersonalAccessToken.php',
+        'Laravel\\Sanctum\\Sanctum' => __DIR__ . '/..' . '/laravel/sanctum/src/Sanctum.php',
+        'Laravel\\Sanctum\\SanctumServiceProvider' => __DIR__ . '/..' . '/laravel/sanctum/src/SanctumServiceProvider.php',
+        'Laravel\\Sanctum\\TransientToken' => __DIR__ . '/..' . '/laravel/sanctum/src/TransientToken.php',
         'Laravel\\Socialite\\AbstractUser' => __DIR__ . '/..' . '/laravel/socialite/src/AbstractUser.php',
         'Laravel\\Socialite\\Contracts\\Factory' => __DIR__ . '/..' . '/laravel/socialite/src/Contracts/Factory.php',
         'Laravel\\Socialite\\Contracts\\Provider' => __DIR__ . '/..' . '/laravel/socialite/src/Contracts/Provider.php',

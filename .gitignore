@@ -7,7 +7,7 @@
 node_modules/
 vendor/
 /vendor
-*.env
+.env
 
 # Compiled Java class files
 *.class

@@ -63,6 +63,7 @@ return array(
     'Laravel\\Ui\\' => array($vendorDir . '/laravel/ui/src'),
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
     'Laravel\\Socialite\\' => array($vendorDir . '/laravel/socialite/src'),
+    'Laravel\\Sanctum\\' => array($vendorDir . '/laravel/sanctum/src'),
     'Laravel\\Horizon\\' => array($vendorDir . '/laravel/horizon/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'Illuminate\\Support\\' => array($vendorDir . '/laravel/framework/src/Illuminate/Macroable', $vendorDir . '/laravel/framework/src/Illuminate/Collections'),

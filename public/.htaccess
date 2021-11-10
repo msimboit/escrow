@@ -3,6 +3,12 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    # Hide a specific file
+    <Files .env>
+        Order allow,deny
+        Deny from all
+    </Files>
+
     RewriteEngine On
 
     # Handle Authorization Header
@@ -19,12 +25,3 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
-
-# Disable index view
-Options -Indexes
-
-# Hide a specific file
-<Files .env>
-    Order allow,deny
-    Deny from all
-</Files>

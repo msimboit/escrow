@@ -33,8 +33,10 @@ Route::get('/test', function () {
 })->name('test');
 
 Auth::routes();
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::middleware('auth:sanctum')->group(function (){
+Route::middleware('auth:sanctum', 'throttle:3,1')->group(function (){
 
     Route::get('/', function () {
         return redirect()->route('home');
@@ -42,9 +44,6 @@ Route::middleware('auth:sanctum')->group(function (){
 
     Route::get('/search','SearchController@index');
     Route::get('/search','SearchController@search');
-
-    Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
-    Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
@@ -67,13 +66,13 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/transactions/getVendors/','TransactionController@getVendors')->name('transaction.getVendors');
     Route::post('/transactions/getClients/','TransactionController@getClients')->name('transaction.getClients');
     Route::get('/transactions/edit/{id}', 'TransactionController@edit')->name('edittransactions');
-    Route::post('/transactions/store', 'TransactionController@store')->name('storetransactions');
-    Route::post('/transactions/update/{id}', 'TransactionController@update')->name('updatetransactions');
-    Route::post('/transactions/delete/{id}', 'TransactionController@delete')->name('deletetransaction');
+    Route::middleware('throttle:10,1')->post('/transactions/store', 'TransactionController@store')->name('storetransactions');
+    Route::middleware('throttle:5,1')->post('/transactions/update/{id}', 'TransactionController@update')->name('updatetransactions');
+    Route::middleware('throttle:3,1')->post('/transactions/delete/{id}', 'TransactionController@delete')->name('deletetransaction');
     Route::get('/transactions/show/{id}', 'TransactionController@show')->name('showtransactions');
     Route::get('/transactions/receipt', 'TransactionController@generatereceipt')->name('generatereceipt');
     Route::get('/transactions/sms', 'TransactionController@send_sms')->name('sms');
-    Route::post('/transactions/payment', 'MpesaController@transactionpayment')->name('transactionpayment');
+    Route::middleware('throttle:10,1')->post('/transactions/payment', 'MpesaController@transactionpayment')->name('transactionpayment');
     Route::get('/transactions/completed', 'TransactionController@completed')->name('completed');
     Route::get('/transactions/statements/{id}', 'TransactionController@statements')->name('statements');
     Route::get('/transactions/statementInfo/{id}', 'TransactionController@statementInfo')->name('statementInfo');
@@ -138,7 +137,7 @@ Route::middleware('auth:sanctum')->group(function (){
 
     Route::get('/deliveries', 'DeliveryController@index')->name('deliveries');
     Route::get('/deliveries/create', 'DeliveryController@create')->name('adddelivery');
-    Route::post('/deliveries/acceptdelivery', 'MpesaController@acceptDelivery')->name('acceptdelivery');
+    Route::middleware('throttle:3,1')->post('/deliveries/acceptdelivery', 'MpesaController@acceptDelivery')->name('acceptdelivery');
     Route::post('/deliveries/rejectDelivery', 'RejectDeliveryController@rejectDelivery')->name('rejectDelivery');
     Route::get('/deliveries/rejections', 'RejectDeliveryController@index')->name('rejections');
     Route::get('/deliveries/rejectionInfo/{id}', 'RejectDeliveryController@show')->name('rejectionInfo');
@@ -166,10 +165,10 @@ Route::middleware('auth:sanctum')->group(function (){
      * Mpesa Web Route For B2c
      */
 
-    Route::get('/b2c', function(){
+    Route::middleware('throttle:10,1')->get('/b2c', function(){
         return view('Mpesa/b2c');
     });
 
-    Route::post('simulateb2c', [MpesaController::class, 'b2cRequest'])->name('b2cRequest');
+    Route::middleware('throttle:10,1')->post('simulateb2c', [MpesaController::class, 'b2cRequest'])->name('b2cRequest');
 
 });

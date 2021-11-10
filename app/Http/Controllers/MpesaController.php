@@ -313,101 +313,7 @@ class MpesaController extends Controller
                     Log::info("Details amount: ");
                     $t = $tdetails->transamount;
                     Log::info($t);
-
-                    if($t >= 1 && $t <= 100)
-                    {
-                        $tariff = 28;
-                    }
-
-                    if($t >= 101 && $t <= 499)
-                    {
-                        $tariff = 83;
-                    }
-
-                    if($t >= 500 && $t <= 1000)
-                    {
-                        $tariff = 89;
-                    }
-
-                    if($t >= 1001 && $t <= 1499)
-                    {
-                        $tariff = 105;
-                    }
-
-                    if($t >= 1500 && $t <= 2499)
-                    {
-                        $tariff = 110;
-                    }
-
-                    if($t >= 2500 && $t <= 3499)
-                    {
-                        $tariff = 159;
-                    }
-
-                    if($t >= 3500 && $t <= 4999)
-                    {
-                        $tariff = 181;
-                    }
-
-                    if($t >= 5000 && $t <= 7499)
-                    {
-                        $tariff = 232;
-                    }
-
-                    if($t >= 7500 && $t <= 9999)
-                    {
-                        $tariff = 265;
-                    }
-
-                    if($t >= 10000 && $t <= 14999)
-                    {
-                        $tariff = 347;
-                    }
-
-                    if($t >= 15000 && $t <= 19999)
-                    {
-                        $tariff = 370;
-                    }
-
-                    if($t >= 20000 && $t<= 24999)
-                    {
-                        $tariff = 386;
-                    }
-
-                    if($t >= 25000 && $t <= 29999)
-                    {
-                        $tariff = 391;
-                    }
-
-                    if($t >= 30000 && $t <= 34999)
-                    {
-                        $tariff = 396;
-                    }
-
-                    if($t >= 35000 && $t <= 39999)
-                    {
-                        $tariff = 570;
-                    }
-
-                    if($t >= 40000 && $t <= 44999)
-                    {
-                        $tariff = 575;
-                    }
-
-                    if($t >= 45000 && $t <= 49999)
-                    {
-                        $tariff = 580;
-                    }
-
-                    if($t >= 50000 && $t <= 69999)
-                    {
-                        $tariff = 623;
-                    }
-
-                    if($t >= 70000 && $t <= 150000)
-                    {
-                        $tariff = 628;
-                    }
+                    $tariff = $this->tariffs($t);
 
                     $amount_to_be_paid = $t + $tariff;
 
@@ -905,101 +811,7 @@ class MpesaController extends Controller
                 $total = $request->total;
                 // $t = (intval($total) - ( intval($total) - intval($sum)));
                 $t = $sum;
-
-                if($t >= 1 && $t <= 100)
-                {
-                    $tariff = 28;
-                }
-
-                if($t >= 101 && $t <= 499)
-                {
-                    $tariff = 83;
-                }
-
-                if($t >= 500 && $t <= 1000)
-                {
-                    $tariff = 89;
-                }
-
-                if($t >= 1001 && $t <= 1499)
-                {
-                    $tariff = 105;
-                }
-
-                if($t >= 1500 && $t <= 2499)
-                {
-                    $tariff = 110;
-                }
-
-                if($t >= 2500 && $t <= 3499)
-                {
-                    $tariff = 159;
-                }
-
-                if($t >= 3500 && $t <= 4999)
-                {
-                    $tariff = 181;
-                }
-
-                if($t >= 5000 && $t <= 7499)
-                {
-                    $tariff = 232;
-                }
-
-                if($t >= 7500 && $t <= 9999)
-                {
-                    $tariff = 265;
-                }
-
-                if($t >= 10000 && $t <= 14999)
-                {
-                    $tariff = 347;
-                }
-
-                if($t >= 15000 && $t <= 19999)
-                {
-                    $tariff = 370;
-                }
-
-                if($t >= 20000 && $t<= 24999)
-                {
-                    $tariff = 386;
-                }
-
-                if($t >= 25000 && $t <= 29999)
-                {
-                    $tariff = 391;
-                }
-
-                if($t >= 30000 && $t <= 34999)
-                {
-                    $tariff = 396;
-                }
-
-                if($t >= 35000 && $t <= 39999)
-                {
-                    $tariff = 570;
-                }
-
-                if($t >= 40000 && $t <= 44999)
-                {
-                    $tariff = 575;
-                }
-
-                if($t >= 45000 && $t <= 49999)
-                {
-                    $tariff = 580;
-                }
-
-                if($t >= 50000 && $t <= 69999)
-                {
-                    $tariff = 623;
-                }
-
-                if($t >= 70000 && $t <= 150000)
-                {
-                    $tariff = 628;
-                }
+                $tariff = $this->tariffs($t);
 
                 // dd('not equal and total = '. ($t + intval($tariff)) );
 
@@ -1034,6 +846,108 @@ class MpesaController extends Controller
 
     }
 
+    /**
+     * Tariff setup function
+     */
+    private function tariffs($total_amount)
+    {
+        if($total_amount >= 1 && $total_amount <= 100)
+        {
+            $tariff = 28;
+        }
+
+        if($total_amount >= 101 && $total_amount <= 499)
+        {
+            $tariff = 83;
+        }
+
+        if($total_amount >= 500 && $total_amount <=1000)
+        {
+            $tariff = 89;
+        }
+
+        if($total_amount >= 1001 && $total_amount <= 1499)
+        {
+            $tariff = 105;
+        }
+
+        if($total_amount >= 1500 && $total_amount <= 2499)
+        {
+            $tariff = 110;
+        }
+
+        if($total_amount >= 2500 && $total_amount <= 3499)
+        {
+            $tariff = 159;
+        }
+
+        if($total_amount >= 3500 && $total_amount <= 4999)
+        {
+            $tariff = 181;
+        }
+
+        if($total_amount >= 5000 && $total_amount <= 7499)
+        {
+            $tariff = 232;
+        }
+
+        if($total_amount >= 7500 && $total_amount <= 9999)
+        {
+            $tariff = 265;
+        }
+
+        if($total_amount >= 10000 && $total_amount <= 14999)
+        {
+            $tariff = 347;
+        }
+
+        if($total_amount >= 15000 && $total_amount <= 19999)
+        {
+            $tariff = 370;
+        }
+
+        if($total_amount >= 20000 && $total_amount <= 24999)
+        {
+            $tariff = 386;
+        }
+
+        if($total_amount >= 25000 && $total_amount <= 29999)
+        {
+            $tariff = 391;
+        }
+
+        if($total_amount >= 30000 && $total_amount <= 34999)
+        {
+            $tariff = 396;
+        }
+
+        if($total_amount >= 35000 && $total_amount <= 39999)
+        {
+            $tariff = 570;
+        }
+
+        if($total_amount >= 40000 && $total_amount <= 44999)
+        {
+            $tariff = 575;
+        }
+
+        if($total_amount >= 45000 && $total_amount <= 49999)
+        {
+            $tariff = 580;
+        }
+
+        if($total_amount >= 50000 && $total_amount <= 69999)
+        {
+            $tariff = 623;
+        }
+
+        if($total_amount >= 70000 && $total_amount <= 150000)
+        {
+            $tariff = 628;
+        }
+
+        return $tariff;
+    }
 
 
 
@@ -1293,100 +1207,7 @@ class MpesaController extends Controller
 
                         $t = $request->subtotal;
 
-                if($t >= 1 && $t <= 100)
-                {
-                    $tariff = 28;
-                }
-
-                if($t >= 101 && $t <= 499)
-                {
-                    $tariff = 83;
-                }
-
-                if($t >= 500 && $t <= 1000)
-                {
-                    $tariff = 89;
-                }
-
-                if($t >= 1001 && $t <= 1499)
-                {
-                    $tariff = 105;
-                }
-
-                if($t >= 1500 && $t <= 2499)
-                {
-                    $tariff = 110;
-                }
-
-                if($t >= 2500 && $t <= 3499)
-                {
-                    $tariff = 159;
-                }
-
-                if($t >= 3500 && $t <= 4999)
-                {
-                    $tariff = 181;
-                }
-
-                if($t >= 5000 && $t <= 7499)
-                {
-                    $tariff = 232;
-                }
-
-                if($t >= 7500 && $t <= 9999)
-                {
-                    $tariff = 265;
-                }
-
-                if($t >= 10000 && $t <= 14999)
-                {
-                    $tariff = 347;
-                }
-
-                if($t >= 15000 && $t <= 19999)
-                {
-                    $tariff = 370;
-                }
-
-                if($t >= 20000 && $t<= 24999)
-                {
-                    $tariff = 386;
-                }
-
-                if($t >= 25000 && $t <= 29999)
-                {
-                    $tariff = 391;
-                }
-
-                if($t >= 30000 && $t <= 34999)
-                {
-                    $tariff = 396;
-                }
-
-                if($t >= 35000 && $t <= 39999)
-                {
-                    $tariff = 570;
-                }
-
-                if($t >= 40000 && $t <= 44999)
-                {
-                    $tariff = 575;
-                }
-
-                if($t >= 45000 && $t <= 49999)
-                {
-                    $tariff = 580;
-                }
-
-                if($t >= 50000 && $t <= 69999)
-                {
-                    $tariff = 623;
-                }
-
-                if($t >= 70000 && $t <= 150000)
-                {
-                    $tariff = 628;
-                }
+                        $tariff = $this->tariffs($t);
 
                         if($request->subtotal < 1000)
                         {
@@ -1529,100 +1350,7 @@ class MpesaController extends Controller
 
             $t = $request->subtotal;
 
-                if($t >= 1 && $t <= 100)
-                {
-                    $tariff = 28;
-                }
-
-                if($t >= 101 && $t <= 499)
-                {
-                    $tariff = 83;
-                }
-
-                if($t >= 500 && $t <= 1000)
-                {
-                    $tariff = 89;
-                }
-
-                if($t >= 1001 && $t <= 1499)
-                {
-                    $tariff = 105;
-                }
-
-                if($t >= 1500 && $t <= 2499)
-                {
-                    $tariff = 110;
-                }
-
-                if($t >= 2500 && $t <= 3499)
-                {
-                    $tariff = 159;
-                }
-
-                if($t >= 3500 && $t <= 4999)
-                {
-                    $tariff = 181;
-                }
-
-                if($t >= 5000 && $t <= 7499)
-                {
-                    $tariff = 232;
-                }
-
-                if($t >= 7500 && $t <= 9999)
-                {
-                    $tariff = 265;
-                }
-
-                if($t >= 10000 && $t <= 14999)
-                {
-                    $tariff = 347;
-                }
-
-                if($t >= 15000 && $t <= 19999)
-                {
-                    $tariff = 370;
-                }
-
-                if($t >= 20000 && $t<= 24999)
-                {
-                    $tariff = 386;
-                }
-
-                if($t >= 25000 && $t <= 29999)
-                {
-                    $tariff = 391;
-                }
-
-                if($t >= 30000 && $t <= 34999)
-                {
-                    $tariff = 396;
-                }
-
-                if($t >= 35000 && $t <= 39999)
-                {
-                    $tariff = 570;
-                }
-
-                if($t >= 40000 && $t <= 44999)
-                {
-                    $tariff = 575;
-                }
-
-                if($t >= 45000 && $t <= 49999)
-                {
-                    $tariff = 580;
-                }
-
-                if($t >= 50000 && $t <= 69999)
-                {
-                    $tariff = 623;
-                }
-
-                if($t >= 70000 && $t <= 150000)
-                {
-                    $tariff = 628;
-                }
+            $tariff = $this->tariffs($t);
 
             if($request->subtotal < 1000)
             {

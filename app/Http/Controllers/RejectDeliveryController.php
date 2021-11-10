@@ -51,9 +51,73 @@ class RejectDeliveryController extends Controller
 
         $combined = $collection->combine($prices);
 
-        $tariff = 0;
+        $tariff = $this->tariffs($t);
 
-        if($t >= 1 && $t <= 100)
+        return view('Delivery.flaggedOrder', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff',  'combined'))->with($rejection->orderId);
+    }
+
+    public function clearRejection($id) 
+    {
+        $rejection = RejectDelivery::where('id', $id)
+                        ->update([
+                                    'resolved' => '1',                                                             
+                            ]);
+        
+        return redirect()->route('rejections')->with('success', 'Rejection Has Been Resolved');
+    }
+
+    public function rejectDelivery(Request $request)
+    {
+
+        // dd($request->all());
+        RejectDelivery::create([
+            'title' => $request->title,
+            'details' => $request->details,
+            'clientName' => $request->clientName,
+            'clientNumber' => $request->clientNumber,
+            'clientEmail' => $request->clientEmail,
+            'vendorName' => $request->vendorName,
+            'vendorNumber' => $request->vendorNumber,
+            'vendorEmail' => $request->vendorEmail,
+            'orderId' => $request->orderId,
+            'orderdate' => $request->orderdate,
+            'transdetail' => $request->transdetail,
+            'quantity' => $request->quantity,
+            'subtotal' => $request->subtotal,
+            'tariff' => $request->tariff,
+            'total' => $request->total,
+            'deliveryfee' => $request->deliveryfee,
+        ]);
+
+        Tdetails::where('id', $request->orderId)
+                        ->update(['suspended' => 1]);
+
+        $vendor = User::where('phone_number', $request->vendorNumber)->first();
+
+        $phone_number = $request->vendorNumber;
+        $phone_number = substr($phone_number, -9);
+        $phone_number = '0'.$phone_number;
+        $message = 'Dear'.$vendor->business_name.', please note that '.$request->clientName.' has rejected the goods for the Order ID'.$request->orderId.'. Please contact the buyer on the number '. $request->clientNumber.'to resolve the issue.';
+        $SID = 'DEPTHSMS';
+        Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
+
+        $phone_number = $request->clientNumber;
+        $phone_number = substr($phone_number, -9);
+        $phone_number = '0'.$phone_number;
+        $message = 'Dear'.$request->clientName.', you have rejected a delivery from the vendor '.$vendor->business_name.' on the Order ID'.$request->orderId.'. We will refund you for the transaction amount withholding the handling fee. Please contact the vendor on the number '. $vendor->phone_number .' if you wish to resolve the issue.';
+        $SID = 'DEPTHSMS';
+        Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
+
+        return redirect()->route('deliveries')->with('success', 'Report Has Been Sent');
+
+    }
+
+    /**
+     * Tariff setup function
+     */
+    private function tariffs($total_amount)
+    {
+        if($total_amount >= 1 && $total_amount <= 100)
         {
             $tariff = 28;
         }
@@ -63,7 +127,7 @@ class RejectDeliveryController extends Controller
             $tariff = 83;
         }
 
-        if($total_amount >= 500 && $total_amount <= 1000)
+        if($total_amount >= 500 && $total_amount <=1000)
         {
             $tariff = 89;
         }
@@ -148,65 +212,9 @@ class RejectDeliveryController extends Controller
             $tariff = 628;
         }
 
-        return view('Delivery.flaggedOrder', compact('arr', 'vdetails', 'cdetails', 'itemdesc', 'product_image', 'quantities', 'prices', 'tariff',  'combined'))->with($rejection->orderId);
+        return $tariff;
     }
-
-    public function clearRejection($id) 
-    {
-        $rejection = RejectDelivery::where('id', $id)
-                        ->update([
-                                    'resolved' => '1',                                                             
-                            ]);
-        
-        return redirect()->route('rejections')->with('success', 'Rejection Has Been Resolved');
-    }
-
-    public function rejectDelivery(Request $request)
-    {
-
-        // dd($request->all());
-        RejectDelivery::create([
-            'title' => $request->title,
-            'details' => $request->details,
-            'clientName' => $request->clientName,
-            'clientNumber' => $request->clientNumber,
-            'clientEmail' => $request->clientEmail,
-            'vendorName' => $request->vendorName,
-            'vendorNumber' => $request->vendorNumber,
-            'vendorEmail' => $request->vendorEmail,
-            'orderId' => $request->orderId,
-            'orderdate' => $request->orderdate,
-            'transdetail' => $request->transdetail,
-            'quantity' => $request->quantity,
-            'subtotal' => $request->subtotal,
-            'tariff' => $request->tariff,
-            'total' => $request->total,
-            'deliveryfee' => $request->deliveryfee,
-        ]);
-
-        Tdetails::where('id', $request->orderId)
-                        ->update(['suspended' => 1]);
-
-        $vendor = User::where('phone_number', $request->vendorNumber)->first();
-
-        $phone_number = $request->vendorNumber;
-        $phone_number = substr($phone_number, -9);
-        $phone_number = '0'.$phone_number;
-        $message = 'Dear'.$vendor->business_name.', please note that '.$request->clientName.' has rejected the goods for the Order ID'.$request->orderId.'. Please contact the buyer on the number '. $request->clientNumber.'to resolve the issue.';
-        $SID = 'DEPTHSMS';
-        Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
-
-        $phone_number = $request->clientNumber;
-        $phone_number = substr($phone_number, -9);
-        $phone_number = '0'.$phone_number;
-        $message = 'Dear'.$request->clientName.', you have rejected a delivery from the vendor '.$vendor->business_name.' on the Order ID'.$request->orderId.'. We will refund you for the transaction amount withholding the handling fee. Please contact the vendor on the number '. $vendor->phone_number .' if you wish to resolve the issue.';
-        $SID = 'DEPTHSMS';
-        Sms::dispatch($phone_number, $message, $SID )->onQueue('sms');
-
-        return redirect()->route('deliveries')->with('success', 'Report Has Been Sent');
-
-    }
-
+    
     /**
      * Twilio sms
      */

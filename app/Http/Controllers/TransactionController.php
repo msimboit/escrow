@@ -93,102 +93,7 @@ class TransactionController extends Controller
 
         $combined = $collection->combine($prices);
 
-        $tariff = 0;
-
-        if($total_amount >= 1 && $total_amount <= 100)
-        {
-            $tariff = 28;
-        }
-
-        if($total_amount >= 101 && $total_amount <= 499)
-        {
-            $tariff = 83;
-        }
-
-        if($total_amount >= 500 && $total_amount <= 1000)
-        {
-            $tariff = 89;
-        }
-
-        if($total_amount >= 1001 && $total_amount <= 1499)
-        {
-            $tariff = 105;
-        }
-
-        if($total_amount >= 1500 && $total_amount <= 2499)
-        {
-            $tariff = 110;
-        }
-
-        if($total_amount >= 2500 && $total_amount <= 3499)
-        {
-            $tariff = 159;
-        }
-
-        if($total_amount >= 3500 && $total_amount <= 4999)
-        {
-            $tariff = 181;
-        }
-
-        if($total_amount >= 5000 && $total_amount <= 7499)
-        {
-            $tariff = 232;
-        }
-
-        if($total_amount >= 7500 && $total_amount <= 9999)
-        {
-            $tariff = 265;
-        }
-
-        if($total_amount >= 10000 && $total_amount <= 14999)
-        {
-            $tariff = 347;
-        }
-
-        if($total_amount >= 15000 && $total_amount <= 19999)
-        {
-            $tariff = 370;
-        }
-
-        if($total_amount >= 20000 && $total_amount <= 24999)
-        {
-            $tariff = 386;
-        }
-
-        if($total_amount >= 25000 && $total_amount <= 29999)
-        {
-            $tariff = 391;
-        }
-
-        if($total_amount >= 30000 && $total_amount <= 34999)
-        {
-            $tariff = 396;
-        }
-
-        if($total_amount >= 35000 && $total_amount <= 39999)
-        {
-            $tariff = 570;
-        }
-
-        if($total_amount >= 40000 && $total_amount <= 44999)
-        {
-            $tariff = 575;
-        }
-
-        if($total_amount >= 45000 && $total_amount <= 49999)
-        {
-            $tariff = 580;
-        }
-
-        if($total_amount >= 50000 && $total_amount <= 69999)
-        {
-            $tariff = 623;
-        }
-
-        if($total_amount >= 70000 && $total_amount <= 150000)
-        {
-            $tariff = 628;
-        }
+        $tariff = $this->tariffs($total_amount);
 
         $url = url()->previous();
         if (str_contains($url, 'transactions/completed')) {
@@ -326,103 +231,8 @@ class TransactionController extends Controller
         $trns->product_image = $product_image;
         $trns->save();
 
-        $tariff = 0;
         $total_amount = $prices_sum;
-
-        if($total_amount >= 1 && $total_amount <= 100)
-        {
-            $tariff = 28;
-        }
-
-        if($total_amount >= 101 && $total_amount <= 499)
-        {
-            $tariff = 83;
-        }
-
-        if($total_amount >= 500 && $total_amount <= 1000)
-        {
-            $tariff = 89;
-        }
-
-        if($total_amount >= 1001 && $total_amount <= 1499)
-        {
-            $tariff = 105;
-        }
-
-        if($total_amount >= 1500 && $total_amount <= 2499)
-        {
-            $tariff = 110;
-        }
-
-        if($total_amount >= 2500 && $total_amount <= 3499)
-        {
-            $tariff = 159;
-        }
-
-        if($total_amount >= 3500 && $total_amount <= 4999)
-        {
-            $tariff = 181;
-        }
-
-        if($total_amount >= 5000 && $total_amount <= 7499)
-        {
-            $tariff = 232;
-        }
-
-        if($total_amount >= 7500 && $total_amount <= 9999)
-        {
-            $tariff = 265;
-        }
-
-        if($total_amount >= 10000 && $total_amount <= 14999)
-        {
-            $tariff = 347;
-        }
-
-        if($total_amount >= 15000 && $total_amount <= 19999)
-        {
-            $tariff = 370;
-        }
-
-        if($total_amount >= 20000 && $total_amount <= 24999)
-        {
-            $tariff = 386;
-        }
-
-        if($total_amount >= 25000 && $total_amount <= 29999)
-        {
-            $tariff = 391;
-        }
-
-        if($total_amount >= 30000 && $total_amount <= 34999)
-        {
-            $tariff = 396;
-        }
-
-        if($total_amount >= 35000 && $total_amount <= 39999)
-        {
-            $tariff = 570;
-        }
-
-        if($total_amount >= 40000 && $total_amount <= 44999)
-        {
-            $tariff = 575;
-        }
-
-        if($total_amount >= 45000 && $total_amount <= 49999)
-        {
-            $tariff = 580;
-        }
-
-        if($total_amount >= 50000 && $total_amount <= 69999)
-        {
-            $tariff = 623;
-        }
-
-        if($total_amount >= 70000 && $total_amount <= 150000)
-        {
-            $tariff = 628;
-        }
+        $tariff = $this->tariffs($total_amount);
 
         $report = new Report;
         $report->transaction_id = $trns->id;
@@ -623,8 +433,22 @@ class TransactionController extends Controller
     {
     	$transaction = Tdetails::where('id', $id)->first();
         $total_amount = collect(explode(' ',$transaction->transamount))->sum();
-        $tariff = 0;
+        $tariff = $this->tariffs($total_amount);
 
+        $url = url()->previous();
+        if (str_contains($url, 'transactions/statementInfo')) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
+
+        return view('transactions.statementInfo', compact('transaction', 'tariff'));
+    }
+
+    /**
+     * Tariff setup function
+     */
+    private function tariffs($total_amount)
+    {
         if($total_amount >= 1 && $total_amount <= 100)
         {
             $tariff = 28;
@@ -720,13 +544,7 @@ class TransactionController extends Controller
             $tariff = 628;
         }
 
-        $url = url()->previous();
-        if (str_contains($url, 'transactions/statementInfo')) {
-            Auth::logout();
-            return redirect()->route('login');
-        }
-
-        return view('transactions.statementInfo', compact('transaction', 'tariff'));
+        return $tariff;
     }
 
      /**

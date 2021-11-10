@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('/', function () {
         return redirect()->route('home');
     });
-    
+
     Route::get('/search','SearchController@index');
     Route::get('/search','SearchController@search');
 
